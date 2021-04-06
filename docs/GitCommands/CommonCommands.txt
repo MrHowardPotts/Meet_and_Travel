@@ -1,0 +1,27 @@
+git 'command' --help //documentation for 'command'
+
+
+git rm --cached <file> //unstages the file completely and the new commit won't have the file, but it will remain in your local copy
+
+git reset (HEAD) <file> //(removes from the staging area for the next commit) unstages any modifications mades since the last commit (but doesn't revert them in the filesystem)
+git reset HEAD * //unstages all files in staging area
+git reset HEAD~1 //undo last commit
+git reset --hard // reverts everything to the latest commit (modifies even the local copy to mach the previous commit)
+
+git restore <file> <==> git checkout -- <file> //discard changes
+
+git revert commit //it reverts to the givvent commit be creating a new commit that has the same state as the commit given
+git revert HEAD~1 //same as above, but relatively
+
+git clean -fd //removes untracked files and directories (like deleting them)
+
+
+git pull --all // it's the same as git fetch --all + merge current branch
+
+
+
+git diff branch1..branch2 // difference between 2 branches
+
+
+git merge -X theirs branch //uses the recursive strategy to merge branches and in case of conflicts it uses 'their' branch 
+
