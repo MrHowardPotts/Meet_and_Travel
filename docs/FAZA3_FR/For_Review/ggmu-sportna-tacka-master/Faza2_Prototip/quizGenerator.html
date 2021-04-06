@@ -1,0 +1,229 @@
+<!--Autor: Aleksa Janjic-->
+<!DOCTYPE html>
+<head>
+<title>Quiz Generator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="assets/font/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="assets/font/font.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="assets/css/style.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="assets/css/jquery.bxslider.css" media="screen" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<style>
+    /* Global */
+.bodyQuizGen {
+  padding: 0;
+  margin: 0;
+}
+
+.h1QuizGen {
+  font-size: 2em;
+}
+
+#quizConfig {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#first_name {
+  margin-bottom: 20px;
+}
+
+#submitBtn {
+  margin: 0;
+  padding: 0;
+}
+
+#result {
+  margin-top: 100px;
+}
+</style>
+</head>
+<body class="bodyQuizGen">
+<div class="body_wrapper">
+  <div class="center">
+    <div class="header_area">
+      <div class="logo floatleft"><a href="index.html"><img src="images/logo_clear_black.png" alt="" /></a></div>
+      <div class="search">
+        <input type="text" class="searchTerm" placeholder="Termin za pretragu">
+        <button type="submit" class="searchButton" value="pretraga">
+      </div> 
+      <div class="login_register">
+        <ul id="log_reg">
+          <li><a href="login.html" id="login">Prijava</a></li>
+          <li><a href="register.html" id="register">Registracija</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="main_menu_area">
+      <ul id="nav">
+        <li><a href="index.html">Pocetna</a></li>
+        <li><a href="Fudbal.html">Fudbal</a></li>
+        <li><a href="#">Kosarka</a></li>
+        <li><a href="#">Tenis</a></li>
+        <li><a href="#">Formula 1</a></li>
+        <li><a href="rezultati.html">Rezultati</a></li>
+        <li><a href="Top10.html">TOP 10</a></li>  
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="quizHome.html">Kviz</a></li>
+        <li><a href="#">O nama</a></li>
+      </ul>
+    </div>
+
+    <!-- Navigation bar -->
+  <nav>
+    <div class="nav-wrapper teal lighten-2 class">
+      <a href="#" class="brand-logo center" style="color: black;">Napravi kviz</a>
+    </div>
+  </nav>
+ 
+  <!-- Main Content -->
+  <div class="container" id="container">
+    <!-- Configue Quiz -->
+    <div class="row" id="quizConfig">
+     <form class="col s12">
+       <div class="row">
+         <div class="input-field col m6 s12">
+           <input placeholder="1 - 100" id="qTotal" type="number" class="validate" style="margin-top: 10px;">
+           <label for="questions" style="color: black; margin-top: 13px;">Unesite broj pitanja koje želite da kviz ima:</label>
+         </div>
+         </div>
+     </form>
+     <!-- Create questions -->
+     <div class="col s6">
+       <a id="generateBtn" class="waves-effect waves-light btn-small" style="background-color: rgb(59, 56, 56);">Generiši formu za pitanja</a>
+     </div>
+    </div>
+ 
+     <!-- Quiz Form -->
+    <div id="formContainer" class="row hide">
+     <form id="quizForm" class="col s12">
+       <!-- Title -->
+       <div class="row">
+         <div class="input-field col s12 m6">
+           <input id="title" placeholder="Unesite pitanje" type="text" class="validate">
+           <label for="question_title" style="color: black; margin-top: 13px; margin-bottom: 10px;">Naslov pitanja</label>
+         </div>
+       </div>
+       <!-- User Input 1 -->
+       <div class="row">
+         <div class="input-field col s12 m6">
+           <input id="input1" placeholder="Unesite odgovor" type="text" class="validate">
+           <label style="color: black; margin-top: 13px; margin-bottom: 10px;">Opcija A</label>
+         </div>
+       </div>
+       <!-- User Input 2 -->
+       <div class="row">
+         <div class="input-field col s12 m6">
+           <input id="input2" placeholder="Unesite odgovor" type="text" class="validate">
+           <label style="color: black; margin-top: 13px; margin-bottom: 10px;">Opcija B</label>
+         </div>
+       </div>
+ 
+       <!--User Input 3 -->
+       <div class="row">
+         <div class="input-field col s12 m6">
+           <input id="input3" placeholder="Unesite odgovor" type="text" class="validate">
+           <label style="color: black; margin-top: 13px; margin-bottom: 10px;">Opcija C</label>
+         </div>
+       </div>
+
+       <!--User Input 4 -->
+       <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="input3" placeholder="Unesite odgovor" type="text" class="validate">
+          <label style="color: black; margin-top: 13px; margin-bottom: 10px;">Opcija D</label>
+        </div>
+      </div>
+ 
+       <!--Correct Answer-->
+       <div class="row">
+         <div class="input-field col s12 m6">
+           <input id="correctValue" placeholder="Unesite tačan odgovor. A,B,C,D?" type="text" class="validate">
+           <label style="color: black; margin-top: 13px; margin-bottom: 10px;">Tačan odgovor</label>
+         </div>
+       </div>
+ 
+       <!-- Submit Button -->
+       <div id="submitBtn" class="col s6">
+         <a href="quizGenMessage.html" id="submit" class="waves-effect waves-light btn-small" style="background-color: rgb(59, 56, 56);">Dodaj u bazu</a>
+       </div>
+     </form>
+   </div>
+ 
+   <!-- Quiz -->
+   <form id="quiz" class="hide" action="#">
+     <h5 id="qTitle"></h5>
+     <!-- Choice 1 -->
+     <p>
+       <label>
+         <input id="check1" class="with-gap" type="radio" name='choices' value="A"/>
+         <span id="option1"></span>
+       </label>
+     </p>
+     <!-- Choice 2 -->
+     <p>
+       <label>
+         <input id="check2" class="with-gap" type="radio" name='choices' value="B"/>
+         <span id="option2"></span>
+       </label>
+     </p>
+     <!-- Choice 3 -->
+     <p>
+       <label>
+         <input id="check3" class="with-gap" type="radio" name='choices' value="C"/>
+         <span id="option3"></span>
+       </label>
+     </p>
+     <a id="submitAnswer" class="waves-effect waves-light btn-small">Next Question</a>
+   </form>
+   
+ 
+   </div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+ <script src="assets/js/generate.js"></script>
+
+    <div class="footer_top_area">
+        <div class="inner_footer_top"> <img src="images/sport-klub-4k-126154-750x250 (1).png" alt="" /> </div>
+    </div>
+    <div class="footer_bottom_area">
+      <div class="footer_menu">
+        <ul id="f_menu">
+          <li><a href="index.html">Pocetna</a>
+          <li><a href="Fudbal.html">Fudbal</a></li>
+          <li><a href="#">Kosarka</a>
+          <li><a href="#">Tenis</a></li>
+          <li><a href="#">Formula 1</a>
+          <li><a href="rezultati.html">Rezultati</a>
+          <li><a href="forum.html">Blog</a></li>
+          <li><a href="quizHome.html">Kviz</a></li>
+          <li><a href="#">O nama</a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="assets/js/jquery-min.js"></script> 
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="assets/js/jquery.bxslider.js"></script> 
+<script type="text/javascript" src="assets/js/selectnav.min.js"></script> 
+<script type="text/javascript">
+selectnav('nav', {
+    label: '-Navigation-',
+    nested: true,
+    indent: '-'
+});
+selectnav('f_menu', {
+    label: '-Navigation-',
+    nested: true,
+    indent: '-'
+});
+$('.bxslider').bxSlider({
+    mode: 'fade',
+    captions: true
+});
+</script>
+</body>
+</html>
