@@ -25,3 +25,4 @@ git diff branch1..branch2 // difference between 2 branches
 
 git merge -X theirs branch //uses the recursive strategy to merge branches and in case of conflicts it uses 'their' branch 
 
+git fetch origin pull/ID/head:BRANCHNAME //checkout pull request localy on a new branched called BRANCHNAME
