@@ -8,6 +8,8 @@ git reset HEAD * //unstages all files in staging area
 git reset HEAD~1 //undo last commit
 git reset --hard // reverts everything to the latest commit (modifies even the local copy to match the previous commit)
 
+git push -f // if you want to force your branch to remote (used to revert commits without trace on remote, tijana dont use this.)
+
 git restore <file> <==> git checkout -- <file> //discard changes
 
 git revert commit //it reverts to the given commit by creating a new commit that has the same state as the commit given
