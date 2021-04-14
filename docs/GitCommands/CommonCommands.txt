@@ -27,6 +27,14 @@ git diff // difference between last commit and now
 
 git merge -X theirs branch //uses the recursive strategy to merge branches and in case of conflicts it uses 'their' branch 
 
+
+git merge --no-ff branch// this is what we want 99% of the time!
+
+sync with master full command:
+git checkout master && git pull && git checkout my_branch && git pull && git merge -X theirs --no-ff master
+
+
+
 git fetch origin pull/ID/head:BRANCHNAME //checkout pull request localy on a new branched called BRANCHNAME
 
 git checkout commit file // checkout the file in the specified commit 
