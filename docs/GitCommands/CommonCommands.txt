@@ -8,6 +8,8 @@ git reset HEAD * //unstages all files in staging area
 git reset HEAD~1 //undo last commit
 git reset --hard // reverts everything to the latest commit (modifies even the local copy to match the previous commit)
 
+git push -f // if you want to force your branch to remote (used to revert commits without trace on remote, tijana dont use this.)
+
 git restore <file> <==> git checkout -- <file> //discard changes
 
 git revert commit //it reverts to the given commit by creating a new commit that has the same state as the commit given
@@ -21,8 +23,43 @@ git pull --all // it's the same as git fetch --all + merge current branch
 
 
 git diff branch1..branch2 // difference between 2 branches
-
+git diff // difference between last commit and now
 
 git merge -X theirs branch //uses the recursive strategy to merge branches and in case of conflicts it uses 'their' branch 
 
+
+git merge --no-ff branch// this is what we want 99% of the time!
+
+sync with master full command:
+git checkout master && git pull && git checkout my_branch && git pull && git merge -X theirs --no-ff master
+
+
+
 git fetch origin pull/ID/head:BRANCHNAME //checkout pull request localy on a new branched called BRANCHNAME
+
+git checkout commit file // checkout the file in the specified commit 
+
+git stash save "comment" // the idea of a commit, but not commiting it. You 'stash' your current state and you can restore it at wish. Mostly used to save your current work before checking out a different branch/commit when you don't want to commit your current work.
+git stash list //name says it all 
+git stash apply stash@{id} // restores the stash (it doesn't change the position of HEAD - you can still be in detach HEAD state) - checkout the commit/branch you stashed and then restore the stash
+git stash pop // restores the stash and removes it from the list of stashes (applies the stash and drops it). It always pops the latest (like a stack) and the newest stash has ID=0
+git stash drop 'stash@{id}' //drops the given stash
+git stash clear //deletes all stashes
+
+!TIP: stashes from one branch can be applied to other branches! Maybe this is a better way to sinck with master?
+/*
+-master is up to date
+git stash save "master.."
+git checkout branch
+git apply stash
+git add . 
+git commit -m "merged with master"
+(git push)
+-the last branch can do a git stash pop instead of apply
+-this should be tested first - It doesn't work because it only saves changest and not the whole state so when master is up to date stashing it doesn't save anything because it's already commited
+*/
+
+git reflog // shows history? Shows even lost commits that are commited to detached HEAD state
+git branch <name> commit //create a new branch from the given commit 
+
+
