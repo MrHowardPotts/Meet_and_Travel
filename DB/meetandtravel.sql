@@ -1,304 +1,417 @@
-CREATE DATABASE  IF NOT EXISTS `meetandtravel`  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci; /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `meetandtravel`;
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.0.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: meetandtravel
--- ------------------------------------------------------
--- Server version	8.0.22
+-- Host: 127.0.0.1:3307
+-- Generation Time: Apr 27, 2021 at 10:50 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `meetandtravel`
+--
+CREATE DATABASE IF NOT EXISTS `meetandtravel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `meetandtravel`;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `accepted_arrangment`
 --
 
 DROP TABLE IF EXISTS `accepted_arrangment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `accepted_arrangment` (
-  `idgroup` int NOT NULL,
-  `idarrangment` int NOT NULL,
-  PRIMARY KEY (`idgroup`,`idarrangment`),
-  KEY `IDARRAGMENT_ACCEPTED_idx` (`idarrangment`),
-  CONSTRAINT `IDARRAGMENT_ACCEPTED` FOREIGN KEY (`idarrangment`) REFERENCES `arrangment` (`idarrangment`),
-  CONSTRAINT `IDGROUP_ACCEPTED` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idgroup` int(11) NOT NULL,
+  `idarrangment` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `accepted_arrangment`
 --
 
-LOCK TABLES `accepted_arrangment` WRITE;
-/*!40000 ALTER TABLE `accepted_arrangment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accepted_arrangment` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `accepted_arrangment` (`idgroup`, `idarrangment`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `arrangment`
 --
 
 DROP TABLE IF EXISTS `arrangment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `arrangment` (
-  `idarrangment` int NOT NULL AUTO_INCREMENT,
-  `idagecy` int NOT NULL,
-  PRIMARY KEY (`idarrangment`),
-  KEY `IDAGENCY_idx` (`idagecy`),
-  CONSTRAINT `IDAGENCY` FOREIGN KEY (`idagecy`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idarrangment` int(11) NOT NULL,
+  `idagecy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `arrangment`
 --
 
-LOCK TABLES `arrangment` WRITE;
-/*!40000 ALTER TABLE `arrangment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `arrangment` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `arrangment` (`idarrangment`, `idagecy`) VALUES
+(1, 3);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `group`
 --
 
 DROP TABLE IF EXISTS `group`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `group` (
-  `idgroup` int NOT NULL AUTO_INCREMENT,
-  `idleader` int NOT NULL,
-  `idwish` int NOT NULL,
-  PRIMARY KEY (`idgroup`),
-  KEY `IDLEADER_idx` (`idleader`),
-  KEY `IDWISH_GROUP_idx` (`idwish`),
-  CONSTRAINT `IDLEADER` FOREIGN KEY (`idleader`) REFERENCES `user` (`iduser`),
-  CONSTRAINT `IDWISH_GROUP` FOREIGN KEY (`idwish`) REFERENCES `wish` (`idwish`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idgroup` int(11) NOT NULL,
+  `idleader` int(11) NOT NULL,
+  `idwish` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `group`
 --
 
-LOCK TABLES `group` WRITE;
-/*!40000 ALTER TABLE `group` DISABLE KEYS */;
-INSERT INTO `group` VALUES (1,1,4);
-/*!40000 ALTER TABLE `group` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `group` (`idgroup`, `idleader`, `idwish`) VALUES
+(1, 1, 4),
+(2, 2, 2);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `member`
 --
 
 DROP TABLE IF EXISTS `member`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `member` (
-  `idgroup` int NOT NULL,
-  `iduser` int NOT NULL,
-  PRIMARY KEY (`idgroup`,`iduser`),
-  KEY `IDUSER_MEMBER_idx` (`iduser`),
-  CONSTRAINT `IDGROUP_MEMBER` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
-  CONSTRAINT `IDUSER_MEMBER` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idgroup` int(11) NOT NULL,
+  `iduser` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `member`
 --
 
-LOCK TABLES `member` WRITE;
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,1),(1,3);
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `member` (`idgroup`, `iduser`) VALUES
+(1, 1),
+(1, 2);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `message`
 --
 
 DROP TABLE IF EXISTS `message`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message` (
-  `idmessage` int NOT NULL AUTO_INCREMENT,
-  `idgroup` int NOT NULL,
-  `idsender` int NOT NULL,
-  `message` varchar(255) NOT NULL,
-  PRIMARY KEY (`idmessage`),
-  KEY `IDGROUP_MESSAGE_idx` (`idgroup`),
-  KEY `IDSENDER_MESSAGE_idx` (`idsender`),
-  CONSTRAINT `IDGROUP_MESSAGE` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
-  CONSTRAINT `IDSENDER_MESSAGE` FOREIGN KEY (`idsender`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idmessage` int(11) NOT NULL,
+  `idgroup` int(11) NOT NULL,
+  `idsender` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `message`
 --
 
-LOCK TABLES `message` WRITE;
-/*!40000 ALTER TABLE `message` DISABLE KEYS */;
-/*!40000 ALTER TABLE `message` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `message` (`idmessage`, `idgroup`, `idsender`, `message`) VALUES
+(1, 1, 2, 'Necemo u Kinu! Idemo u Portugal!');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `paid`
 --
 
 DROP TABLE IF EXISTS `paid`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paid` (
-  `idgroup` int NOT NULL,
-  `iduser` int NOT NULL,
-  `idarragment` int NOT NULL,
-  `amount` int NOT NULL,
-  PRIMARY KEY (`idgroup`,`iduser`,`idarragment`),
-  KEY `IDUSER_idx` (`iduser`),
-  KEY `IDARRANGMENT_PAID_idx` (`idarragment`),
-  CONSTRAINT `IDARRANGMENT_PAID` FOREIGN KEY (`idarragment`) REFERENCES `arrangment` (`idarrangment`),
-  CONSTRAINT `IDGROUP_PAID` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
-  CONSTRAINT `IDUSER_PAID` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idgroup` int(11) NOT NULL,
+  `iduser` int(11) NOT NULL,
+  `idarragment` int(11) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `paid`
 --
 
-LOCK TABLES `paid` WRITE;
-/*!40000 ALTER TABLE `paid` DISABLE KEYS */;
-/*!40000 ALTER TABLE `paid` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `paid` (`idgroup`, `iduser`, `idarragment`, `amount`) VALUES
+(1, 1, 1, 100);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `profile`
 --
 
 DROP TABLE IF EXISTS `profile`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
-  `iduser` int NOT NULL,
-  PRIMARY KEY (`iduser`),
-  KEY `IDUSER_idx` (`iduser`),
-  CONSTRAINT `IDUSER` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `iduser` int(11) NOT NULL,
+  `bio` varchar(256) CHARACTER SET armscii8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `profile`
 --
 
-LOCK TABLES `profile` WRITE;
-/*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-/*!40000 ALTER TABLE `profile` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `profile` (`iduser`, `bio`) VALUES
+(1, 'Kinezi zauvek!'),
+(2, 'Ja sam Cone Conic'),
+(3, 'Smaram studente');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `request`
 --
 
 DROP TABLE IF EXISTS `request`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `request` (
-  `idgroup` int NOT NULL,
-  `iduser` int NOT NULL,
-  PRIMARY KEY (`idgroup`,`iduser`),
-  KEY `IDUSER_REQUEST_idx` (`iduser`),
-  CONSTRAINT `IDGROUP_REQUEST` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
-  CONSTRAINT `IDUSER_REQUEST` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `idgroup` int(11) NOT NULL,
+  `iduser` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `request`
 --
 
-LOCK TABLES `request` WRITE;
-/*!40000 ALTER TABLE `request` DISABLE KEYS */;
-/*!40000 ALTER TABLE `request` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `request` (`idgroup`, `iduser`) VALUES
+(1, 2);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `iduser` int NOT NULL AUTO_INCREMENT,
+  `iduser` int(11) NOT NULL,
   `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `type` varchar(45) NOT NULL,
-  PRIMARY KEY (`iduser`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `password` varchar(256) NOT NULL,
+  `type` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'luka','legenda','user'),(3,'ludi','legenda','user');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `user` (`iduser`, `username`, `password`, `type`) VALUES
+(1, 'luka1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user'),
+(2, 'cone1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user'),
+(3, 'etf12345', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'agency');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `wish`
 --
 
 DROP TABLE IF EXISTS `wish`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wish` (
-  `idwish` int NOT NULL AUTO_INCREMENT,
-  `iduser` int NOT NULL,
-  `budget` int DEFAULT NULL,
+  `idwish` int(11) NOT NULL,
+  `iduser` int(11) NOT NULL,
+  `budget` int(11) DEFAULT NULL,
   `from` date DEFAULT NULL,
   `to` date DEFAULT NULL,
   `location` varchar(45) DEFAULT NULL,
-  `coordinate_x` decimal(10,0) DEFAULT NULL,
-  `coordinate_y` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`idwish`),
-  KEY `IDUSER_WISH_idx` (`iduser`),
-  CONSTRAINT `IDUSER_WISH` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `coordinate_x` float DEFAULT NULL,
+  `coordinate_y` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wish`
 --
 
-LOCK TABLES `wish` WRITE;
-/*!40000 ALTER TABLE `wish` DISABLE KEYS */;
-INSERT INTO `wish` VALUES (1,1,999,NULL,NULL,'Lisbon',NULL,NULL),(2,1,999,'2021-04-20','2021-04-20','Lisbon',NULL,NULL),(3,1,999,'2021-04-20','2021-12-20','Lisbon',NULL,NULL),(4,1,999,'2021-12-15','2021-12-20','Lisbon',NULL,NULL);
-/*!40000 ALTER TABLE `wish` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `wish` (`idwish`, `iduser`, `budget`, `from`, `to`, `location`, `coordinate_x`, `coordinate_y`) VALUES
+(1, 1, 999, '2021-04-20', '2021-04-20', 'Lisbon', 9.0822, 38.425),
+(2, 1, 999, '2021-04-20', '2021-04-20', 'Lisbon', 9.0822, 38.425),
+(3, 1, 999, '2021-04-20', '2021-12-20', 'Lisbon', 9.0822, 38.425),
+(4, 1, 999, '2021-12-15', '2021-12-20', 'Lisbon', 9.0822, 38.425);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `accepted_arrangment`
+--
+ALTER TABLE `accepted_arrangment`
+  ADD PRIMARY KEY (`idgroup`,`idarrangment`),
+  ADD KEY `IDARRAGMENT_ACCEPTED_idx` (`idarrangment`);
+
+--
+-- Indexes for table `arrangment`
+--
+ALTER TABLE `arrangment`
+  ADD PRIMARY KEY (`idarrangment`),
+  ADD KEY `IDAGENCY_idx` (`idagecy`);
+
+--
+-- Indexes for table `group`
+--
+ALTER TABLE `group`
+  ADD PRIMARY KEY (`idgroup`),
+  ADD KEY `IDLEADER_idx` (`idleader`),
+  ADD KEY `IDWISH_GROUP_idx` (`idwish`);
+
+--
+-- Indexes for table `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`idgroup`,`iduser`),
+  ADD KEY `IDUSER_MEMBER_idx` (`iduser`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`idmessage`),
+  ADD KEY `IDGROUP_MESSAGE_idx` (`idgroup`),
+  ADD KEY `IDSENDER_MESSAGE_idx` (`idsender`);
+
+--
+-- Indexes for table `paid`
+--
+ALTER TABLE `paid`
+  ADD PRIMARY KEY (`idgroup`,`iduser`,`idarragment`),
+  ADD KEY `IDUSER_idx` (`iduser`),
+  ADD KEY `IDARRANGMENT_PAID_idx` (`idarragment`);
+
+--
+-- Indexes for table `profile`
+--
+ALTER TABLE `profile`
+  ADD PRIMARY KEY (`iduser`),
+  ADD KEY `IDUSER_idx` (`iduser`);
+
+--
+-- Indexes for table `request`
+--
+ALTER TABLE `request`
+  ADD PRIMARY KEY (`idgroup`,`iduser`),
+  ADD KEY `IDUSER_REQUEST_idx` (`iduser`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`iduser`),
+  ADD UNIQUE KEY `username_UNIQUE` (`username`);
+
+--
+-- Indexes for table `wish`
+--
+ALTER TABLE `wish`
+  ADD PRIMARY KEY (`idwish`),
+  ADD KEY `IDUSER_WISH_idx` (`iduser`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `arrangment`
+--
+ALTER TABLE `arrangment`
+  MODIFY `idarrangment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `group`
+--
+ALTER TABLE `group`
+  MODIFY `idgroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `wish`
+--
+ALTER TABLE `wish`
+  MODIFY `idwish` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `accepted_arrangment`
+--
+ALTER TABLE `accepted_arrangment`
+  ADD CONSTRAINT `IDARRAGMENT_ACCEPTED` FOREIGN KEY (`idarrangment`) REFERENCES `arrangment` (`idarrangment`),
+  ADD CONSTRAINT `IDGROUP_ACCEPTED` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`);
+
+--
+-- Constraints for table `arrangment`
+--
+ALTER TABLE `arrangment`
+  ADD CONSTRAINT `IDAGENCY` FOREIGN KEY (`idagecy`) REFERENCES `user` (`iduser`);
+
+--
+-- Constraints for table `group`
+--
+ALTER TABLE `group`
+  ADD CONSTRAINT `IDLEADER` FOREIGN KEY (`idleader`) REFERENCES `user` (`iduser`),
+  ADD CONSTRAINT `IDWISH_GROUP` FOREIGN KEY (`idwish`) REFERENCES `wish` (`idwish`);
+
+--
+-- Constraints for table `member`
+--
+ALTER TABLE `member`
+  ADD CONSTRAINT `IDGROUP_MEMBER` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
+  ADD CONSTRAINT `IDUSER_MEMBER` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`);
+
+--
+-- Constraints for table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `IDGROUP_MESSAGE` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
+  ADD CONSTRAINT `IDSENDER_MESSAGE` FOREIGN KEY (`idsender`) REFERENCES `user` (`iduser`);
+
+--
+-- Constraints for table `paid`
+--
+ALTER TABLE `paid`
+  ADD CONSTRAINT `IDARRANGMENT_PAID` FOREIGN KEY (`idarragment`) REFERENCES `arrangment` (`idarrangment`),
+  ADD CONSTRAINT `IDGROUP_PAID` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
+  ADD CONSTRAINT `IDUSER_PAID` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`);
+
+--
+-- Constraints for table `profile`
+--
+ALTER TABLE `profile`
+  ADD CONSTRAINT `IDUSER` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`);
+
+--
+-- Constraints for table `request`
+--
+ALTER TABLE `request`
+  ADD CONSTRAINT `IDGROUP_REQUEST` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`),
+  ADD CONSTRAINT `IDUSER_REQUEST` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`);
+
+--
+-- Constraints for table `wish`
+--
+ALTER TABLE `wish`
+  ADD CONSTRAINT `IDUSER_WISH` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-04-20 11:09:45
