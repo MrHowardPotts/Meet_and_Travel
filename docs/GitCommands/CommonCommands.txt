@@ -33,6 +33,9 @@ git merge --no-ff branch// this is what we want 99% of the time!
 sync with master full command:
 git checkout master && git pull && git checkout my_branch && git pull && git merge -X theirs --no-ff master
 
+First, press the Esc key a few times. This will ensure vi is out of Insert mode and in Command mode.
+Second, type :q! and press Enter. This tells vi to quit without saving any changes. (If you do want to save your changes, type :wq instead.)
+
 
 
 git fetch origin pull/ID/head:BRANCHNAME //checkout pull request localy on a new branched called BRANCHNAME
