@@ -66,3 +66,14 @@ git reflog // shows history? Shows even lost commits that are commited to detach
 git branch <name> commit //create a new branch from the given commit 
 
 
+//VERY USEFUL WHEN MULTIPLE PEOPLE ARE UPDATING A FEW FILES AND YOU WANT TO TEST THEM WITHOUT MERGEING!!!!
+
+# Check out "somefile.c" from branch `my_branch`
+git checkout my_branch -- somefile.c
+
+# Check out these 4 files from `my_branch`
+git checkout my_branch -- file1.h file1.cpp mydir/file2.h mydir/file2.cpp
+
+# Check out ALL files from my_branch which are in
+# directory "path/to/dir"
+git checkout my_branch -- path/to/dir
