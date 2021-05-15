@@ -1,11 +1,220 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
 *{
-  margin:0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-decoration: none;font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+/*Navigacioni bar*/
+ div.header{
+  position: relative;
+  top: 0;
+  width: 100%;
+  padding: 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+div.header img{
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+label{
+  display: none;
+}
+
+div.header .logo{
+  position: relative;
+  color: #000;
+  font-size: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+div.header .navigation a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  transition-property: background;
+}
+ 
+div.header .navigation a:hover{
+  background: #642274;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #642274,
+              0 0 25px #642274,
+              0 0 50px #642274,
+              0 0 100px #642274;
+}
+ 
+div.header .navigation a  span {
+  position: absolute;
+  display: block;
+}
+ 
+div.header .navigation a  span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #642274);
+  animation: btn-anim1 1s linear infinite;
+}
+ 
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+ 
+div.header .navigation a  span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #642274);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+ 
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+ 
+div.header .navigation a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #642274);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+ 
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+ 
+div.header .navigation a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #642274);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+ 
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+div.header .navigation a:not(:last-child){
+  margin-right: 15px;
+}
+
+#check{
+  z-index: 3;
+  display: none;
+}
+
+/* Responsive CSS */
+
+@media (max-width: 1000px){
+  div.header .navigation{
+    display: none;
+  }
+
+   label{
+    display: block;
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    color:#642274;
+    transition-property: color;
+  }
+
+   label:hover{
+    color: #fff;
+  }
+
+   label .close-btn{
+    display: none;
+  }
+
+   #check:checked ~ div.header .navigation{
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #faa278;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+   #check:checked ~  div.header .navigation a{
+    font-weight: 700;
+    margin-right: 0;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+  }
+
+   #check:checked ~ div.header label .close-btn{
+    z-index: 2;
+    position: fixed;
+    display: block;
+  }
+
+   #check:checked ~ div.header label .menu-btn{
+    display: none;
+  }
+
+   label .menu-btn{
+    position: absolute;
+  }
+
+  div.header .logo{
+    position: absolute;
+    bottom: -6px;
+  }
+}
+/*Chat deo*/
 body{
   display:flex;
   align-items:center;
@@ -16,13 +225,18 @@ body{
 
 .wrapper{
   background: #fff;
-  width: 450px;
+  width: 100%;
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
               0 32px 64px -48px rgba(0, 0, 0, 0.5);
+  overflow-x: auto;
 }
-
+.wrapper td{
+  height:643px;
+}
+/*Korisnici sa leve strane*/
 .users{
+  height: 100%;
   padding: 25px 30px;
 }
 
@@ -42,7 +256,7 @@ body{
 
 :is(.users, .users-list) .content{
   display:flex;
-  align-items: center;
+  width: 150px;
 }
 
 .users header .content img{
@@ -60,109 +274,6 @@ body{
   font-weight: 500;
 }
 
-.users header .logout  {
-  position: relative;
-  display: inline-block;
-  padding: 7px 15px;
-  color: #faa278;
-  font-size: 17px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  letter-spacing: 4px
-}
- 
-.users header .logout:hover {
-  background: #faa278;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #faa278,
-              0 0 25px #faa278,
-              0 0 50px #faa278,
-              0 0 100px #faa278;
-}
- 
-.users header .logout  span {
-  position: absolute;
-  display: block;
-}
- 
-.users header .logout  span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #faa278);
-  animation: btn-anim1 1s linear infinite;
-}
- 
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,100% {
-    left: 100%;
-  }
-}
- 
-.users header .logout  span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #faa278);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
-}
- 
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,100% {
-    top: 100%;
-  }
-}
- 
-.users header .logout  span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #faa278);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
-}
- 
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,100% {
-    right: 100%;
-  }
-}
- 
-.users header .logout  span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #faa278);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
-}
- 
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,100% {
-    bottom: 100%;
-  }
-}
-
 .users .search{
   margin: 20px 0;
   display: flex;
@@ -178,7 +289,7 @@ body{
 .users .search input{
   position: absolute;
   height:42px;
-  width:calc(100%-50px);
+  width:calc(100% - 40px);
   border: 1px solid #642274;
   padding: 0 13px;
   font-size: 16px;
@@ -216,7 +327,8 @@ body{
 }
 
 .users-list{
-  max-height: 350px;
+  min-height: 400px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
@@ -246,6 +358,7 @@ body{
 }
 
 .users-list a .content p{
+  font-size: 12px;
   color:#67676a;
 }
 
@@ -259,11 +372,14 @@ body{
 }
 
 /*Komunikacioni deo*/
+.chat-area{
+  width:100%;
+}
 
 .chat-area header{
   display:flex;
   align-items:center;
-  padding:18px 30px;
+  padding:18px 0;
 }
 .chat-area header .back-icon{
   font-size:18px;
@@ -282,7 +398,7 @@ body{
 }
 
 .chat-box{
-  height:500px;
+  height:475px;
   overflow-y: auto;
   background:#f7f7f7;
   padding:10px 30px 20px 30px;
@@ -339,7 +455,7 @@ body{
 }
 
 .chat-area .typing-area{
-  padding:18px 30px;
+  padding:18px 0;
   display:flex;
   justify-content:space-between;
 }

@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="signup.css">
+  <link rel="stylesheet" href="css/welcomeLogin&SignUp.css">
   <title>Document</title>
 </head>
 <body>
   <div class="signup-box">
     <section class="form signup">
       <h2><img src="relayfinal.png" width="150px" height="150px"></h2>
-      <form action="#">
-        <div class="errorMsg">Ovde se ispisuje greska</div>
+      <form action="#" enctype="multipart/form-data">
+        <div class="errorMsg"></div>
         <div class="field input">
           <label>Select picture</label>
-          <input type="file" name="Slika" required="">
+          <input type="file" name="picture" required>
         </div>
         <div class="user-box">
-          <input type="text" name="Ime" required="">
+          <input type="text" name="fname" required>
           <label>First name</label>
         </div>
         <div class="user-box">
-          <input type="text" name="Prezime" required="">
+          <input type="text" name="lname" required>
           <label>Last name</label>
         </div>
         <div class="user-box">
-          <input type="text" name="Username" required="">
+          <input type="text" name="username" required>
           <label>Username</label>
         </div>
         <div class="user-box">
-          <input type="text" name="Email" required="">
+          <input type="text" name="email" required>
           <label>Email</label>
         </div>
         <div class="user-box">
-          <input type="password" name="Password" required="">
+          <input type="password" name="password" required>
           <label>Password</label>
         </div>
         <div class="user-box">
-          <input type="password" name="Confirm" required="">
+          <input type="password" name="confirm" required>
           <label>Confirm password</label>
         </div>
-        <div align="center">
+        <div class="button" align="center">
           <a href="welcome.html" class="back">
             <span></span>
             <span></span>
@@ -57,6 +57,6 @@
       </form>
     </section>
   </div>
-  <script src="javascript/signup.js"></script>
+  <script src="javascript/signup2.js"></script>
 </body>
 </html>
