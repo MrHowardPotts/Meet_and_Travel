@@ -1,17 +1,19 @@
 <?php
 //signUp backend part
   session_start();
-  include_once "/Applications/XAMPP/xamppfiles/htdocs/PSI/php/config.php";
-  $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-  $lname = mysqli_real_escape_string($conn, $_POST['lname']);
-  $username = mysqli_real_escape_string($conn, $_POST['username']);
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
+  require_once "../DB.php";
+  //todo
+  //Parsiranje podataka
+  $fname =  $_POST['fname'];
+  $lname = $_POST['lname'];
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
   if(!empty($fname) && !empty($lname) && !empty($username) && !empty($password) && !empty($email)){
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-      $sql = mysqli_query($conn, "SELECT email FROM users WHERE email = '{$email}'");
-      if(mysqli_num_rows($sql)>0){
+      $rows= DB::getRows("SELECT email FROM user WHERE email = '{$email}'");
+      if(count($rows)>0){
         echo "$email - ALREADY EXISTS";
       }else{
         //Check if picture is inserted

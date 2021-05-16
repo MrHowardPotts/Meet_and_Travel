@@ -34,6 +34,8 @@
                 <span></span>
                 <span></span>
                 <span></span>Services</a>
+                <!-- todo -->
+                <!-- Bug when loging out -->
               <a href="php/logout.php?logout_id=<?php echo $_SESSION['unique_id']?>" class="logout">
                 <span></span>
                 <span></span>
