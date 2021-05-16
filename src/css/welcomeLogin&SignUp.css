@@ -1,0 +1,498 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  text-decoration: none;font-family: 'Poppins', sans-serif;
+}
+/*Welcome stranica*/
+div.header{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-image: linear-gradient(to top, #3a1c71, #642274, #862c75, #a33c75, #bc4f75, #cb5d75, #d86c75, #e47c76, #ec8876, #f49577, #faa278, #ffaf7b);
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar header{
+  position: relative;
+  top: 0;
+  width: 100%;
+  padding: 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar .info img{
+  margin-bottom: 100px;
+  margin-top:-30px;
+}
+
+.navbar header .logo{
+  position: relative;
+  color: #000;
+  font-size: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.navbar header .navigation a{
+  color:white;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 2px 15px;
+  border-radius: 20px;
+  transition: 0.3s;
+  transition-property: background;
+}
+
+.navbar header .navigation a:not(:last-child){
+  margin-right: 30px;
+}
+
+.navbar header .navigation a:hover{
+  background: #642274;
+}
+
+.navbar .content{
+  max-width: 100%;
+  margin: 60px 100px;
+  align-items: center;
+}
+
+.navbar .content .info h2{
+  color: #642274;
+  font-size: 55px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 60px;
+  margin-bottom: 30px;
+}
+
+.navbar .content .info h2 span{
+  color: #fff;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.navbar .content .info p{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  max-width:650px;
+  color: #fff;
+}
+
+
+.navbar .media-icons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.navbar .media-icons a{
+  position: relative;
+  color: #fff;
+  font-size: 25px;
+  transition: 0.3s;
+  transition-property: transform;
+}
+
+.navbar .media-icons a:not(:last-child){
+  margin-right: 60px;
+}
+
+.navbar .media-icons a:hover{
+  transform: scale(1.5);
+}
+
+.navbar label{
+  display: none;
+}
+
+#check{
+  z-index: 3;
+  display:none;
+}
+
+/* Responsive styles */
+
+@media (max-width: 960px){
+  .navbar header .navigation{
+    display: none;
+  }
+
+  .navbar label{
+    color:white;
+    display: block;
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    transition-property: color;
+  }
+
+  .navbar label:hover{
+    color: #642274;
+  }
+
+  .navbar label .close-btn{
+    display: none;
+  }
+
+  #check:checked ~ .navbar header .navigation{
+    z-index: 2;
+    position: fixed;
+    background: #faa278;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #check:checked ~ .navbar header .navigation a{
+    font-weight: 700;
+    margin-right: 0;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+  }
+
+  #check:checked ~ .navbar header label .menu-btn{
+    display: none;
+  }
+
+  #check:checked ~ .navbar header label .close-btn{
+    z-index: 2;
+    display: block;
+    position: fixed;
+  }
+
+  .navbar label .menu-btn{
+    position: absolute;
+  }
+
+  .navbar header .logo{
+    position: absolute;
+    bottom: -6px;
+  }
+
+  .navbar .content .info h2{
+    font-size: 45px;
+    line-height: 50px;
+  }
+
+  .navbar .content .info h2 span{
+    font-size: 40px;
+    font-weight: 600;
+  }
+
+  .navbar .content .info p{
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 560px){
+  .navbar .content .info h2{
+    font-size: 35px;
+    line-height: 40px;
+  }
+
+  .navbar .content .info h2 span{
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  .navbar .content .info p{
+    font-size: 14px;
+  }
+}
+
+/*Login & Signup + navigation buttons*/
+html {
+  height: 100%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background-image: linear-gradient(to top, #3a1c71, #642274, #862c75, #a33c75, #bc4f75, #cb5d75, #d86c75, #e47c76, #ec8876, #f49577, #faa278, #ffaf7b);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+ img{
+   border-radius: 10px;
+ }
+ /*wrapper*/
+.login-box, .signup-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+ 
+:is(.login-box, .signup-box) h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+ 
+.form form .errorMsg {
+  color: #721c24;
+  background: #f8d7da;
+  padding: 8px 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #f5c6cb;
+  display: none;
+}
+
+.form form .field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.form form .field input{
+  font-size: 16px;
+}
+
+:is(.login-box, .signup-box) .user-box {
+  position: relative;
+}
+:is(.login-box .user-box, .signup-box .user-box) input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 12px;
+  color: #642274;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #642274;
+  outline: none;
+  background: transparent;
+}
+:is(.login-box .user-box, .signup-box .user-box) label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #642274;
+  pointer-events: none;
+  transition: .5s;
+}
+ 
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label,
+.signup-box .user-box input:focus ~ label,
+.signup-box .user-box input:valid ~ label  {
+  top: -20px;
+  left: 0;
+  color: #faa278;
+  font-size: 12px;
+}
+
+:is(.login-box form, .signup-box form)  a.back, 
+section.navbar .content a.login-btn,
+section.navbar .content a.signup-btn{
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color:  #faa278;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+ 
+:is(.login-box, .signup-box) a.back:hover,
+section.navbar .content a.login-btn:hover,
+section.navbar .content a.signup-btn:hover{
+  background: #faa278;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px  #faa278,
+              0 0 25px  #faa278,
+              0 0 50px  #faa278,
+              0 0 100px  #faa278;
+}
+ 
+:is(.login-box a.back, .signup-box a.back) span,
+section.navbar .content a.login-btn  span,
+section.navbar .content a.signup-btn  span {
+  position: absolute;
+  display: block;
+}
+ 
+:is(.login-box a.back, .signup-box a.back) span:nth-child(1),
+section.navbar .content a.login-btn  span:nth-child(1),
+section.navbar .content a.signup-btn  span:nth-child(1){
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent,  #faa278);
+  animation: btn-anim1 1s linear infinite;
+}
+ 
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+ 
+:is(.login-box a.back, .signup-box a.back) span:nth-child(2),
+section.navbar .content a.login-btn  span:nth-child(2),
+section.navbar .content a.signup-btn  span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent,  #faa278);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+ 
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+ 
+:is(.login-box a.back, .signup-box a.back) span:nth-child(3),
+section.navbar .content a.login-btn  span:nth-child(3),
+section.navbar .content a.signup-btn  span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent,  #faa278);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+ 
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+ 
+:is(.login-box a.back, .signup-box a.back) span:nth-child(4),
+section.navbar .content a.login-btn  span:nth-child(4),
+section.navbar .content a.signup-btn  span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent,  #faa278);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+ 
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+:is(.login-box form, .signup-box form) a.submit {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #642274;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  margin-left: 20px;
+  letter-spacing: 4px
+}
+ 
+:is(.login-box, .signup-box) a.submit:hover {
+  background: #642274;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #642274,
+              0 0 25px #642274,
+              0 0 50px #642274,
+              0 0 100px #642274;
+}
+ 
+:is(.login-box a.submit, .signup-box a.submit)  span {
+  position: absolute;
+  display: block;
+}
+ 
+:is(.login-box a.submit, .signup-box a.submit) span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #642274);
+  animation: btn-anim1 1s linear infinite;
+}
+ 
+:is(.login-box a.submit, .signup-box a.submit) span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #642274);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+ 
+:is(.login-box a.submit, .signup-box a.submit) span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #642274);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+ 
+:is(.login-box a.submit, .signup-box a.submit) span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #642274);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}

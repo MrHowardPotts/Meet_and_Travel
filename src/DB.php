@@ -18,5 +18,16 @@ class DB {
       }
       return self::$instanca;
     }
+    public static function getRows($sql){
+                        $conn=DB::getInstance();
+                        $res=$conn->prepare($sql);
+                        $res->execute();
+                        return $res->fetchAll();
+    }
+    public static function Execute($sql){
+      $conn=DB::getInstance();
+      $res=$conn->prepare($sql);
+      $res->execute();
+}
   }
 ?>
