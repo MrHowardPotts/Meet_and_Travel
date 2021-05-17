@@ -1,14 +1,17 @@
 <?php
+//searching groups by name
   session_start();
-  include_once "config.php";
-  $outgoing_id = $_SESSION['unique_id'];
-  $searchTerm = mysqli_real_escape_string($conn, $_POST['searchTerm']);
+  require_once "../DB.php";
+  $user_id = $_SESSION['unique_id'];
+  $searchTerm = $_POST['searchTerm'];
   $output = "";
-  $sql = mysqli_query($conn, "SELECT * FROM users WHERE NOT unique_id = {$outgoing_id} AND (username LIKE '%{$searchTerm}%')");
-  if(mysqli_num_rows($sql) >0){
+  $sql="SELECT * FROM member INNER JOIN meetandtravel.group where member.iduser={$user_id} AND (name LIKE '%{$searchTerm}%')";
+  //$sql = mysqli_query($conn, "SELECT * FROM member WHERE NOT unique_id = {$outgoing_id} AND (username LIKE '%{$searchTerm}%')");
+  $rows=DB::getRows($sql);
+  if(count($rows) >0){
     include "data.php";
   }else{
-    $output .= "No user found";
+    $output .= "No groups found";
   }
   echo $output;
 ?>

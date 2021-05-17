@@ -14,7 +14,8 @@
           <div class="header">
             <h2><img src="relayfinal.png" width="50px" height="50px"></h2>
             <div class="navigation">
-              <a href="#">
+              <!-- //////////////////////remove terminate/////////////////////////////////////////// -->
+              <a href="#" onclick="terminateListener()"> 
                 <span></span>
                 <span></span>
                 <span></span>
@@ -59,6 +60,7 @@
                     <header>
                       <?php
                         require_once "DB.php";
+                        //ovde treba da bude ulogovan user
                         $rows=DB::getRows("SELECT * FROM user WHERE iduser = {$_SESSION['unique_id']}");
                         if(count($rows)==1){
                           $row = $rows[0];
@@ -68,7 +70,7 @@
                         <!-- Ovde moramo da dodamo putanju do image-a -->
                         <img src="php/images/1620843858relayfinal.png" alt=""><!--You need to change permission to read/write-->
                         <div class="details">
-                          <span><?php echo $row['username'];?></span>
+                          <span><?php echo $row['firstname'];?></span>
                           
                         </div>
                       </div>
@@ -86,16 +88,24 @@
                   <section class="chat-area">
                       <header>
                         <?php
-                          require_once "DB.php";
-                          $user_id =$_SESSION['unique_id'];
-                          $rows=DB::getRows("SELECT * FROM user WHERE iduser = {$user_id}");
-                          if(count($rows)>0){
-                            $row =$rows[0];
+                          
+                          //ovde treba da bude grupa -> name
+                          if(isset($_GET['group_id'])){
+                            require_once "DB.php";
+                            $group_id =$_GET['group_id']; 
+                            $rows=DB::getRows("SELECT * FROM meetandtravel.group WHERE idgroup = {$group_id}");
+                            if(count($rows)>0){
+                              $row =$rows[0];
+                            }
                           }
+                          else $group_id=-1; // it's not set in GET
                         ?>
                         <img src="php/images/1620843858relayfinal.png" alt="">
                         <div class="details">
-                          <span><?php echo $row['username'];?></span>
+                          <span><?php 
+                          if(isset($row['name']))$name=$row['name'];
+                          else $name="Select group";
+                          echo $name;?></span>
                         </div>
                       </header>
                         <div class="chat-box">
@@ -104,7 +114,7 @@
                         <input type="text" name="outgoing_id" value="<?php echo $_SESSION['unique_id'];?>"hidden>
                         
                         <!-- ovo treba da bude groupID -->
-                        <input type="text" name="incoming_id" value="<?php echo $user_id;?>"hidden>
+                        <input type="text" name="incoming_id" value="<?php echo $group_id;?>"hidden>
                         <input type="text" name="message" class="input-field" placeholder="Type a message here">
                         
                         <button onclick="send()"><i class="fab fa-telegram-plane" aria-hidden="true"></i></button>
@@ -119,5 +129,13 @@
     </table>
     <script src="javascript/users.js"></script>
     <script src="javascript/chat.js"></script>
+    <?php
+    if($group_id!=-1){
+      echo "<script>
+      createListener({$group_id});      
+      </script>";
+    }
+    ?>
+    
   </body>
 </html>
