@@ -8,34 +8,34 @@
   <div class="signup-box">
     <section class="form signup">
       <h2><img src="relayfinal.png" width="150px" height="150px"></h2>
-      <form action="#" enctype="multipart/form-data">
-        <div class="errorMsg"></div>
+      <form id="form" action="#" enctype="multipart/form-data">
+        <div id="error" class="errorMsg"></div>
         <div class="field input">
           <label>Select picture</label>
           <input type="file" name="picture" required>
         </div>
         <div class="user-box">
-          <input type="text" name="fname" required>
+          <input id="fname" type="text" name="fname" required>
           <label>First name</label>
         </div>
         <div class="user-box">
-          <input type="text" name="lname" required>
+          <input id="lname" type="text" name="lname" required>
           <label>Last name</label>
         </div>
         <div class="user-box">
-          <input type="text" name="username" required>
+          <input id="username" type="text" name="username" required>
           <label>Username</label>
         </div>
         <div class="user-box">
-          <input type="text" name="email" required>
+          <input id="email" type="text" name="email" required>
           <label>Email</label>
         </div>
         <div class="user-box">
-          <input type="password" name="password" required>
+          <input id="password1" type="password" name="password" required>
           <label>Password</label>
         </div>
         <div class="user-box">
-          <input type="password" name="confirm" required>
+          <input id="password2" type="password" name="confirm" required>
           <label>Confirm password</label>
         </div>
         <div class="button" align="center">
