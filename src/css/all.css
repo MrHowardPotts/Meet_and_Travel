@@ -448,10 +448,14 @@ body{
   max-width: calc(100% - 130px);
 }
 
-.incoming .details p{
+.incoming .details p.msgs{
   background: #642274;
   color: #fff;
   border-radius:18px 18px 18px 0;
+}
+.incoming .details p.msgs span{
+  font-size:10px;
+  color:#cb5d75;
 }
 
 .chat-area .typing-area{

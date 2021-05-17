@@ -16,11 +16,11 @@
         while($row = mysqli_fetch_assoc($query)){
           if($row['outgoing_msg_id'] === $outgoing_id){ //if true he is receiving
             $output .= '<div class="chat incoming">
-                      <img src="php/images/'. $row['picture'] .'" alt="">
-                      <div class="details">
-                        <p>'. $row['msg'] .'</p>
-                      </div>
-                    </div>';
+                          <img src="php/images/'. $row['picture'] .'" alt="">
+                          <div class="details">
+                            <p class="msgs"><span>'. $row['username'] .'</span><br>'. $row['msg'] .'</p>
+                          </div>
+                        </div>';
           }else{ //he is sending
             $output .='<div class="chat outcoming">
                         <div class="details">
