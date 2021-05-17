@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <!-- <script src="Chat2.js"></script> -->
+        <script>
+            var worker=new Worker('./Thread.js');
+            worker.onmessage=function(e){
+                var messages=e.data;
+                for(i=0;i<messages.length;i++){
+                    console.log(messages[i].message);
+                }
+            }
+            worker.postMessage(null);
+
+        </script>
+    </head>
+</html>
