@@ -1,0 +1,76 @@
+/* the wrapper for the entire div */
+.results-wrapper{
+    height: 700px;
+    width:100%; 
+    margin:auto;
+}
+
+
+/* each single result */
+.result-container{
+background-color:rgb(238, 238, 238);
+border-radius: 20px;
+border: 1px solid rgb(165, 165, 165);
+height: 150px;
+margin:auto;
+margin-top:5px;
+}
+
+/* svi divovi da naslede height parenta (.result-container) */
+.result-container div{
+    height: 100%;
+    
+}
+
+.result-container .row div{
+    padding: 0;
+}
+
+.result-container .slika{
+    height: 50%;
+    margin-left: 15px;
+    margin-top: 30%;
+
+}
+/* .trip refers to any container that is representing data that contains trip information (Groups,Arrangements,Wishes) */
+.result-container .trip p{
+    display: block;
+    text-align: center;
+    margin: 4px;
+}
+.result-container .trip button{
+    margin-top: 50px;
+}
+/* for MyGroups */
+.result-container .group p{
+    display: block;
+    text-align: center;
+    margin: 30px;
+}
+.result-container .group button{
+    margin-top: 10px;
+}
+/* Members in Group */
+.result-container .name p{
+    display: block;
+    text-align: center;
+    margin: 30px;
+}
+/* Pay */
+.result-container .pay p{
+    display: block;
+    text-align: center;
+    margin: 4px;
+}
+.result-container .pay button{
+    margin-top: 50px;
+}
+
+.result-container .request p{
+    display: block;
+    text-align: center;
+    margin: 7px;
+}
+.result-container .request button{
+    margin-top: 20px;
+}
