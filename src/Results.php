@@ -68,7 +68,8 @@
                                     <p>members: 4</p>
                             </div>
                             <div class="col-3">
-                                <button class="btn btn-success" onclick="x(1)">Request</button>
+                                <button class="btn btn-success" onclick="appendGroup(
+                                    'php/images/1620843858relayfinal.png','Portugal','01/06/2021','01/07/2021',150,10,1,1)">Request</button>
                                     <form action="#" id="forma1">
                                         <input type="text" name="outgoing_id" value="16"hidden>
                                         

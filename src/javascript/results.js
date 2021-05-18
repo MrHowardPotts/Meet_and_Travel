@@ -20,7 +20,7 @@ function commonCreate(){
     
     //one specific container
     divContainer=document.createElement('div');
-    divContainer.classList.add(['col-11', 'col-md-5', 'order-1', 'result-container'])
+    divContainer.classList.add(...['col-11', 'col-md-5', 'order-1', 'result-container'])
     
     //row for the specific container - the specific class (trip/group/wish...) will have to be added by the specificCreate function
     divContainerRow=document.createElement('div');
@@ -54,7 +54,7 @@ function addToPage(commonCreateObj){
     commonCreateObj['divContainerRow'].appendChild(commonCreateObj['div2']);
     commonCreateObj['divContainerRow'].appendChild(commonCreateObj['div3']);
     commonCreateObj['divContainer'].appendChild(commonCreateObj['divContainerRow']);
-    commonCreateObj['divPageRow'].appendChild(commonCreateObj['divPageRow']);
+    commonCreateObj['divPageRow'].appendChild(commonCreateObj['divContainer']);
 }
 
 
@@ -85,6 +85,76 @@ function addToPage(commonCreateObj){
                     </div> */}
 
 //this is a specific create for a Group that is returned by the matching engine
-function appendGroup(element,image,where,from,to,budget,members,groupid,userid){
 
+//creates the JSON object that is used to create specific elements for the Group
+function createGroupJSON(image,where,from,to,budget,members,groupid,userid){
+
+}
+
+function appendGroup(image,where,from,to,budget,members,groupid,userid){
+
+    commonCreateObj=commonCreate();
+
+    //specific class for the divContainerRow
+    commonCreateObj['divContainerRow'].classList.add('trip');
+    
+    img=document.createElement('img');
+    img.classList.add('slika');
+    img.src=image;
+
+    commonCreateObj['div1'].appendChild(img);
+
+    //where
+    p=document.createElement('p');
+    p.innerHTML=where;
+    commonCreateObj['div2'].appendChild(p);
+
+    //from
+    p=document.createElement('p');
+    p.innerHTML=from;
+    commonCreateObj['div2'].appendChild(p);
+    
+    //to
+    p=document.createElement('p');
+    p.innerHTML=to;
+    commonCreateObj['div2'].appendChild(p);
+
+    //budget
+    p=document.createElement('p');
+    p.innerHTML="Budget: $"+budget;
+    commonCreateObj['div2'].appendChild(p);
+
+    //memebrs
+    p=document.createElement('p');
+    p.innerHTML="members: "+members;
+    commonCreateObj['div2'].appendChild(p);
+
+    //button 
+    button=document.createElement('button');
+    button.classList.add(...['btn','btn-success']);
+    //button.onclick=x;//= ////////////////////////
+    button.setAttribute('onclick','x()');
+    button.innerHTML='Request';
+    commonCreateObj['div3'].appendChild(button);
+
+    //form
+    forma=document.createElement('form');
+    
+    //Hidden input for groupID
+    idgrupe=document.createElement('input');
+    idgrupe.setAttribute("type",'hidden');
+    idgrupe.setAttribute('value',groupid);
+    forma.appendChild(idgrupe);
+
+    //
+    iduser=document.createElement('input');
+    iduser.setAttribute("type",'hidden');
+    iduser.setAttribute('value',userid);
+    forma.appendChild(iduser);
+
+    commonCreateObj['div3'].appendChild(forma);
+
+    //done with specific creation
+
+    addToPage(commonCreateObj);
 }
