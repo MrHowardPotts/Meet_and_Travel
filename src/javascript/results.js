@@ -86,71 +86,108 @@ function addToPage(commonCreateObj){
 
 //this is a specific create for a Group that is returned by the matching engine
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Create_ResName_JSON IS THE ONLY THIS THAT HAS TO BE CREATED FOR EACH NEW RESULT REPRESENTATION AND TO ADD A CASE IN THE SWITCH STATEMENT!
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //creates the JSON object that is used to create specific elements for the Group
 function createGroupJSON(image,where,from,to,budget,members,groupid,userid){
+return {
+'class':'trip',
+'image':image,
+'p':[where,from,to,"budget: $"+budget,"members: "+members],
+'button':[{
+    'class':['btn','btn-success'],
+    'onclick':'x()',//function for the onclick event
+    'text':'Request'
+}],//end button
+'input':[groupid,userid]
+};
+}
+
+//JSON object that's received from the server 
+/*
+{
+    class:Group or Arrangement or Wish or.......
+    data: {
+        budget:...
+        where:...
+        userid:...,
+        groupid:...,
+        .......
+    }
+}
+
+*/
+testData={
+    'class':'group',
+    'data':{
+        'image':'php/images/1620843858relayfinal.png',
+        'where':'Malta',
+        'from':'13/07/2021',
+        'to':'13/08/2021',
+        'budget':999,
+        'members':17,
+        'groupid':69,
+        'userid':92
+    }
+}
+
+//Depending on the 'class' of the JSON object that's received from the server does the specific append
+function polymorphicAppend(obj){
+    obj=testData;
+    switch(obj['class']){
+        case "group":
+            appendElement(createGroupJSON(obj.data['image'],obj.data['where'],obj.data['from'],obj.data['to'],obj.data['budget'],obj.data['members'],obj.data['groupid'],obj.data['userid']
+            ));
+
+            break;
+    }
 
 }
 
-function appendGroup(image,where,from,to,budget,members,groupid,userid){
+//obj is the JSON representation of the element that's being created
+function appendElement(obj){
 
     commonCreateObj=commonCreate();
 
     //specific class for the divContainerRow
-    commonCreateObj['divContainerRow'].classList.add('trip');
+    commonCreateObj['divContainerRow'].classList.add(obj['class']);
     
     img=document.createElement('img');
     img.classList.add('slika');
-    img.src=image;
+    img.src=obj['image'];
 
     commonCreateObj['div1'].appendChild(img);
 
-    //where
-    p=document.createElement('p');
-    p.innerHTML=where;
-    commonCreateObj['div2'].appendChild(p);
-
-    //from
-    p=document.createElement('p');
-    p.innerHTML=from;
-    commonCreateObj['div2'].appendChild(p);
-    
-    //to
-    p=document.createElement('p');
-    p.innerHTML=to;
-    commonCreateObj['div2'].appendChild(p);
-
-    //budget
-    p=document.createElement('p');
-    p.innerHTML="Budget: $"+budget;
-    commonCreateObj['div2'].appendChild(p);
-
-    //memebrs
-    p=document.createElement('p');
-    p.innerHTML="members: "+members;
-    commonCreateObj['div2'].appendChild(p);
-
-    //button 
+    obj['p'].forEach(data => {
+        p=document.createElement('p');
+        p.innerHTML=data;
+        commonCreateObj['div2'].appendChild(p);
+    });
+    obj['button'].forEach(b=>{
+        //button 
     button=document.createElement('button');
-    button.classList.add(...['btn','btn-success']);
+    button.classList.add(...b['class']);
     //button.onclick=x;//= ////////////////////////
-    button.setAttribute('onclick','x()');
-    button.innerHTML='Request';
+    button.setAttribute('onclick',b['onclick']);
+    button.innerHTML=b['text'];
     commonCreateObj['div3'].appendChild(button);
+    });
+
 
     //form
     forma=document.createElement('form');
     
-    //Hidden input for groupID
-    idgrupe=document.createElement('input');
-    idgrupe.setAttribute("type",'hidden');
-    idgrupe.setAttribute('value',groupid);
-    forma.appendChild(idgrupe);
-
-    //
-    iduser=document.createElement('input');
-    iduser.setAttribute("type",'hidden');
-    iduser.setAttribute('value',userid);
-    forma.appendChild(iduser);
+    obj['input'].forEach(data=>{
+        input=document.createElement('input');
+        input.setAttribute("type",'hidden');
+        input.setAttribute('value',data);
+        forma.appendChild(input);
+    });
+    
 
     commonCreateObj['div3'].appendChild(forma);
 
