@@ -227,6 +227,7 @@ function sendResult(){
   
   //ne moram da clearujem localStorage jer kad uradim drugi mapping cu da ga preklopim, a ovako mozemo da radimo refresh
   //ako bi nekako dodavao jos elemenata morao bih da izvadim da dodam da preklopim da vratim u localstorage i onda da refreshujem - ali ovo nemamo
+  //bolje ipak preko php-a jer ovako <a href za ovu stanu ne moze>
   function onLoad(){
     obj=localStorage.getItem('obj');
     obj=JSON.parse(obj);
