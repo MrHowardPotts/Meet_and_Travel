@@ -58,82 +58,6 @@ function addToPage(commonCreateObj){
 }
 
 
-{/* <div class="col-11 col-md-5 order-1 result-container">
-                        <div class="row trip">
-                            <div class="col-3">
-                                <img class="slika" src="php/images/1620843858relayfinal.png">
-                            </div>
-                            <div class="col-6">
-                                    <p>Belgrade</p>
-                                    <p> 12/6/2021</p>
-                                    <p> 20/6/2021</p>
-                                    <p>Budget: $500</p>
-                                    <p>members: 4</p>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-success" onclick="x(1)">Request</button>
-                                    <form action="#" id="forma1">
-                                        <input type="text" name="outgoing_id" value="16"hidden>
-                                        
-                                        <!-- ovo treba da bude groupID -->
-                                        <input type="text" name="incoming_id" value="121"hidden>
-                            
-                        
-                                    </form>
-                            </div>
-                        </div>
-                    </div> */}
-
-//this is a specific create for a Group that is returned by the matching engine
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//Create_ResName_JSON IS THE ONLY THIS THAT HAS TO BE CREATED FOR EACH NEW RESULT REPRESENTATION AND TO ADD A CASE IN THE SWITCH STATEMENT!
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//creates the JSON object that is used to create specific elements for the Group
-function createGroupJSON(obj){ 
-return {
-'class':'trip',
-'image':obj['image'],
-'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
-'button':[{
-    'class':['btn','btn-success'],
-    'onclick':'x()',//function for the onclick event
-    'text':'Request'
-}],//end button
-'input':[obj['groupid']]
-};
-}
-
-//JSON object that's received from the server 
-/*
-{
-    class:Group or Arrangement or Wish or.......
-    data: {
-        budget:...
-        where:...
-        userid:...,
-        groupid:...,
-        .......
-    }
-}
-
-*/
-testData={
-    'class':'group',
-    'data':{
-        'image':'php/images/1620843858relayfinal.png',
-        'where':'Malta',
-        'from':'13/07/2021',
-        'to':'13/08/2021',
-        'budget':999,
-        'members':17,
-        'groupid':69
-    }
-}
-
 //Depending on the 'class' of the JSON object that's received from the server does the specific append
 function polymorphicAppend(obj){
     //obj=testData;
@@ -194,8 +118,50 @@ function appendElement(obj){
     addToPage(commonCreateObj);
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function sendResult(){
+//Create_ResName_JSON IS THE ONLY THIS THAT HAS TO BE CREATED FOR EACH NEW RESULT REPRESENTATION AND TO ADD A CASE IN THE SWITCH STATEMENT!
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//creates the JSON object that is used to create specific elements for the Group
+function createGroupJSON(obj){ 
+return {
+'class':'trip',
+'image':obj['image'],
+'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
+'button':[{
+    'class':['btn','btn-success'],
+    'onclick':'x()',//function for the onclick event
+    'text':'Request'
+}],//end button
+'input':[obj['groupid']]
+};
+}
+
+//JSON object that's received from the server 
+/*
+{
+    class:Group or Arrangement or Wish or.......
+    data: {
+        class
+        budget:...
+        where:...
+        userid:...,
+        groupid:...,
+        .......
+    }
+}
+
+*/
+
+
+
+
+
+
+
+function sendResult(json_obj){
     let xhr = new XMLHttpRequest(); //XML Object
     xhr.open("POST","php/ProcessResult.php",true);
     xhr.onload = ()=>{
@@ -209,25 +175,29 @@ function sendResult(){
         }
       }
     }
-    json_obj={
+    // json_obj={
 
-        'class':'group',
-        'imagePath':'php/images/1620843858relayfinal.png',
-        'where':'Belgrade',
-        'from':'20-01-2021',
-        'to':'22-01-2021',
-        'budget':500,
-        'members':69,
-        'groupId':1
-    }
+    //     'class':'group',
+    //     'imagePath':'php/images/1620843858relayfinal.png',
+    //     'where':'Belgrade',
+    //     'from':'20-01-2021',
+    //     'to':'22-01-2021',
+    //     'budget':500,
+    //     'members':69,
+    //     'groupId':1
+    // }
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
     xhr.send(json_obj); // sending formData to php
   }
   
+
+
   //ne moram da clearujem localStorage jer kad uradim drugi mapping cu da ga preklopim, a ovako mozemo da radimo refresh
   //ako bi nekako dodavao jos elemenata morao bih da izvadim da dodam da preklopim da vratim u localstorage i onda da refreshujem - ali ovo nemamo
   //bolje ipak preko php-a jer ovako <a href za ovu stanu ne moze>
+  //imali bi druge probleme da idemo preko <a href> -> onda moramo GET i onda moramo to sto odradimo u PHP da stavimo u hidden element i da odatle procitamo sto je ok
+  // moze i tako 
   function onLoad(){
     obj=localStorage.getItem('obj');
     obj=JSON.parse(obj);
