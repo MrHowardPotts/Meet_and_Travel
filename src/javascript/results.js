@@ -93,17 +93,17 @@ function addToPage(commonCreateObj){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //creates the JSON object that is used to create specific elements for the Group
-function createGroupJSON(image,where,from,to,budget,members,groupid,userid){
+function createGroupJSON(obj){ 
 return {
 'class':'trip',
-'image':image,
-'p':[where,from,to,"budget: $"+budget,"members: "+members],
+'image':obj['image'],
+'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
 'button':[{
     'class':['btn','btn-success'],
     'onclick':'x()',//function for the onclick event
     'text':'Request'
 }],//end button
-'input':[groupid,userid]
+'input':[obj['groupid']]
 };
 }
 
@@ -130,18 +130,16 @@ testData={
         'to':'13/08/2021',
         'budget':999,
         'members':17,
-        'groupid':69,
-        'userid':92
+        'groupid':69
     }
 }
 
 //Depending on the 'class' of the JSON object that's received from the server does the specific append
 function polymorphicAppend(obj){
-    obj=testData;
+    //obj=testData;
     switch(obj['class']){
         case "group":
-            appendElement(createGroupJSON(obj.data['image'],obj.data['where'],obj.data['from'],obj.data['to'],obj.data['budget'],obj.data['members'],obj.data['groupid'],obj.data['userid']
-            ));
+            appendElement(createGroupJSON(obj.data));
 
             break;
     }
@@ -195,3 +193,44 @@ function appendElement(obj){
 
     addToPage(commonCreateObj);
 }
+
+
+function sendResult(){
+    let xhr = new XMLHttpRequest(); //XML Object
+    xhr.open("POST","php/ProcessResult.php",true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+        if(xhr.status === 200){
+            
+            
+          //obj=JSON.parse(xhr.responseText);
+          localStorage.setItem('obj',xhr.responseText);
+          location.href = "Results.php";
+        }
+      }
+    }
+    json_obj={
+
+        'class':'group',
+        'imagePath':'php/images/1620843858relayfinal.png',
+        'where':'Belgrade',
+        'from':'20-01-2021',
+        'to':'22-01-2021',
+        'budget':500,
+        'members':69,
+        'groupId':1
+    }
+    xhr.setRequestHeader("Content-Type","application/json");
+    json_obj=JSON.stringify(json_obj);
+    xhr.send(json_obj); // sending formData to php
+  }
+  
+  //ne moram da clearujem localStorage jer kad uradim drugi mapping cu da ga preklopim, a ovako mozemo da radimo refresh
+  //ako bi nekako dodavao jos elemenata morao bih da izvadim da dodam da preklopim da vratim u localstorage i onda da refreshujem - ali ovo nemamo
+  function onLoad(){
+    obj=localStorage.getItem('obj');
+    obj=JSON.parse(obj);
+    for(i=0;i<obj.data.length;i++){
+        polymorphicAppend(obj.data[i]);
+    }
+  }

@@ -1,6 +1,12 @@
 <?php
+
+require_once("DB.php");
+require_once("php/SpecificResults.php");
+
 // mozda da promenimo ovo u Requirement
 class Wish{
+
+public int $groupId;
 
 //Latitude - geografska visina
 public float $y;
@@ -34,13 +40,14 @@ private float $gaus_res_date=0;
 public float $final_res;
 
 
-public function __construct(float $visina,float $sirina,string $naizv,float $budget,string $from,string $to){
+public function __construct(float $visina,float $sirina,string $naizv,float $budget,string $from,string $to,$groupid){
     $this->y=$visina;
     $this->x=$sirina;
     $this->name=$naizv;
     $this->budget=$budget;
     $this->from=$from;
     $this->to=$to;
+    $this->groupId=$groupid;
 
 
 }
@@ -67,12 +74,12 @@ public function setGausResDate($rez){$this->gaus_res_date=$rez;}
 
 }
 
-$niz=array(new Wish(44.8125,20.4612,"Beograd",1000,"2021-06-15","2021-06-26"), 
-new Wish(45.2396,19.8227,"Novi Sad",1300,"2021-07-15","2021-07-26"), 
-new Wish(43.7238,20.6873,"Kraljevo",700,"2021-06-15","2021-06-27"),
-new Wish(43.3209,21.8954,"Nis",900,"2021-06-12","2021-06-25"), 
-new Wish(43.7304,19.6982,"Zlatibor",200,"2021-06-17","2021-06-24"), 
-new Wish(42.5521,21.8989,"Vranje",2000,"2021-06-20","2021-06-23"),
+$niz=array(new Wish(44.8125,20.4612,"Beograd",1000,"2021-06-15","2021-06-26",1), 
+new Wish(45.2396,19.8227,"Novi Sad",1300,"2021-07-15","2021-07-26",1), 
+new Wish(43.7238,20.6873,"Kraljevo",700,"2021-06-15","2021-06-27",1),
+new Wish(43.3209,21.8954,"Nis",900,"2021-06-12","2021-06-25",1), 
+new Wish(43.7304,19.6982,"Zlatibor",200,"2021-06-17","2021-06-24",1), 
+new Wish(42.5521,21.8989,"Vranje",2000,"2021-06-20","2021-06-23",1),
 );
 class Engine{
 
@@ -124,9 +131,22 @@ class Engine{
         return $rez;
     }
 
+    private static function getGroups(){
+        $res=[];
+        $sql="select * from meetandtravel.group inner join wish ON meetandtravel.group.idwish=wish.idwish";
+        $rows=DB::getRows($sql);
+        for($i=0;$i<count($rows);$i++){
+            $row=$rows[$i];
+            $res[]=new Wish($row[10],$row[11],$row['location'],$row['budget'],$row['from'],$row['to'],$row['idgroup']);
+
+        }
+        return $res;
+    }
+
     //Executes the engine. It compares each element in $array (Wish []) to $target (Wish) using the gaus function.
     //return value is the sorted array in descending order in respect to $target
-    public static function execute(Wish $target, $array){
+    public static function execute(Wish $target){
+        $array=Engine::getGroups();
         for($i=0;$i<count($array);$i++){
             $array[$i]->setDist(Engine::distanceCity($array[0]->x,$array[0]->y,$array[$i]->x,$array[$i]->y));
             $array[$i]->setGausResCity(Engine::gaus(0.5,$array[$i]->getDist()));
@@ -143,10 +163,25 @@ class Engine{
 
 
     }
+
+    public static function executeGroup(Group $target,$x,$y){
+        $w=new Wish($x,$y,$target->where,$target->budget,$target->from,$target->to,$target->groupID);
+        $res=Engine::execute($w);
+        $resGroup=[];
+        for($i=0;$i<count($res);$i++){
+            //get image, get member count 
+            $wish=$res[$i];
+            $resGroup[]=new Group("php/images/1620843858relayfinal.png",$wish->name,$wish->from,$wish->to,$wish->budget,69,$wish->groupId);
+
+
+        }
+        return $resGroup;
+    }
+   
     
 }
 //distanceCity from belgrade
-$output=Engine::execute($niz[0],$niz);
-$rez=Engine::distanceCity(3,4,6,8);
+//$output=Engine::execute($niz[0]);
+
 
 ?>

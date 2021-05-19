@@ -6,7 +6,7 @@
 ?>
 
 <?php include_once "header.php";?>
-  <body>
+  <body onload="onLoad()">
     <table>
       <tr>
         <td>
@@ -14,7 +14,7 @@
           <div class="header">
             <h2><img src="relayfinal.png" width="50px" height="50px"></h2>
             <div class="navigation">
-              <a href="#"> 
+              <a href="#" onclick="sendResult()"> 
                 <span></span>
                 <span></span>
                 <span></span>
@@ -42,7 +42,7 @@
                 <span></span>
                 <span></span>Logout</a>
             </div>
-            <p> for="check">
+            <label for="check">
               <i class="fas fa-bars menu-btn"></i>
               <i class="fas fa-times close-btn"></i>
             </label>
@@ -94,7 +94,7 @@
                                     <p>members: 4</p>
                             </div>
                             <div class="col-3">
-                                <button class="btn btn-success">Request</button>
+                                <button class="btn btn-success" onclick="sendResult()">Request</button>
                             </div>
                         </div>
                     </div>
