@@ -130,6 +130,13 @@ function polymorphicAppend(obj){
         case "acceptedArr":
             appendElement(createAcceptedArrangementsJSON(obj.data));
             break;
+        case "arr":
+            appendElement(createArrangementsJSON(obj.data));
+            break;
+        case "paid":
+            appendElement(createPaidJSON(obj.data));
+            break;
+
     }
 
 }
@@ -159,7 +166,7 @@ function createArrangementsJSON(obj){
     return {
     'class':'trip',
     'image':obj['image'],
-    'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
+    'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget']],
     'button':[{
         'class':['btn','btn-warning'],
         'onclick':'x()',//function for the onclick event
@@ -227,7 +234,7 @@ function createPaidJSON(obj){
         'onclick':'x()',//function for the onclick event
         'text':'Pay'
     }],//end button
-    'input':[obj['groupid'],obj['arrangmentid']]
+    'input':[obj['groupid'],obj['arrangmentid'],obj['userid']] //the user for whom you're paying
     };
     }
 
@@ -294,8 +301,9 @@ function sendResult(json_obj){
       }
     }
     json_obj={
-        'class':'acceptedArr',
-        'groupId':1
+        'class':'paid',
+        'groupId':1,
+        'arrangmentId':1
     }
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
@@ -359,5 +367,17 @@ AcceptedArrangement
 json_obj={
     'class':'acceptedArr',
     'groupId':1
+}
+
+Arrangement
+json_obj={
+    'class':'arr'
+}
+
+Paid
+json_obj={
+    'class':'paid',
+    'groupId':1,
+    'arrangmentId':1
 }
 */

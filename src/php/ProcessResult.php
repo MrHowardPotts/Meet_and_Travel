@@ -45,6 +45,16 @@ switch($obj['class']){
         $g->processResult();
         echo json_encode($g);
         break;
+    case "arr":
+        $g=new ArrangementResult($obj);
+        $g->processResult();
+        echo json_encode($g);
+        break;
+    case "paid":
+        $g=new PaidResult($obj);
+        $g->processResult();
+        echo json_encode($g);
+        break;
 }
 $p=123;
 

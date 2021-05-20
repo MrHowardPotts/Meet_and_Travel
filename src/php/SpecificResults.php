@@ -39,23 +39,26 @@ class Group implements JsonSerializable{
 
 class MyGroup implements JsonSerializable{
 
+    public $imagePath;
     public $name;
     public $members;
     public $groupID;
  
-     public function __construct($name,$memberCount,$groupID)
+     public function __construct($imagePath,$name,$memberCount,$groupID)
      {
-         $this->name=$name;
-         $this->memberCount=$memberCount;
-         $this->groupID=$groupID;
-         
+        $this->imagePath=$imagePath;
+        $this->name=$name;
+        $this->memberCount=$memberCount;
+        $this->groupID=$groupID;
+        
      }
  
      public function jsonSerialize(){
          return ['class'=>'mygroup', 'data'=>[
-             'name'=>$this->name,
-             'members'=>$this->memberCount,
-             'groupid'=>$this->groupID
+            'image'=>$this->imagePath,
+            'name'=>$this->name,
+            'members'=>$this->memberCount,
+            'groupid'=>$this->groupID
          ]
          ];
      }
@@ -63,20 +66,23 @@ class MyGroup implements JsonSerializable{
  }
  class Member implements JsonSerializable{
 
+    public $imagePath;
     public $first;
     public $last;
  
-     public function __construct($first,$last)
+     public function __construct($imagePath,$first,$last)
      {
-         $this->first=$first;
-         $this->last=$last;
+        $this->imagePath=$imagePath;
+        $this->first=$first;
+        $this->last=$last;
          
      }
  
      public function jsonSerialize(){
          return ['class'=>'members', 'data'=>[
-             'first'=>$this->first,
-             'last'=>$this->last
+            'image'=>$this->imagePath,
+            'first'=>$this->first,
+            'last'=>$this->last
          ]
          ];
      }
@@ -85,24 +91,27 @@ class MyGroup implements JsonSerializable{
 
  class Request implements JsonSerializable{
 
+    public $imagePath;
     public $name;
     public $first;
     public $last;
     public $userid;
     public $groupid;
  
-    public function __construct($name,$first,$last,$userid,$groupid)
-    {
-         $this->name=$name;
-         $this->first=$first;
-         $this->last=$last;
-         $this->userid=$userid;
-         $this->groupid=$groupid;
+    public function __construct($imagePath,$name,$first,$last,$userid,$groupid)
+    {   
+        $this->imagePath=$imagePath;
+        $this->name=$name;
+        $this->first=$first;
+        $this->last=$last;
+        $this->userid=$userid;
+        $this->groupid=$groupid;
          
     }
  
     public function jsonSerialize(){
         return ['class'=>'request', 'data'=>[
+            'image'=>$this->imagePath,
             'name'=>$this->name,
             'first'=>$this->first,
             'last'=>$this->last,
@@ -192,4 +201,81 @@ class MyGroup implements JsonSerializable{
 
  
  }
+
+ class Arrangement implements JsonSerializable{
+
+    public $imagePath;
+    public $where;
+    public $from;
+    public $to;
+    public $budget;
+    public $arrid;
+
+    public function __construct($imagePath,$where,$from,$to,$budget,$arrid)
+    {
+        $this->imagePath=$imagePath;
+        $this->where=$where;
+        $this->from=$from;
+        $this->to=$to;
+        $this->budget=$budget;
+        $this->arrid=$arrid;     
+    }
+
+    public function jsonSerialize(){
+        return ['class'=>'acceptedArr', 'data'=>[
+            'image'=>$this->imagePath,
+            'where'=>$this->where,
+            'from'=>$this->from,
+            'to'=>$this->to,
+            'budget'=>$this->budget,
+            'arrangementid'=>$this->arrid
+        ]
+        ];
+    }
+
+ 
+ }
+
+
+ class Paid implements JsonSerializable{
+
+    public $imagePath;
+    public $first;
+    public $last;
+    public $price;
+    public $paid;
+    public $arrid;
+    public $groupid;
+    public $userid;
+
+    public function __construct($imagePath,$first,$last,$price,$paid,$arrid,$groupid,$userid)
+    {
+        $this->imagePath=$imagePath;
+        $this->first=$first;
+        $this->last=$last;
+        $this->price=$price;
+        $this->paid=$paid;
+        $this->arrid=$arrid;
+        $this->groupid=$groupid;     
+        $this->usrid=$userid;     
+
+    }
+
+    public function jsonSerialize(){
+        return ['class'=>'acceptedArr', 'data'=>[
+            'image'=>$this->imagePath,
+            'first'=>$this->first,
+            'last'=>$this->last,
+            'price'=>$this->price,
+            'paid'=>$this->paid,
+            'arrangementid'=>$this->arrid,
+            'userid'=>$this->userid,
+            'groupid'=>$this->groupid
+        ]
+        ];
+    }
+
+ 
+ }
+
 ?>

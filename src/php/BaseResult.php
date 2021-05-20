@@ -19,7 +19,11 @@ abstract class BaseResult implements JsonSerializable{
     //process the Result polymorphically and return the array of derived class objects
     abstract function processResult();
 
-    abstract function jsonSerialize();
+    public function jsonSerialize(){
+        return[
+            'data'=>$this->result
+        ];
+    }
 }
 
 class GroupResult extends BaseResult{
@@ -65,12 +69,6 @@ class GroupResult extends BaseResult{
         return $this->result;
     }
 
-    public function jsonSerialize(){
-        return[
-            'data'=>$this->result
-        ];
-    }
-
 }
 
 
@@ -92,7 +90,7 @@ class MyGroupResult extends BaseResult{
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             $memCount=DB::getCountMembers($row['idgroup']);
-            $this->result[]=new MyGroup($row['name'],$memCount,$row['idgroup']);
+            $this->result[]=new MyGroup($row['image'],$row['name'],$memCount,$row['idgroup']);
         }
         
 
@@ -100,11 +98,6 @@ class MyGroupResult extends BaseResult{
         return $this->result;
     }
 
-    public function jsonSerialize(){
-        return[
-            'data'=>$this->result
-        ];
-    }
 
 }
 
@@ -125,8 +118,8 @@ class MembersResult extends BaseResult{
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             
-            //$this->result[]=new Member($row['first'],$row['last']);
-            $this->result[]=new Member("Elon","Musk");
+            //$this->result[]=new Member($row['image'],$row['first'],$row['last']);
+            //$this->result[]=new Member("Elon","Musk");
 
         }
         
@@ -135,11 +128,7 @@ class MembersResult extends BaseResult{
         return $this->result;
     }
 
-    public function jsonSerialize(){
-        return[
-            'data'=>$this->result
-        ];
-    }
+   
 
 }
 
@@ -161,8 +150,8 @@ class RequestResult extends BaseResult{
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             
-            //$this->result[]=new Request($row['name'],$row['first'],$row['last'],$user_id,$row['idgroup']);
-            $this->result[]=new Request("IOTA","Hans","Moog",$user_id,1);
+            //$this->result[]=new Request($row['image'],$row['name'],$row['first'],$row['last'],$user_id,$row['idgroup']);
+            //$this->result[]=new Request("IOTA","Hans","Moog",$user_id,1);
 
         }
         
@@ -171,11 +160,7 @@ class RequestResult extends BaseResult{
         return $this->result;
     }
 
-    public function jsonSerialize(){
-        return[
-            'data'=>$this->result
-        ];
-    }
+
 
 }
 
@@ -205,11 +190,6 @@ class WishResult extends BaseResult{
         return $this->result;
     }
 
-    public function jsonSerialize(){
-        return[
-            'data'=>$this->result
-        ];
-    }
 
 }
 
@@ -244,11 +224,65 @@ class AccepterArrResult extends BaseResult{
         return $this->result;
     }
 
-    public function jsonSerialize(){
-        return[
-            'data'=>$this->result
-        ];
-    }
 
 }
+
+class ArrangementResult extends BaseResult{
+
+    public function __construct($json_obj){
+        parent::__construct($json_obj);
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+                
+        $sql="SELECT * FROM arrangment innder join wish on arrangment.idwish=wish.idwish";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+
+            $this->result[]=new Arrangement($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idarrangment']);
+            //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
+        }
+        
+
+
+        return $this->result;
+    }
+
+    
+
+}
+
+class PaidResult extends BaseResult{
+
+    public function __construct($json_obj){
+        parent::__construct($json_obj);
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+        $group_id=$obj['groupId'];        
+        $sql="select * from (Select x.idgroup,x.iduser,x.idarragment,x.amount,user.first,user.last from (SELECT member.idgroup,member.iduser, paid.idarragment, paid.amount FROM member left join paid on member.iduser=paid.iduser and member.idgroup=paid.idgroup where member.idgroup={$group_id}) as x left join user on x.iduser=user.iduser) as y left join arrangment on arrangment.idarrangment=y.idarragment";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+
+            $this->result[]=new Paid($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idarrangment']);
+            //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
+        }
+        
+
+
+        return $this->result;
+    }
+
+    
+
+}
+
 ?>
