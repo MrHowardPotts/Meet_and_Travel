@@ -58,17 +58,7 @@ function addToPage(commonCreateObj){
 }
 
 
-//Depending on the 'class' of the JSON object that's received from the server does the specific append
-function polymorphicAppend(obj){
-    //obj=testData;
-    switch(obj['class']){
-        case "group":
-            appendElement(createGroupJSON(obj.data));
 
-            break;
-    }
-
-}
 
 //obj is the JSON representation of the element that's being created
 function appendElement(obj){
@@ -118,6 +108,32 @@ function appendElement(obj){
     addToPage(commonCreateObj);
 }
 
+//Depending on the 'class' of the JSON object that's received from the server does the specific append
+function polymorphicAppend(obj){
+    //obj=testData;
+    switch(obj['class']){
+        case "group":
+            appendElement(createGroupJSON(obj.data));
+            break;
+        case "mygroup":
+            appendElement(createMyGroupsJSON(obj.data));
+            break;
+        case "members":
+            appendElement(createMembersJSON(obj.data));
+            break;
+        case "request":
+            appendElement(createRequestsJSON(obj.data));
+            break;
+        case "wish":
+            appendElement(createWishesJSON(obj.data));
+            break;
+        case "acceptedArr":
+            appendElement(createAcceptedArrangementsJSON(obj.data));
+            break;
+    }
+
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Create_ResName_JSON IS THE ONLY THIS THAT HAS TO BE CREATED FOR EACH NEW RESULT REPRESENTATION AND TO ADD A CASE IN THE SWITCH STATEMENT!
@@ -139,6 +155,108 @@ return {
 };
 }
 
+function createArrangementsJSON(obj){ 
+    return {
+    'class':'trip',
+    'image':obj['image'],
+    'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
+    'button':[{
+        'class':['btn','btn-warning'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Accept'
+    }],//end button
+    'input':[obj['arrangmentid']] //groupID mora preko modala
+    };
+    }
+
+function createMyGroupsJSON(obj){ 
+    return {
+    'class':'group',
+    'image':obj['image'],
+    'p':[obj['name'],"members: "+obj['members']],
+    'button':[{
+        'class':['btn','btn-success'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Chat'
+    },{
+        'class':['btn','btn-warning'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Members'
+    },{
+    'class':['btn','btn-primary'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Arrangements'
+    }],//end button
+    'input':[obj['groupid']]
+    };
+    }
+
+function createMembersJSON(obj){ 
+    return {
+    'class':'name',
+    'image':obj['image'],
+    'p':[obj['first'],obj['last']],
+    'button':[],//end button
+    'input':[] //groupID mora preko modala
+    };
+    }
+function createRequestsJSON(obj){ 
+    return {
+    'class':'request',
+    'image':obj['image'],
+    'p':[obj['name'],obj['first'],obj['last']],
+    'button':[{
+        'class':['btn','btn-success'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Accept'
+    },{
+        'class':['btn','btn-danger'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Reject'
+    }],//end button
+    'input':[obj['groupid'],obj['userid']]
+    };
+    }
+function createPaidJSON(obj){ 
+    return {
+    'class':'pay',
+    'image':obj['image'],
+    'p':[obj['first'],obj['last'],"price: $"+obj['price'],"paid: $"+obj['paid']],
+    'button':[{
+        'class':['btn','btn-success'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Pay'
+    }],//end button
+    'input':[obj['groupid'],obj['arrangmentid']]
+    };
+    }
+
+function createWishesJSON(obj){ 
+    return {
+    'class':'trip',
+    'image':obj['image'],
+    'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget']],
+    'button':[{
+        'class':['btn','btn-success'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Search'
+    }],//end button
+    'input':[obj['wishid']]
+    };
+    }
+function createAcceptedArrangementsJSON(obj){ 
+    return {
+    'class':'trip',
+    'image':obj['image'],
+    'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
+    'button':[{
+        'class':['btn','btn-warning'],
+        'onclick':'x()',//function for the onclick event
+        'text':'Check Paid'
+    }],//end button
+    'input':[obj['groupid'],obj['arrangementid']]
+    };
+    }
 //JSON object that's received from the server 
 /*
 {
@@ -175,17 +293,10 @@ function sendResult(json_obj){
         }
       }
     }
-    // json_obj={
-
-    //     'class':'group',
-    //     'imagePath':'php/images/1620843858relayfinal.png',
-    //     'where':'Belgrade',
-    //     'from':'20-01-2021',
-    //     'to':'22-01-2021',
-    //     'budget':500,
-    //     'members':69,
-    //     'groupId':1
-    // }
+    json_obj={
+        'class':'acceptedArr',
+        'groupId':1
+    }
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
     xhr.send(json_obj); // sending formData to php
@@ -205,3 +316,48 @@ function sendResult(json_obj){
         polymorphicAppend(obj.data[i]);
     }
   }
+
+
+
+/*
+groups
+json_obj={
+
+        'class':'group',
+        'imagePath':'php/images/1620843858relayfinal.png',
+        'where':'Belgrade',
+        'from':'2021-01-20',
+        'to':'2021-01-22',
+        'budget':500,
+        'members':69,
+        'groupId':1
+    }
+
+myGroups
+json_obj={
+    'class':'mygroup'
+}
+
+Members
+json_obj={
+    'class':'members',
+    'groupId':1
+}
+
+Request
+json_obj={
+    'class':'request',
+    'groupId':1,
+}
+
+Request
+json_obj={
+    'class':'wish'
+}
+
+AcceptedArrangement
+json_obj={
+    'class':'acceptedArr',
+    'groupId':1
+}
+*/

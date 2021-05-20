@@ -74,4 +74,181 @@ class GroupResult extends BaseResult{
 }
 
 
+class MyGroupResult extends BaseResult{
+
+    private $user_id;
+    public function __construct($json_obj,$user_id){
+        parent::__construct($json_obj);
+        $this->user_id=$user_id;
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+        $user_id=$this->user_id;
+        $sql="select * from meetandtravel.group where idleader={$user_id}";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+            $memCount=DB::getCountMembers($row['idgroup']);
+            $this->result[]=new MyGroup($row['name'],$memCount,$row['idgroup']);
+        }
+        
+
+
+        return $this->result;
+    }
+
+    public function jsonSerialize(){
+        return[
+            'data'=>$this->result
+        ];
+    }
+
+}
+
+class MembersResult extends BaseResult{
+
+    public function __construct($json_obj){
+        parent::__construct($json_obj);
+        
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+        $group_id=$obj['groupId'];
+        $sql="SELECT * FROM member inner join user on member.iduser=user.iduser where member.idgroup={$group_id}";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+            
+            //$this->result[]=new Member($row['first'],$row['last']);
+            $this->result[]=new Member("Elon","Musk");
+
+        }
+        
+
+
+        return $this->result;
+    }
+
+    public function jsonSerialize(){
+        return[
+            'data'=>$this->result
+        ];
+    }
+
+}
+
+class RequestResult extends BaseResult{
+    private $user_id;
+    public function __construct($json_obj,$user_id){
+        parent::__construct($json_obj);
+        $this->user_id=$user_id;
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+        $group_id=$obj['groupId'];
+        $user_id=$this->user_id;
+        $sql="SELECT * FROM request inner join user on request.iduser=user.iduser where request.idgroup={$group_id}";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+            
+            //$this->result[]=new Request($row['name'],$row['first'],$row['last'],$user_id,$row['idgroup']);
+            $this->result[]=new Request("IOTA","Hans","Moog",$user_id,1);
+
+        }
+        
+
+
+        return $this->result;
+    }
+
+    public function jsonSerialize(){
+        return[
+            'data'=>$this->result
+        ];
+    }
+
+}
+
+class WishResult extends BaseResult{
+    private $user_id;
+    public function __construct($json_obj,$user_id){
+        parent::__construct($json_obj);
+        $this->user_id=$user_id;
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+        $user_id=$this->user_id;
+        $sql="SELECT * FROM wish where iduser={$user_id}";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+            
+            // $this->result[]=new MyWishes($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idwish']);
+            $this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
+        }
+        
+
+
+        return $this->result;
+    }
+
+    public function jsonSerialize(){
+        return[
+            'data'=>$this->result
+        ];
+    }
+
+}
+
+class AccepterArrResult extends BaseResult{
+    private $user_id;
+    public function __construct($json_obj,$user_id){
+        parent::__construct($json_obj);
+        $this->user_id=$user_id;
+    }
+
+    
+
+    public function processResult(){
+        
+        $obj=$this->json_obj;
+        $user_id=$this->user_id;
+        $group_id=$obj['groupId'];
+        $sql="SELECT * FROM accepted_arrangment where idgroup={$group_id}";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+            //za svaki idArr -> wish
+            $arrid=$row['idarrangment'];
+            $sql2="select * from wish inner join arrangment on wish.idwish=arrangment.idwish where arrangment.idarrangment={$arrid}";
+            $wish=DB::getRows($sql2)[0];
+            $memCount=0; //getMemCount!!!!!!!!!!!
+            $this->result[]=new AcceptedArr($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$memCount,$group_id,$arrid);
+            //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
+        }
+        
+
+
+        return $this->result;
+    }
+
+    public function jsonSerialize(){
+        return[
+            'data'=>$this->result
+        ];
+    }
+
+}
 ?>
