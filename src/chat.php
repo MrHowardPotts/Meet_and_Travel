@@ -61,12 +61,13 @@
                         require_once "DB.php";
                         $rows=DB::getRows("SELECT * FROM user WHERE iduser = {$_SESSION['unique_id']}");
                         if(count($rows)==1){
-                          $row = $rows[0];
+                          $row = $rows[0];                        
+                          $imagePATH = "./php" . substr($row['image'], 1);
                         }
                       ?>
                       <div class="content">
                         <!-- Ovde moramo da dodamo putanju do image-a -->
-                        <img src="php/images/1620843858relayfinal.png" alt=""><!--You need to change permission to read/write-->
+                        <img src=<?= $imagePATH ?> alt=""><!--You need to change permission to read/write-->
                         <div class="details">
                           <span><?php echo $row['username'];?></span>
                           
