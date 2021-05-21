@@ -6,7 +6,7 @@
 
   //todo
   //Ovo modifikujemo!
-  $sql = "SELECT * FROM member INNER JOIN meetandtravel.group where member.iduser={$user_id}";
+  $sql = "SELECT * FROM member INNER JOIN groups where member.iduser={$user_id}";
   
   $rows=DB::getRows($sql);
   $output = "";

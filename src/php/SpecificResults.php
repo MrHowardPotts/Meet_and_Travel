@@ -222,7 +222,7 @@ class MyGroup implements JsonSerializable{
     }
 
     public function jsonSerialize(){
-        return ['class'=>'acceptedArr', 'data'=>[
+        return ['class'=>'arr', 'data'=>[
             'image'=>$this->imagePath,
             'where'=>$this->where,
             'from'=>$this->from,
@@ -257,12 +257,12 @@ class MyGroup implements JsonSerializable{
         $this->paid=$paid;
         $this->arrid=$arrid;
         $this->groupid=$groupid;     
-        $this->usrid=$userid;     
+        $this->userid=$userid;     
 
     }
 
     public function jsonSerialize(){
-        return ['class'=>'acceptedArr', 'data'=>[
+        return ['class'=>'paid', 'data'=>[
             'image'=>$this->imagePath,
             'first'=>$this->first,
             'last'=>$this->last,

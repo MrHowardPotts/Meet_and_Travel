@@ -55,9 +55,19 @@ class GroupResult extends BaseResult{
     public function processResult(){
         
         $obj=$this->json_obj;
+        if(isset($obj['idwish'])){
+            $idwish=$obj['idwish'];
+            $row=DB::getRows("select * from wish where idwish={$idwish}")[0];
+            $ele=['where'=>$row['location'],
+                    'from'=>$row['from'],
+                    'to'=>$row['to'],
+                    'budget'=>$row['budget']    
+        ];
+        $obj=array_merge($obj,$ele);
+        }
         $coor=$this->getCoordinates($obj['where']);
         //$res=Engine::execute(new Wish($coor['long'],$coor['lat'],$obj['where'],$obj['budget'],$obj['from'],$obj['to']));
-        $res=Engine::executeGroup(new Group($obj['imagePath'],$obj['where'],$obj['from'],$obj['to'],$obj['budget'],$obj['members'],$obj['groupId'])
+        $res=Engine::executeGroup(new Group("",$obj['where'],$obj['from'],$obj['to'],$obj['budget'],-1,-1)
         ,$coor['long'],$coor['lat']);
 
         $this->result=$res;
@@ -86,7 +96,7 @@ class MyGroupResult extends BaseResult{
         
         $obj=$this->json_obj;
         $user_id=$this->user_id;
-        $sql="select * from meetandtravel.group where idleader={$user_id}";
+        $sql="select * from groups where idleader={$user_id}";
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             $memCount=DB::getCountMembers($row['idgroup']);
@@ -118,7 +128,7 @@ class MembersResult extends BaseResult{
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             
-            //$this->result[]=new Member($row['image'],$row['first'],$row['last']);
+            $this->result[]=new Member($row['image'],$row['firstname'],$row['lastname']);
             //$this->result[]=new Member("Elon","Musk");
 
         }
@@ -145,12 +155,12 @@ class RequestResult extends BaseResult{
         
         $obj=$this->json_obj;
         $group_id=$obj['groupId'];
-        $user_id=$this->user_id;
-        $sql="SELECT * FROM request inner join user on request.iduser=user.iduser where request.idgroup={$group_id}";
+        //$user_id=$this->user_id; ne misli se na njegov userID nego na ID usera kojeg treba da prihvatimo
+        $sql="select * from (SELECT r.idgroup,r.iduser,user.image,user.firstname,user.lastname FROM request as r inner join user on r.iduser=user.iduser where r.idgroup={$group_id})as x inner join groups on x.idgroup=groups.idgroup";
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             
-            //$this->result[]=new Request($row['image'],$row['name'],$row['first'],$row['last'],$user_id,$row['idgroup']);
+            $this->result[]=new Request($row['image'],$row['name'],$row['firstname'],$row['lastname'],$row['iduser'],$row['idgroup']);
             //$this->result[]=new Request("IOTA","Hans","Moog",$user_id,1);
 
         }
@@ -181,8 +191,8 @@ class WishResult extends BaseResult{
         $rows=DB::getRows($sql);
         foreach($rows as $row){
             
-            // $this->result[]=new MyWishes($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idwish']);
-            $this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
+            $this->result[]=new MyWishes($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idwish']);
+            //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
         }
         
 
@@ -207,15 +217,12 @@ class AccepterArrResult extends BaseResult{
         $obj=$this->json_obj;
         $user_id=$this->user_id;
         $group_id=$obj['groupId'];
-        $sql="SELECT * FROM accepted_arrangment where idgroup={$group_id}";
+        $sql="SELECT aa.idgroup,aa.idarrangement,a.image,a.from,a.to,a.location,a.price FROM accepted_arrangement as aa inner join arrangement as a on aa.idarrangement=a.idarrangement where idgroup={$group_id}";
         $rows=DB::getRows($sql);
         foreach($rows as $row){
-            //za svaki idArr -> wish
-            $arrid=$row['idarrangment'];
-            $sql2="select * from wish inner join arrangment on wish.idwish=arrangment.idwish where arrangment.idarrangment={$arrid}";
-            $wish=DB::getRows($sql2)[0];
-            $memCount=0; //getMemCount!!!!!!!!!!!
-            $this->result[]=new AcceptedArr($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$memCount,$group_id,$arrid);
+            $memCount=DB::getCountMembers($group_id);
+
+            $this->result[]=new AcceptedArr($row['image'],$row['location'],$row['from'],$row['to'],$row['price'],$memCount,$group_id,$row['idarrangement']);
             //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
         }
         
@@ -239,11 +246,11 @@ class ArrangementResult extends BaseResult{
         
         $obj=$this->json_obj;
                 
-        $sql="SELECT * FROM arrangment innder join wish on arrangment.idwish=wish.idwish";
+        $sql="SELECT * FROM arrangement";
         $rows=DB::getRows($sql);
         foreach($rows as $row){
 
-            $this->result[]=new Arrangement($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idarrangment']);
+            $this->result[]=new Arrangement($row['image'],$row['location'],$row['from'],$row['to'],$row['price'],$row['idarrangement']);
             //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
         }
         
@@ -262,19 +269,32 @@ class PaidResult extends BaseResult{
         parent::__construct($json_obj);
     }
 
-    
+    //this will process all members who have paid
+    private function processPaid($obj){
+        $group_id=$obj['groupId'];     
+        $arr_id=$obj['arrangementId'];   
+        $sql="Select z.idgroup,z.iduser,z.image,z.firstname,z.lastname,z.idarrangement,z.price,p.amount 
+        from (select y.idgroup,y.iduser,y.image,y.firstname,y.lastname,y.idarrangement,a.price 
+        from (SELECT  x.idgroup,x.iduser,x.image,x.firstname,x.lastname,aa.idarrangement 
+        from 
+        (select m.idgroup,m.iduser,u.image,u.firstname,u.lastname 
+        from member as m inner join user as u on m.iduser=u.iduser where m.idgroup={$group_id}) as x 
+        inner join accepted_arrangement as aa on x.idgroup=aa.idgroup where aa.idarrangement={$arr_id} ) as y INNER join arrangement a on y.idarrangement=a.idarrangement) as z left join paid as p on z.idgroup=p.idgroup AND
+        z.iduser=p.iduser and z.idarrangement=p.idarrangement";
+        $rows=DB::getRows($sql);
+        foreach($rows as $row){
+            $paid=$row['amount'];
+            if($paid==null)$paid=0;
+            $this->result[]=new Paid($row['image'],$row['firstname'],$row['lastname'],$row['price'],$paid,$row['idarrangement'],
+        $row['idgroup'],$row['iduser']);
+            //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
+        }
+    }
 
     public function processResult(){
         
         $obj=$this->json_obj;
-        $group_id=$obj['groupId'];        
-        $sql="select * from (Select x.idgroup,x.iduser,x.idarragment,x.amount,user.first,user.last from (SELECT member.idgroup,member.iduser, paid.idarragment, paid.amount FROM member left join paid on member.iduser=paid.iduser and member.idgroup=paid.idgroup where member.idgroup={$group_id}) as x left join user on x.iduser=user.iduser) as y left join arrangment on arrangment.idarrangment=y.idarragment";
-        $rows=DB::getRows($sql);
-        foreach($rows as $row){
-
-            $this->result[]=new Paid($row['image'],$row['location'],$row['from'],$row['to'],$row['budget'],$row['idarrangment']);
-            //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
-        }
+        $this->processPaid($obj);
         
 
 

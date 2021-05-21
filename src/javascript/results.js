@@ -301,9 +301,9 @@ function sendResult(json_obj){
       }
     }
     json_obj={
-        'class':'paid',
-        'groupId':1,
-        'arrangmentId':1
+
+        'class':'group',
+        'idwish':1
     }
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
@@ -332,14 +332,17 @@ groups
 json_obj={
 
         'class':'group',
-        'imagePath':'php/images/1620843858relayfinal.png',
+        'idwish':1
+    }
+    json_obj={
+
+        'class':'group',
         'where':'Belgrade',
         'from':'2021-01-20',
         'to':'2021-01-22',
-        'budget':500,
-        'members':69,
-        'groupId':1
+        'budget':500
     }
+
 
 myGroups
 json_obj={
@@ -358,7 +361,7 @@ json_obj={
     'groupId':1,
 }
 
-Request
+Wish
 json_obj={
     'class':'wish'
 }
@@ -378,6 +381,6 @@ Paid
 json_obj={
     'class':'paid',
     'groupId':1,
-    'arrangmentId':1
+    'arrangementId':1
 }
 */

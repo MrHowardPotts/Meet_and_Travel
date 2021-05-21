@@ -93,7 +93,7 @@
                           if(isset($_GET['group_id'])){
                             require_once "DB.php";
                             $group_id =$_GET['group_id']; 
-                            $rows=DB::getRows("SELECT * FROM meetandtravel.group WHERE idgroup = {$group_id}");
+                            $rows=DB::getRows("SELECT * FROM groups WHERE idgroup = {$group_id}");
                             if(count($rows)>0){
                               $row =$rows[0];
                             }
