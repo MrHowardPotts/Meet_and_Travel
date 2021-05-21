@@ -15,33 +15,9 @@
             <h2><img src="relayfinal.png" width="50px" height="50px"></h2>
             <div class="navigation">
               <!-- //////////////////////remove terminate/////////////////////////////////////////// -->
-              <a href="#" onclick="terminateListener()"> 
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>Home</a>
-              <a href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>About</a>
-              <a href="#">
-               <span></span>
-               <span></span>
-               <span></span>
-               <span></span>Info</a>
-              <a href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>Services</a>
-                <!-- todo -->
-                <!-- Bug when loging out -->
-              <a href="php/logout.php?logout_id=<?php echo $_SESSION['unique_id']?>" class="logout">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>Logout</a>
+              <?php
+              require("links.php");
+              ?>
             </div>
             <label for="check">
               <i class="fas fa-bars menu-btn"></i>

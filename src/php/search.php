@@ -5,7 +5,7 @@
   $user_id = $_SESSION['unique_id'];
   $searchTerm = $_POST['searchTerm'];
   $output = "";
-  $sql="SELECT * FROM member INNER JOIN groups where member.iduser={$user_id} AND (name LIKE '%{$searchTerm}%')";
+  $sql="SELECT * FROM member INNER JOIN groups on member.idgroup=groups.idgroup where member.iduser={$user_id} AND (groups.name LIKE '%{$searchTerm}%')";
   //$sql = mysqli_query($conn, "SELECT * FROM member WHERE NOT unique_id = {$outgoing_id} AND (username LIKE '%{$searchTerm}%')");
   $rows=DB::getRows($sql);
   if(count($rows) >0){

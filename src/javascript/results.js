@@ -12,6 +12,103 @@ function x(br){
     ff=new FormData(f);
 }
 
+//gets the hidden form for all dynamically created Buttons in Results
+function getButtonHiddenForm(){
+    button=window.event.target;
+    parent=button.parentElement;
+    forma=parent.getElementsByTagName('form')[0];
+    return forma;
+}
+
+//this function is called by the "Search" Button in Wish-Results 
+function onClickSearchWish(){
+    forma=getButtonHiddenForm();
+    idwish=forma[0].value;
+    json_obj={
+
+        'class':'group',
+        'idwish':idwish
+    }
+    sendResult(json_obj);
+}
+
+function onClickChatMyGroups(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    location.href="chat.php?group_id="+idgroup;
+
+}
+
+function onClickMembersMyGroups(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    json_obj={
+        'class':'members',
+        'groupId':idgroup
+    }
+    sendResult(json_obj);
+}
+
+function onClickTripsMyGroups(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    json_obj={
+        'class':'acceptedArr',
+        'groupId':idgroup
+    }
+    sendResult(json_obj);
+}
+
+function onClickRequestsMyGroups(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    json_obj={
+        'class':'request',
+        'groupId':idgroup
+    }
+    sendResult(json_obj);
+}
+
+function onClickCheckPaidAcceptedArrangement(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    idarrangement=forma[1].value;
+    json_obj={
+        'class':'paid',
+        'groupId':idgroup,
+        'arrangementId':idarrangement
+    }
+    sendResult(json_obj);
+}
+
+//this function can be used anywhere 
+function onClickLoadMyGroups(){
+    json_obj={
+        'class':'mygroup'
+    }
+    sendResult(json_obj);
+}
+//this function can be used anywhere
+function onClickLoadArrangments(){
+    json_obj={
+        'class':'arr'
+    }
+    sendResult(json_obj);
+}
+//this function can be used anywhere
+
+function onClickLoadWishes(){
+    json_obj={
+        'class':'wish'
+    }
+    sendResult(json_obj);
+}
+
+
+
+
+
+
 //This functions creates elements that are common for all creations
 //return - a JSON object that contains all the common elements that a specificCreate function will use to append specific elements 
 function commonCreate(){
@@ -32,11 +129,11 @@ function commonCreate(){
 
     //the div that will contain the body
     div2=document.createElement('div');
-    div2.classList.add('col-6');
+    div2.classList.add('col-5');
 
     //the div that will contain the buttons and the hidden form
     div3=document.createElement('div');
-    div3.classList.add('col-3');
+    div3.classList.add('col-4');
 
     return {'divPageRow':divPageRow,
             'divContainer':divContainer,
@@ -183,16 +280,20 @@ function createMyGroupsJSON(obj){
     'p':[obj['name'],"members: "+obj['members']],
     'button':[{
         'class':['btn','btn-success'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'onClickChatMyGroups()',//function for the onclick event
         'text':'Chat'
     },{
         'class':['btn','btn-warning'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'onClickMembersMyGroups()',//function for the onclick event
         'text':'Members'
     },{
     'class':['btn','btn-primary'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'onClickTripsMyGroups()',//function for the onclick event
         'text':'Trips'
+    },{
+        'class':['btn','btn-primary'],
+            'onclick':'onClickRequestsMyGroups()',//function for the onclick event
+            'text':'Requests'
     }],//end button
     'input':[obj['groupid']]
     };
@@ -245,7 +346,7 @@ function createWishesJSON(obj){
     'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget']],
     'button':[{
         'class':['btn','btn-success'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'onClickSearchWish()',//function for the onclick event
         'text':'Search'
     }],//end button
     'input':[obj['wishid']]
@@ -258,7 +359,7 @@ function createAcceptedArrangementsJSON(obj){
     'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
     'button':[{
         'class':['btn','btn-warning'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'onClickCheckPaidAcceptedArrangement()',//function for the onclick event
         'text':'Check Paid'
     }],//end button
     'input':[obj['groupid'],obj['arrangementid']]
@@ -300,9 +401,11 @@ function sendResult(json_obj){
         }
       }
     }
-    json_obj={
-        'class':'mygroup'
-    }
+    if(json_obj==undefined){
+        json_obj={
+            'class':'wish'
+            }
+        }   
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
     xhr.send(json_obj); // sending formData to php
@@ -326,7 +429,7 @@ function sendResult(json_obj){
 
 
 /*
-groups
+groups - matching engine
 json_obj={
 
         'class':'group',
@@ -342,12 +445,12 @@ json_obj={
     }
 
 
-myGroups
+myGroups - shows all my groups
 json_obj={
     'class':'mygroup'
 }
 
-Members
+Members - shows all members in given group
 json_obj={
     'class':'members',
     'groupId':1
