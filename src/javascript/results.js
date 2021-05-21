@@ -192,7 +192,7 @@ function createMyGroupsJSON(obj){
     },{
     'class':['btn','btn-primary'],
         'onclick':'x()',//function for the onclick event
-        'text':'Arrangements'
+        'text':'Trips'
     }],//end button
     'input':[obj['groupid']]
     };
@@ -301,9 +301,7 @@ function sendResult(json_obj){
       }
     }
     json_obj={
-
-        'class':'group',
-        'idwish':1
+        'class':'mygroup'
     }
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);

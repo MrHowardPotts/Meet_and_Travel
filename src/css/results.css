@@ -39,6 +39,7 @@ margin-top:5px;
     margin: 4px;
 }
 .result-container .trip button{
+    display: block;
     margin-top: 50px;
 }
 /* for MyGroups */
@@ -48,6 +49,7 @@ margin-top:5px;
     margin: 30px;
 }
 .result-container .group button{
+    display: block;
     margin-top: 10px;
 }
 /* Members in Group */
@@ -63,6 +65,7 @@ margin-top:5px;
     margin: 4px;
 }
 .result-container .pay button{
+    display: block;
     margin-top: 50px;
 }
 
@@ -72,5 +75,6 @@ margin-top:5px;
     margin: 7px;
 }
 .result-container .request button{
+    display: block;
     margin-top: 20px;
 }
