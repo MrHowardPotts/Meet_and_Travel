@@ -21,7 +21,7 @@ class Message implements JsonSerializable {
     {
         return [
             'idmessage'=>$this->idmessage,'idgroup'=>$this->idgroup,
-            'iduser'=>$this->iduser,'message'=>$this->message
+            'idsender'=>$this->iduser,'message'=>$this->message
         ];
     }
     

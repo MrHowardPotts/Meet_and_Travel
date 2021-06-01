@@ -29,5 +29,9 @@ class DB {
       $res=$conn->prepare($sql);
       $res->execute();
 }
+public static function getCountMembers($idgroup){
+  $sql="select count(idgroup) as c from member where idgroup={$idgroup}";
+  return DB::getRows($sql)[0][0];
+}
   }
 ?>
