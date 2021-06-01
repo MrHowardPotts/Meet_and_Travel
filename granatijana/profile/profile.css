@@ -1,0 +1,63 @@
+body{
+    
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background-image:url("background.png");
+  background-size: cover;
+  background-position: center;
+
+  
+}
+.container{
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 5%;
+    margin-bottom:5%;
+    width: 70%;
+    height: 70%;
+    
+}
+file{
+  margin-top:20px;
+}
+.text{
+    width: 80%;
+    padding: 10px 0px;
+    font-size: 16px;
+    color: #642274;
+    margin-top: 40px;
+    border: none;
+    border-bottom: 1px solid #642274;
+    outline: none;
+    background: transparent;
+  }
+  img{
+      border-radius: 12px;
+  }
+  .edit{
+   
+
+    border-radius:12px;
+    text-align: center;
+    padding: 10px;
+    background-color:  #c287a4;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-right: 10px;
+    cursor: pointer;
+  
+  }
+  .biography{
+      border: 3px solid #b8aabb;
+      margin-bottom: 150px;
+      margin-top: 10px;
+      width: 90%;
+      height: 70%;
+      border-radius: 10px;
+  }
+  .igr{
+    margin-left: -250px;
+  }
