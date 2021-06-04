@@ -37,18 +37,18 @@ $_SESSION['bio']=$bio;
 
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-7 order-sm-0 order-md-0 center">
+            <div class="col-xs-12 col-sm-12 col-md-6 order-sm-0 order-md-0 center">
                 <div> <img src="login.png" width="100%" height="100%" class="" id="profile_img" alt="login.png"> </div>
                 <div><input type="file" id="file" accept="image/jpg, image/jpeg, image/png" onchange="readURL(this);" disabled="true"></div>
             </div>
             
-            <div class="col-xs-12 col-sm-12 col-md-4 order-xs-2 order-sm-2 order-md-1" style = "float:left;">
+            <div class="col-xs-12 col-sm-12 col-md-4 order-xs-2 order-sm-1 order-md-1 offset-md-1" style = "float:left;">
                 <input type="text" class="text" id="first_name" name="first" value="<?php echo $_SESSION['first']??"";?>" readonly><br>
                 <input type="text" class="text" name="last" value="<?php echo $_SESSION['last']??"";?>" readonly><br>
                 <input type="text" id="username" class="text" name="user" value="<?php echo $_SESSION['user']??"";?>" readonly><br>    
                 <input type="text"class="text"  name="country" value="<?php echo $_SESSION['country']??"Country";?>" readonly><br>
             </div>
-            <div class="col-xs-6 col-sm-3 col-md-2 order-xs-4 order-sm-1 order-md-2 dugme">
+            <div class="col-xs-6 col-sm-3 col-md-1 order-xs-4 order-sm-2 order-md-2 dugme" style = "margin-right:10px;" >
                 <button id="editbut" class="edit">Edit</button>
             </div>
         </div>
