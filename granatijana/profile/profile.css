@@ -3,9 +3,14 @@ body{
   margin:0;
   padding:0;
   font-family: sans-serif;
-  background-image:url("background.png");
-  background-size: cover;
-  background-position: center;
+  background-image: linear-gradient(to top, #3a1c71, #642274, #862c75, #a33c75, #bc4f75, #cb5d75, #d86c75, #e47c76, #ec8876, #f49577, #faa278, #ffaf7b);
+  /* background-size: cover; */
+  /* background-size: auto; */
+  /* background-position: center; */
+  /* background-position:center center ; */
+    /* background-size:cover ; */
+    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
 
   
 }
@@ -33,7 +38,10 @@ file{
     background: transparent;
   }
   img{
-      border-radius: 12px;
+      border-radius: 50%;
+      object-fit: fill;
+      width: 400px;
+      height:  400px;
   }
   .edit{
    
