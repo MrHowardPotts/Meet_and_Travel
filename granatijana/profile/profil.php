@@ -4,6 +4,8 @@ session_start();
 $first="sec";
 //$string=metoda();
 //list($first,$last,$user,$country,$bio)= explode(",", $string);
+
+//TODO PROMENITI OVO
 $_SESSION['first']=$first;
 $_SESSION['last']=$first;
 $_SESSION['user']=$first;
@@ -35,11 +37,12 @@ $_SESSION['bio']=$bio;
 
         </div>
         <div class="row">
-            <div class="col-xs-10 col-sm-9 col-md-5 order-sm-0 order-md-0 center">
-                <img src="login.png" width="100%" height="100%" class="" id="profile_img" alt="login.png">
-                <input type="file" id="file" accept="image/jpg, image/jpeg, image/png" onchange="readURL(this);" disabled="true">
+            <div class="col-xs-12 col-sm-12 col-md-7 order-sm-0 order-md-0 center">
+                <div> <img src="login.png" width="100%" height="100%" class="" id="profile_img" alt="login.png"> </div>
+                <div><input type="file" id="file" accept="image/jpg, image/jpeg, image/png" onchange="readURL(this);" disabled="true"></div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-5 order-xs-2 order-sm-2 order-md-1">
+            
+            <div class="col-xs-12 col-sm-12 col-md-4 order-xs-2 order-sm-2 order-md-1" style = "float:left;">
                 <input type="text" class="text" id="first_name" name="first" value="<?php echo $_SESSION['first']??"";?>" readonly><br>
                 <input type="text" class="text" name="last" value="<?php echo $_SESSION['last']??"";?>" readonly><br>
                 <input type="text" id="username" class="text" name="user" value="<?php echo $_SESSION['user']??"";?>" readonly><br>    
