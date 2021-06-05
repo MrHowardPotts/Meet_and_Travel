@@ -1,6 +1,7 @@
 const form = document.querySelector(".signup form"),
 continueBtn = form.querySelector(".button a.submit"),
 errorText = form.querySelector(".errorMsg");
+
 const firstName = document.getElementById('fname');
 const lastName = document.getElementById('lname');
 const username = document.getElementById('username');

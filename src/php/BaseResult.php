@@ -249,7 +249,7 @@ class ArrangementResult extends BaseResult{
         $sql="SELECT * FROM arrangement";
         $rows=DB::getRows($sql);
         foreach($rows as $row){
-
+            
             $this->result[]=new Arrangement($row['image'],$row['location'],$row['from'],$row['to'],$row['price'],$row['idarrangement']);
             //$this->result[]=new MyWishes('php/images/1620843858relayfinal.png','Belgrade','2021-06-01','2021-07-12',325,1);
         }

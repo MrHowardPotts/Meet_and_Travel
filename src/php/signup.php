@@ -2,9 +2,6 @@
 //signUp backend part
   session_start();
   require_once "../DB.php";
-  //todo
-  //Parsiranje podataka
-
   
   $fname =  $_POST['fname'];
   $lname = $_POST['lname'];
@@ -12,12 +9,6 @@
   $email = $_POST['email'];
   $password = $_POST['password'];
   $confirm = $_POST['confirm'];
-
-  // echo "BTS";
-  // echo nl2br("You will find the \n newlines in this string \r\n on the browser window.");
-  // echo "ON";
-
-  
 
   $pictureName = $_FILES['picture']['name'];
 

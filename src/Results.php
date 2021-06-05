@@ -36,7 +36,7 @@
     </table>
     <script src="javascript/users.js"></script>
     <script src="javascript/chat.js"></script>
-   
-    
+    <script src="javascript/buttons.js"></script> 
+  
   </body>
 </html>
