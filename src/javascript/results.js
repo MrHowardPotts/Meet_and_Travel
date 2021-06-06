@@ -1,6 +1,7 @@
 
 
 function x(br){
+    $('#GroupID').modal();
     button=window.event.target;
     parent=button.parentElement;
     forma=parent.getElementsByTagName('form')[0];
@@ -182,6 +183,7 @@ function appendElement(obj){
     button.classList.add(...b['class']);
     //button.onclick=x;//= ////////////////////////
     button.setAttribute('onclick',b['onclick']);
+    if(b['data-toggle']!=undefined)button.setAttribute('data-toggle',b['data-toggle']);
     button.innerHTML=b['text'];
     commonCreateObj['div3'].appendChild(button);
     });
@@ -267,7 +269,8 @@ function createArrangementsJSON(obj){
     'button':[{
         'class':['btn','btn-warning'],
         'onclick':'x()',//function for the onclick event
-        'text':'Accept'
+        'text':'Accept',
+        'data-toggle':'modal'
     }],//end button
     'input':[obj['arrangmentid']] //groupID mora preko modala
     };
