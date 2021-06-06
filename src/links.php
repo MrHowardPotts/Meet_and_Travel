@@ -3,16 +3,13 @@
                 <span></span>
                 <span></span>
                 <span></span>Home</a>
-<<<<<<< HEAD
                 <a href="profil.php">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>Profile</a>
               <a href="#">
-=======
               <a href="Find.php">
->>>>>>> luka
                 <span></span>
                 <span></span>
                 <span></span>
