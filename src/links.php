@@ -18,6 +18,11 @@
                 <span></span>
                 <span></span>
                 <span></span>Arrangements</a>
+                <a href="newArrangement.php">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>Create Arrangement</a>
                 <a href="#" onclick="onClickLoadWishes()">
                 <span></span>
                 <span></span>
