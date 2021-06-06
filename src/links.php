@@ -8,7 +8,6 @@
                 <span></span>
                 <span></span>
                 <span></span>Profile</a>
-              <a href="#">
               <a href="Find.php">
                 <span></span>
                 <span></span>
