@@ -24,19 +24,16 @@
                 <span></span>
                 <span></span>
                 <span></span>Arrangements</a>
-<<<<<<< HEAD
                 <a href="chat.php" >
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>Chat</a>
-=======
                 <a href="newArrangement.php">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>Create Arrangement</a>
->>>>>>> luka
                 <a href="#" onclick="onClickLoadWishes()">
                 <span></span>
                 <span></span>
