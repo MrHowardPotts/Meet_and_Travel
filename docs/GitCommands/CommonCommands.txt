@@ -24,6 +24,8 @@ git pull --all // it's the same as git fetch --all + merge current branch
 
 git diff branch1..branch2 // difference between 2 branches
 git diff // difference between last commit and now
+git diff branch1:path_to_file branch2:path_to_file //shows the differences between two files 
+git diff oldCommit..newCommit -- **FileName.xml > ~/diff.txt // for all files named "FileName.xml" anywhere in the repo
 
 git merge -X theirs branch //uses the recursive strategy to merge branches and in case of conflicts it uses 'their' branch 
 

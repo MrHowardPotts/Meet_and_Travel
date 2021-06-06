@@ -1,6 +1,8 @@
 
+var shared_JSON_OBJ;
 
 function x(br){
+    $('#GroupID').modal();
     button=window.event.target;
     parent=button.parentElement;
     forma=parent.getElementsByTagName('form')[0];
@@ -84,21 +86,65 @@ function requestToJoin(){
 }
 
 function acceptArrangmentRequest(){
+    $('#GroupID').modal();
     forma=getButtonHiddenForm();
-    idgroup=forma[0].value;
+    let idarrangemnt=forma[0].value;
     json_obj={
         'class':'acceptArrangement',
-        'idgroup':idgroup
+        'idarrangemnt':idarrangemnt
     }
-    sendToQuery(json_obj);
+    shared_JSON_OBJ=json_obj;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST","php/getMyGroups.php",true);
+    xhr.send();
+    xhr.onload=()=>{
+        if(xhr.status==200){
+            let sada=xhr.response;
+            obj=JSON.parse(xhr.responseText);
+           for(let i=0;i<obj.length;i++){
+            $('#selectGroup').append("<option value="+obj[i]['id']+">"+obj[i]['name']+"</option>")
+           }
+        }else{
+            //niste leader ni u 1 grupi
+           $('#selectGroupHeader').html("Niste Leader!");
+
+        }
+    }
+    
+
+
+    //TODO preko modala uzeti group-id
+}
+//this one is called in the modal
+function acceptArrangmentRequest2(){
+    let group_id = document.getElementById("selectGroup").value;
+    shared_JSON_OBJ.idgroup=group_id;
+    sendToQuery(shared_JSON_OBJ);
 
     //TODO preko modala uzeti group-id
 }
 
 function payment(){
-    //TODO preko modala
-}
+    $('#PayID').modal();
+    forma=getButtonHiddenForm();
+    let idgroup=forma[0].value;
+    let idarrangement=forma[1].value;
+    let iduser=forma[2].value;
+    shared_JSON_OBJ={
+        'class':'pay',
+        'groupId':idgroup,
+        'idarrangement':idarrangement,
+        'iduser':iduser
+    }
 
+}
+//this is clicked in the modal
+function payment2(){
+    let value=document.getElementById("PayAmmount").value;
+    let amount =parseInt(value);
+    shared_JSON_OBJ.amount=amount;
+    sendToQuery(shared_JSON_OBJ);
+}
 
 
 function onClickMembersMyGroups(){
@@ -244,6 +290,7 @@ function appendElement(obj){
     button.classList.add(...b['class']);
     //button.onclick=x;//= ////////////////////////
     button.setAttribute('onclick',b['onclick']);
+    if(b['data-toggle']!=undefined)button.setAttribute('data-toggle',b['data-toggle']);
     button.innerHTML=b['text'];
     commonCreateObj['div3'].appendChild(button);
     });
@@ -331,9 +378,10 @@ function createArrangementsJSON(obj){
     'button':[{
         'class':['btn','btn-warning'],
         'onclick':'acceptArrangmentRequest()',//function for the onclick event
-        'text':'Accept'
+        'text':'Accept',
+        'data-toggle':'modal'
     }],//end button
-    'input':[obj['arrangmentid']] //groupID mora preko modala
+    'input':[obj['arrangementid']] //groupID mora preko modala
     };
     }
 
@@ -402,7 +450,7 @@ function createPaidJSON(obj){
         'onclick':'payment()',//function for the onclick event
         'text':'Pay'
     }],//end button
-    'input':[obj['groupid'],obj['arrangmentid'],obj['userid']] //the user for whom you're paying
+    'input':[obj['groupid'],obj['arrangementid'],obj['userid']] //the user for whom you're paying
     };
     }
 
@@ -475,6 +523,7 @@ function sendResult(json_obj){
         }   
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
+    localStorage.setItem('last_json',json_obj);
     xhr.send(json_obj); // sending formData to php
   }
   
@@ -486,11 +535,18 @@ function sendResult(json_obj){
   //imali bi druge probleme da idemo preko <a href> -> onda moramo GET i onda moramo to sto odradimo u PHP da stavimo u hidden element i da odatle procitamo sto je ok
   // moze i tako 
   function onLoad(){
-    obj=localStorage.getItem('obj');
-    obj=JSON.parse(obj);
-    for(i=0;i<obj.data.length;i++){
-        polymorphicAppend(obj.data[i]);
-    }
+        if(event.currentTarget.performance.navigation.type==1){
+            obj=localStorage.getItem('last_json');
+            obj=JSON.parse(obj);
+            sendResult(obj);
+        }
+        else{
+            obj=localStorage.getItem('obj');
+            obj=JSON.parse(obj);
+            for(i=0;i<obj.data.length;i++){
+                polymorphicAppend(obj.data[i]);
+            }
+        }
   }
 
 
