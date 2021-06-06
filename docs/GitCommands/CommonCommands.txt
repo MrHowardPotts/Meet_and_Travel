@@ -24,6 +24,8 @@ git pull --all // it's the same as git fetch --all + merge current branch
 
 git diff branch1..branch2 // difference between 2 branches
 git diff // difference between last commit and now
+git diff branch1:path_to_file branch2:path_to_file //shows the differences between two files 
+git diff oldCommit..newCommit -- **FileName.xml > ~/diff.txt // for all files named "FileName.xml" anywhere in the repo
 
 git merge -X theirs branch //uses the recursive strategy to merge branches and in case of conflicts it uses 'their' branch 
 
@@ -32,6 +34,9 @@ git merge --no-ff branch// this is what we want 99% of the time!
 
 sync with master full command:
 git checkout master && git pull && git checkout my_branch && git pull && git merge -X theirs --no-ff master
+
+First, press the Esc key a few times. This will ensure vi is out of Insert mode and in Command mode.
+Second, type :q! and press Enter. This tells vi to quit without saving any changes. (If you do want to save your changes, type :wq instead.)
 
 
 
@@ -63,3 +68,29 @@ git reflog // shows history? Shows even lost commits that are commited to detach
 git branch <name> commit //create a new branch from the given commit 
 
 
+//VERY USEFUL WHEN MULTIPLE PEOPLE ARE UPDATING A FEW FILES AND YOU WANT TO TEST THEM WITHOUT MERGEING!!!!
+
+# Check out "somefile.c" from branch `my_branch`
+git checkout my_branch -- somefile.c
+
+# Check out these 4 files from `my_branch`
+git checkout my_branch -- file1.h file1.cpp mydir/file2.h mydir/file2.cpp
+
+# Check out ALL files from my_branch which are in
+# directory "path/to/dir"
+git checkout my_branch -- path/to/dir
+
+
+A - Added (This is a new file that has been added to the repository)
+
+M - Modified (An existing file has been changed)
+
+D - Deleted (a file has been deleted)
+
+U - Untracked (The file is new or has been changed but has not been added to the repository yet)
+
+C - Conflict (There is a conflict in the file)
+
+R - Renamed (The file has been renamed)
+
+S - Submodule (In repository exists another subrepository)

@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <!-- <script src="Chat2.js"></script> -->
+        <script>
+            var worker=new Worker('./Thread.js');
+            worker.onmessage=function(e){
+                var messages=e.data;
+                for(i=0;i<messages.length;i++){
+                    console.log(messages[i].message);
+                }
+            }
+            worker.postMessage(null);
+function appendMessage(element,iduser,idsender,idgroup,message,imagepath){
+let div=document.createElement("div");
+div.classList.add("chat");
+
+if(iduser==idsender){
+div.classList.add("outcoming");
+}
+else{
+div.classList.add("incoming");
+let img=document.createElement("img");
+img.src=imagepath;
+div.appendChild(img);
+}
+let div2=document.createElement("div");
+div2.classList.add("details");
+let p=document.createElement("p");
+p.innerHTML=message;
+
+div.appendChild(div2);
+div2.appendChild(p);
+element.appendChild(div);
+}
+
+        </script>
+    </head>
+</html>
