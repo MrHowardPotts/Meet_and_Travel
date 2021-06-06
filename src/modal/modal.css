@@ -10,7 +10,7 @@
 .destination {
   position: relative;
 }
-.destination input {
+.destination input, .col-sm-3.col-md-3.col-lg-5.col-xl-4 input, .media input {
   width: 100%;
   padding: 10px 0;
   font-size: 12px;
@@ -21,7 +21,7 @@
   outline: none;
   background: transparent;
 }
-.destination label {
+.destination label, .col-sm-3.col-md-3.col-lg-5.col-xl-4 label, .media label{
   position: absolute;
   top:0;
   left: 0;
@@ -32,7 +32,11 @@
   transition: .5s;
 }
 .destination input:focus ~ label,
-.destination input:valid ~ label  {
+.destination input:valid ~ label,
+.media input:focus ~ label,
+.media input:valid ~ label,
+.col-sm-3.col-md-3.col-lg-5.col-xl-4 input:focus ~ label,
+.col-sm-3.col-md-3.col-lg-5.col-xl-4 input:valid ~ label{
   top: -20px;
   left: 0;
   color: #642274;
@@ -80,6 +84,8 @@
   color:white;
   background-color: #642274;
 }
-
+.col-sm-6, .col-md-6, .col-lg-6, .col-xl-6{
+  margin-top: 5px;
+}
 
 
