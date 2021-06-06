@@ -60,3 +60,52 @@ function saveWish(){
   json_obj=JSON.stringify(json_obj);
   xhr.send(json_obj);
 }
+function saveGroup(){
+  json_obj=collectData();
+  json_obj.imageWish='php/images/default.png';
+  json_obj.imageGroup='php/images/default.png';
+  let groupName=document.getElementById('groupName').value;
+  json_obj.groupName=groupName;
+
+  let xhr= new XMLHttpRequest();
+  xhr.open("POST","php/saveMyGroup.php",true);
+  xhr.setRequestHeader("Content-Type","application/json");
+  json_obj=JSON.stringify(json_obj);
+  xhr.send(json_obj);
+
+}
+
+//Arrangement 
+
+function onLoadArrangement(){
+  $('#ArrangementID').modal();
+}
+
+function collectDataArr(){
+  let where=document.getElementById('arrDestination').value;
+  let date=document.getElementById('arrDate').value;
+  let price=document.getElementById('arrPrice').value;
+  
+  date=parseDatee(date);
+  json_obj={
+  
+    'class':'arr',
+    'where':where,
+    'from':date['from'],
+    'to':date['to'],
+    'price':price
+  }
+  
+  return json_obj;
+  }
+
+  function saveArr(){
+    json_obj=collectDataArr();
+    json_obj.image='php/images/default.png';
+  
+    let xhr= new XMLHttpRequest();
+    xhr.open("POST","php/saveMyArrangement.php",true);
+    xhr.setRequestHeader("Content-Type","application/json");
+    json_obj=JSON.stringify(json_obj);
+    xhr.send(json_obj);
+  }

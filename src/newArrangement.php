@@ -6,7 +6,7 @@
 ?>
 
 <?php include_once "header.php";?>
-  <body onload="onLoadWish()" style="align-items: start;">
+  <body onload="onLoadArrangement()" style="align-items: start;">
    
   <table>
       <tr>
@@ -30,51 +30,39 @@
         <td>
             
 
-  <!-- Wish -->
-  <div class="container">
+        <div class="container">
     <!-- Modal -->
-    <div class="modal fade" id="WishID" role="dialog">
+    <div class="modal fade" id="ArrangementID" role="dialog">
       <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" align="center">Create Wish</h4>
+            <h4 class="modal-title" align="center">Create Arrangment</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             
           </div>
           <div class="modal-body">
             <div class="destination" style="margin-bot: 20px;">
-              <input id="groupWishPicture" type="file" name="pictureDest" required> 
+              <input id="arrImage" type="file" name="pictureDest" required> 
             </div>
             <div class="destination">
-              <input id="destination" type="text" name="destination" required="">
+              <input id="arrDestination" type="text" name="destination" required="">
               <label>Name of the place</label>
             </div>
             <div class="date">
               <p>Select date range:</p>
-              <input id="WishDate" type="text" name="daterange" required="" placeholder="Select date range:"> 
+              <input id="arrDate" type="text" name="daterange" required="" placeholder="Select date range:"> 
             </div>
             <div class="input-group destination">
-              <input id="groupBudget" type="text" style="width: 98%;"required="">
-            </div>
-            <div class="text-center" >
-              <button type="button" name="search" id="search" class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="searchWish()">Search</button> <!--If not found add to my wishes-->
-              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="saveWish()">Save to<br>my wishes</button>
-              <button type="button" name="group" id="group"class="btn btn-default" onclick="showGroupFileds()">Create<br>group</button>
+              <input id="arrPrice" type="text" style="width: 98%;"required="">
+              
             </div>
           </div>
           <div class="modal-footer">
-            <div id="groupPictureDiv" class="col-sm-3 col-md-3 col-lg-5 col-xl-4" hidden>
-              <input id="groupPicture" type="file" name="pictureGroup" required>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" align="center">
+            <button type="button" name="save" id="save"class="btn btn-default" onclick="saveArr()">Submit Arrangemnt</button>
             </div>
-            <div id="groupNameDiv" class="col-sm-3 col-md-3 col-lg-5 col-xl-4" hidden>
-              <input id="groupName" type="text" name="groupName" required>
-              <label>Group name</label>
-            </div>
-            <div id="groupSaveDiv" class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center" hidden>
-            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default" onclick="saveGroup()">Save</button>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" align="center">
               <button type="button" name="cancel" id="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </div>
