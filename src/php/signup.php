@@ -2,61 +2,118 @@
 //signUp backend part
   session_start();
   require_once "../DB.php";
-  //todo
-  //Parsiranje podataka
+  
   $fname =  $_POST['fname'];
   $lname = $_POST['lname'];
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
+  $confirm = $_POST['confirm'];
 
-  if(!empty($fname) && !empty($lname) && !empty($username) && !empty($password) && !empty($email)){
-    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-      $rows= DB::getRows("SELECT email FROM user WHERE email = '{$email}'");
-      if(count($rows)>0){
-        echo "$email - ALREADY EXISTS";
-      }else{
-        //Check if picture is inserted
-        if(isset($_FILES['picture'])){//if fiel is uploaded
-          $img_name = $_FILES['picture']['name'];//getting user uploaded img name
-          $tmp_name = $_FILES['picture']['tmp_name'];// used to save file
+  $pictureName = $_FILES['picture']['name'];
 
-          //exploding image for extension
-          $img_explode = explode('.', $img_name);
-          $img_ext = end($img_explode);
+  $errors = 0;
+  if($fname === '' || $fname == null){
+     echo"First name is required ";
+     $errors++;
+    }
+  if($lname === '' || $lname == null){
+     echo"Last name is required ";
+     $errors++;
+  }
+  if($username === '' || $username == null){
+     echo"Username is required ";
+     $errors++;
+    }
 
-          $extensions = ['png','jpeg','jpg'];
-          if(in_array($img_ext, $extensions) === true){
-            $time = time();
-            $new_img_name = $time.$img_name;
-            if(move_uploaded_file($tmp_name,"images/".$new_img_name)){
-              $status = "Active now";
-              $random_id = rand(time(), 10000000);
+  if($email === '' || $email == null){
+     echo"Email is required ";
+     $errors++;
+  }
+  if($password === '' || $password == null){
+     echo"Password is required ";
+     $errors++;
+  }
 
-              $sql2= mysqli_query($conn, "INSERT INTO `users` (unique_id, fname, lname, username, email, password, picture, status)
-                                          VALUES ({$random_id}, '{$fname}', '{$lname}', '{$username}', '{$email}', '{$password}', '{$new_img_name}', '{$status}')");
-              if($sql2){
-                $sql3 = mysqli_query($conn, "SELECT * FROM users WHERE email = '{$email}'");
-                if(mysqli_num_rows($sql3)>0){
-                  $row = mysqli_fetch_assoc($sql3);
-                  $_SESSION['unique_id'] = $row['unique_id'];
-                  echo "success";
-                }
-              }else{
-                echo "Something went wrong";
-              }
-            };//We save picture in some folder in DB we save its URL
-          }else{
-            echo "UPLOAD IMAGE FILE";
+  if(!filter_var($email, FILTER_VALIDATE_EMAIL)) echo "Please enter a valid email ";
+    else {
+        if(count(DB::getRows("SELECT email FROM user WHERE email = '{$email}'")) > 0){
+          echo "This email address is already in use for another account, please enter different one";
+          $errors++;
+        }
+    }
+    if(count(DB::getRows("SELECT * FROM user WHERE username = '{$username}'")) > 0){
+      echo "That username is already in use ";
+      $errors++;
+    }
+  if((preg_match('/[0-9]/', $fname))){
+      echo "First name cannot contain numbers ";
+      $errors++;
+  }
+  if((preg_match('/[0-9]/', $lname))){
+     echo "Last name cannot contain numbers ";
+     $errors++;
+  }
+  if(strlen($password) <= 6) {
+    echo "Password must be longer than 6 characters ";
+    $errors++;
+  }
+  if(strlen($password) >= 25){
+    echo "Password must be less than 25 characters ";
+    $errors++;
+  }
+  if(!preg_match('/[0-9]/',$password)){
+    echo "Password must contain atleast one number ";
+    $errors++;
+  }
+  if(!preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $password)){
+    echo "Password must contain at least one special character ";
+    $errors++;
+  }
+  if($password !== $confirm){
+    echo "Passwords do not match";
+    $errors++;
+  }
+  $mime = array('image/gif' => 'gif',
+                  'image/jpeg' => 'jpeg',
+                  'image/png' => 'png',
+                  'application/x-shockwave-flash' => 'swf',
+                  'image/psd' => 'psd',
+                  'image/bmp' => 'bmp',
+                  'image/tiff' => 'tiff',
+                  'image/tiff' => 'tiff',
+                  'image/jp2' => 'jp2',
+                  'image/iff' => 'iff',
+                  'image/vnd.wap.wbmp' => 'bmp',
+                  'image/xbm' => 'xbm',
+                  'image/vnd.microsoft.icon' => 'ico');
+
+  $image_extensions_allowed = array('jpg', 'jpeg', 'png', 'gif','bmp','JPG', 'JPEG', 'PNG', 'GIF','BMP');
+
+  
+  if(isset($_FILES['picture'])){
+      if($_FILES['picture']['error'] == 0){
+        $img_explode = explode('.', $pictureName);
+        $pictureExtension = end($img_explode);
+        $boolExtension = false;
+        foreach($image_extensions_allowed as $ext){
+          if ($ext == $pictureExtension) $boolExtension = true;
+        }
+        if($boolExtension == true){//dozvoljena extenzija slike
+          $dir = './images';
+          $filename =  + strval(time()) . '.' .$pictureExtension;
+          $newfile = $dir . '/' . $filename;
+          if(move_uploaded_file($_FILES['picture']['tmp_name'],$newfile)){
+            if($errors == 0){
+              $sql = "INSERT INTO `user` (firstname, lastname, username, password, email, image, type)
+                      VALUES ('{$fname}', '{$lname}', '{$username}', '{$password}', '{$email}', '{$newfile}', 'user')";
+              DB::Execute($sql);
+              $row = DB::getRows("SELECT * FROM user WHERE email = '{$email}'")[0];
+              $_SESSION['unique_id'] = $row['iduser'];
+              echo "success";
+            }
           }
-        }else{
-          echo "ENTER IMAGE FILE";
         }
       }
-    }else{
-      echo "$email - This is not a valid email";
     }
-  }else{
-    echo "ALL INPUT FILES ARE REQUIRED";
-  }
 ?>

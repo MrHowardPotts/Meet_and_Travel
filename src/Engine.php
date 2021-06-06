@@ -6,43 +6,43 @@ require_once("php/SpecificResults.php");
 // mozda da promenimo ovo u Requirement
 class Wish{
 
-public int $groupId;
+public  $groupId;
 
 //Latitude - geografska visina
-public float $y;
+public  $y;
 
 public $image;
 public $memCount;
 //Longitude - geografska sirina
-public float $x;
+public  $x;
 
 //budget for the trip
-public float $budget;
+public  $budget;
 
 //date from in format "YYYY-MM-DD"
-public string $from;
+public  $from;
 
 //date to in format "YYYY-MM-DD"
-public string $to;
+public  $to;
 
 //name of the city
-public string $name; 
+public  $name; 
 //result after call to Engine::DistanceCity()
-private float $dist=0;
+private  $dist=0;
 
 //result after call to Engine::Gaus() for the city
-private float $gaus_res_city=0;
+private  $gaus_res_city=0;
 
 //result after call to Engine::Gaus() for the budget
-private float $gaus_res_budget=0;
+private  $gaus_res_budget=0;
 
 //result after call to Engine::Gaus() for the date 
-private float $gaus_res_date=0;
+private  $gaus_res_date=0;
 
-public float $final_res;
+public  $final_res;
 
 
-public function __construct(float $visina,float $sirina,string $naizv,float $budget,string $from,string $to,$groupid,$image,$memCount){
+public function __construct( $visina, $sirina, $naizv, $budget, $from, $to,$groupid,$image,$memCount){
     $this->y=$visina;
     $this->x=$sirina;
     $this->name=$naizv;
@@ -60,19 +60,19 @@ public static function cmp(Wish $a,Wish $b){
     return ($a->final_res>$b->final_res)?-1:1;
 }
 
-public function getDist():float {return $this->dist;}
+public function getDist() {return $this->dist;}
 
 public function setDist($dist){$this->dist=$dist;}
 
-public function getGausResCity():float {return $this->gaus_res_city;}
+public function getGausResCity() {return $this->gaus_res_city;}
 
 public function setGausResCity($rez){$this->gaus_res_city=$rez;}
 
-public function getGausResBudget():float {return $this->gaus_res_budget;}
+public function getGausResBudget() {return $this->gaus_res_budget;}
 
 public function setGausResBudget($rez){$this->gaus_res_budget=$rez;}
 
-public function getGausResDate():float {return $this->gaus_res_date;}
+public function getGausResDate() {return $this->gaus_res_date;}
 
 public function setGausResDate($rez){$this->gaus_res_date=$rez;}
 
@@ -107,12 +107,12 @@ class Engine{
     }
 
     //returns the absolute difference between 2 dates in the "YYYY-MM-DD" format
-    public static function disntaceDate(string $d1,string $d2){
+    public static function disntaceDate( $d1, $d2){
         
         // ovo naravno nije tacno ali priblizno jeste :D
         $days=array(365,30,1);
         
-        // splits the string into an array of YYYY,MM,DD
+        // splits the  into an array of YYYY,MM,DD
         $str1_array=explode("-",$d1);
         $str2_array=explode("-",$d2);
 
@@ -120,18 +120,18 @@ class Engine{
         $total_days1=0;
         $total_days2=0;
         for($i=0;$i<count($str1_array);$i++){
-            $total_days1+=((int)$days[$i])*((int)$str1_array[$i]);
-            $total_days2+=((int)$days[$i])*((int)$str2_array[$i]);
+            $total_days1+=($days[$i])*($str1_array[$i]);
+            $total_days2+=($days[$i])*($str2_array[$i]);
 
         }
         return abs($total_days1-$total_days2);
 
     }
     //Return the % difference between the 2 budgets
-    public static function distanceBudget(float $budget1,float $budget2){
+    public static function distanceBudget( $budget1, $budget2){
         $max=$budget1>$budget2?$budget1:$budget2;
         $min=$budget1<$budget2?$budget1:$budget2;
-        $rez= 1-(float)$min/$max;
+        $rez= 1-($min/$max);
         return $rez;
     }
 

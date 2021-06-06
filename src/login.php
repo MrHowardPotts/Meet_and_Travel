@@ -11,7 +11,7 @@
     <section class="form signup">
       <h2><img src="relayfinal.png" width="150px" height="150px"></h2>
       <form action="#">
-        <div class="errorMsg"></div>
+        <div id="error" class="errorMsg"></div>
         <div class="user-box">
           <input type="text" name="username" required="">
           <label>Username</label>

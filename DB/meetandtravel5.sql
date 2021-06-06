@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 16, 2021 at 03:33 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: May 20, 2021 at 06:37 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `meetandtravel`
 --
-
 CREATE DATABASE IF NOT EXISTS `meetandtravel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `meetandtravel`;
 
@@ -41,7 +40,12 @@ CREATE TABLE `accepted_arrangment` (
 --
 
 INSERT INTO `accepted_arrangment` (`idgroup`, `idarrangment`) VALUES
-(1, 1);
+(1, 1),
+(3, 5),
+(4, 2),
+(5, 6),
+(6, 4),
+(7, 3);
 
 -- --------------------------------------------------------
 
@@ -60,7 +64,12 @@ CREATE TABLE `arrangment` (
 --
 
 INSERT INTO `arrangment` (`idarrangment`, `idagecy`) VALUES
-(1, 3);
+(1, 3),
+(2, 11),
+(3, 12),
+(4, 12),
+(5, 12),
+(6, 12);
 
 -- --------------------------------------------------------
 
@@ -26426,16 +26435,22 @@ DROP TABLE IF EXISTS `group`;
 CREATE TABLE `group` (
   `idgroup` int(11) NOT NULL,
   `idleader` int(11) NOT NULL,
-  `idwish` int(11) NOT NULL
+  `idwish` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `group`
 --
 
-INSERT INTO `group` (`idgroup`, `idleader`, `idwish`) VALUES
-(1, 1, 4),
-(2, 2, 2);
+INSERT INTO `group` (`idgroup`, `idleader`, `idwish`, `name`) VALUES
+(1, 1, 4, 'GrupaA'),
+(2, 2, 2, 'GrupaB'),
+(3, 4, 6, 'GrupaC'),
+(4, 5, 5, 'GroupD'),
+(5, 8, 8, 'GroupG'),
+(6, 8, 9, 'GroupF'),
+(7, 6, 8, 'GroupE');
 
 -- --------------------------------------------------------
 
@@ -26455,7 +26470,15 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`idgroup`, `iduser`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(1, 3),
+(4, 5),
+(4, 8),
+(5, 8),
+(6, 8),
+(6, 10),
+(7, 6),
+(7, 9);
 
 -- --------------------------------------------------------
 
@@ -26479,12 +26502,19 @@ INSERT INTO `message` (`idmessage`, `idgroup`, `idsender`, `message`) VALUES
 (1, 1, 2, 'Necemo u Kinu! Idemo u Portugal!'),
 (2, 1, 1, 'Portugal'),
 (3, 1, 1, 'Tivat'),
-(4, 1, 1, 'a'),
-(5, 1, 1, 'b'),
-(6, 1, 1, 'v'),
-(7, 1, 1, 'c'),
-(8, 1, 1, 's'),
-(9, 1, 1, 'luka');
+(17, 1, 1, 'Malta'),
+(18, 1, 1, 'Ili A ili B'),
+(19, 1, 1, 'Nije Lose hmm '),
+(20, 1, 1, 'izgleda da radi'),
+(21, 1, 1, 'helloo'),
+(22, 1, 1, 'Mi smo neradnici hahahahah '),
+(23, 1, 2, 'Radi!'),
+(24, 1, 1, 'hmm'),
+(25, 1, 1, 'lllll'),
+(26, 1, 2, '79879879797'),
+(27, 1, 1, 'aaa'),
+(28, 1, 2, 'bbb'),
+(29, 1, 3, 'ccc');
 
 -- --------------------------------------------------------
 
@@ -26505,7 +26535,13 @@ CREATE TABLE `paid` (
 --
 
 INSERT INTO `paid` (`idgroup`, `iduser`, `idarragment`, `amount`) VALUES
-(1, 1, 1, 100);
+(1, 1, 1, 100),
+(4, 5, 2, 200),
+(5, 8, 6, 300),
+(6, 8, 4, 250),
+(6, 10, 4, 250),
+(7, 6, 3, 200),
+(7, 9, 3, 200);
 
 -- --------------------------------------------------------
 
@@ -26516,17 +26552,25 @@ INSERT INTO `paid` (`idgroup`, `iduser`, `idarragment`, `amount`) VALUES
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile` (
   `iduser` int(11) NOT NULL,
-  `bio` varchar(256) CHARACTER SET armscii8 NOT NULL
+  `bio` varchar(256) CHARACTER SET armscii8 NOT NULL,
+  `image` varchar(100) DEFAULT './images/default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`iduser`, `bio`) VALUES
-(1, 'Kinezi zauvek!'),
-(2, 'Ja sam Cone Conic'),
-(3, 'Smaram studente');
+INSERT INTO `profile` (`iduser`, `bio`, `image`) VALUES
+(1, 'Kinezi zauvek!', './images/default.png'),
+(2, 'Ja sam Cone Conic', './images/default.png'),
+(3, 'Smaram studente', './images/default.png'),
+(4, 'Volim putovanja', './images/default.png'),
+(5, 'Bas volim putovanja', './images/default.png'),
+(6, 'Bas bas volim putovanja', './images/default.png'),
+(7, 'Mnogo volim putovanja', './images/default.png'),
+(8, 'Putuje mi se', './images/default.png'),
+(9, 'Pacenik sam i ovako bih upoznao zenske osobe', './images/default.png'),
+(10, 'Volim druzenja', './images/default.png');
 
 -- --------------------------------------------------------
 
@@ -26545,7 +26589,17 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`idgroup`, `iduser`) VALUES
-(1, 2);
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 2),
+(2, 3),
+(4, 7),
+(4, 8),
+(5, 7),
+(6, 4),
+(6, 10),
+(7, 6);
 
 -- --------------------------------------------------------
 
@@ -26561,17 +26615,32 @@ CREATE TABLE `user` (
   `type` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL
+  `lastname` varchar(255) NOT NULL,
+  `image` varchar(100) DEFAULT './images/default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`iduser`, `username`, `password`, `type`, `email`, `firstname`, `lastname`) VALUES
-(1, 'luka1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'luka@microsoft.com', 'Luka', 'Stanisic'),
-(2, 'cone1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'cone@etf.com', 'Nemanja', 'Krcmar'),
-(3, 'etf12345', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'agency', 'teletabis@bananarepublic.com', 'Teletabis', 'Po');
+INSERT INTO `user` (`iduser`, `username`, `password`, `type`, `email`, `firstname`, `lastname`, `image`) VALUES
+(1, 'luka1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'luka@microsoft.com', 'Luka', 'Stanisic', './images/default.png'),
+(2, 'cone1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'cone@etf.com', 'Nemanja', 'Krcmar', './images/default.png'),
+(3, 'etf12345', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'teletabis@bananarepublic.com', 'Teletabis', 'Po', './images/default.png'),
+(4, 'tica', '123', 'user', 'Tijana', 'tica@gmail.com', 'Djuricic', './images/default.png'),
+(5, 'neko', '123', 'user', 'Ti', 'tica1@gmail.com', 'Djuric', './images/default.png'),
+(6, 'neo', '123', 'user', 'Neo', 'neo@gmail.com', 'Matrix', './images/default.png'),
+(7, 'aragorn', '123', 'user', 'Aragorn', 'ari@gmail.com', 'Arathorn', './images/default.png'),
+(8, 'frodo', '123', 'user', 'Frodo', 'frodo@gmail.com', 'baggins', './images/default.png'),
+(9, 'sem', '123', 'user', 'Semuel', 'sem@gmail.com', 'Shire', './images/default.png'),
+(10, 'chris', '123', 'user', 'Christian', 'chris@gmail.com', 'Satine', './images/default.png'),
+(11, 'ag1', '123', 'agency', 'ag1@gmail.com', 'ag1', 'ag1', './images/default.png'),
+(12, 'ag2', '123', 'agency', 'ag2@gmail.com', 'ag2', 'ag2', './images/default.png'),
+(13, 'JungkookBTS', 'bts123@', '', 'jungkookbts@bts.com', 'Jeon', 'Jungkook', './images//1621482672.JPG'),
+(14, 'RRRap monsta', 'bts123@', 'user', 'RM@bts.com', 'Kim', 'Namjoon', './images/1621483929.jpg'),
+(15, 'Iron Man', 'ironman123@', 'user', 'stark@industries.com', 'Tony', 'Stark', './images/1621484646.jpg'),
+(17, 'Iron Man 2', 'ironman123@', 'user', 'ironman@industries.com', 'Tony', 'Stark', './images/1621484841.jpg'),
+(18, 'irom man 3', 'stark123@', 'user', 'tonystark@gmail.com', 'tony', 'stark', './images/1621485051.jpg');
 
 -- --------------------------------------------------------
 
@@ -26599,7 +26668,14 @@ INSERT INTO `wish` (`idwish`, `iduser`, `budget`, `from`, `to`, `location`, `coo
 (1, 1, 999, '2021-04-20', '2021-04-20', 'Lisbon', 9.0822, 38.425),
 (2, 1, 999, '2021-04-20', '2021-04-20', 'Lisbon', 9.0822, 38.425),
 (3, 1, 999, '2021-04-20', '2021-12-20', 'Lisbon', 9.0822, 38.425),
-(4, 1, 999, '2021-12-15', '2021-12-20', 'Lisbon', 9.0822, 38.425);
+(4, 1, 999, '2021-12-15', '2021-12-20', 'Lisbon', 9.0822, 38.425),
+(5, 5, 500, '2021-07-09', '2021-07-29', 'Paris', 48.8566, 2.3522),
+(6, 8, 1100, '2021-09-10', '2021-09-17', 'Asuncion', -25.3, -57.6333),
+(7, 9, 500, '2021-08-05', '2021-08-26', 'Paris', 48.8566, 2.3522),
+(8, 6, 600, '2021-08-18', '2021-08-25', 'Paris', 48.8566, 2.3522),
+(9, 8, 600, '2021-06-17', '2021-07-14', 'Paris', 48.8566, 2.3522),
+(10, 10, 700, '2021-07-22', '2021-07-31', 'Cairo', 30.0561, 31.2394),
+(11, 6, 650, '2021-07-15', '2021-07-31', 'Cairo', 30.0561, 31.2394);
 
 --
 -- Indexes for dumped tables
@@ -26692,7 +26768,7 @@ ALTER TABLE `wish`
 -- AUTO_INCREMENT for table `arrangment`
 --
 ALTER TABLE `arrangment`
-  MODIFY `idarrangment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idarrangment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `city`
@@ -26704,25 +26780,25 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `group`
 --
 ALTER TABLE `group`
-  MODIFY `idgroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idgroup` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `wish`
 --
 ALTER TABLE `wish`
-  MODIFY `idwish` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idwish` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

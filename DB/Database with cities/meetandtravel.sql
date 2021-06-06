@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: May 16, 2021 at 03:33 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Host: 127.0.0.1
+-- Generation Time: May 11, 2021 at 03:01 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `meetandtravel`
 --
-
 CREATE DATABASE IF NOT EXISTS `meetandtravel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `meetandtravel`;
 
@@ -30,7 +29,6 @@ USE `meetandtravel`;
 -- Table structure for table `accepted_arrangment`
 --
 
-DROP TABLE IF EXISTS `accepted_arrangment`;
 CREATE TABLE `accepted_arrangment` (
   `idgroup` int(11) NOT NULL,
   `idarrangment` int(11) NOT NULL
@@ -49,7 +47,6 @@ INSERT INTO `accepted_arrangment` (`idgroup`, `idarrangment`) VALUES
 -- Table structure for table `arrangment`
 --
 
-DROP TABLE IF EXISTS `arrangment`;
 CREATE TABLE `arrangment` (
   `idarrangment` int(11) NOT NULL,
   `idagecy` int(11) NOT NULL
@@ -68,7 +65,6 @@ INSERT INTO `arrangment` (`idarrangment`, `idagecy`) VALUES
 -- Table structure for table `city`
 --
 
-DROP TABLE IF EXISTS `city`;
 CREATE TABLE `city` (
   `ID` int(11) NOT NULL,
   `city` varchar(50) NOT NULL,
@@ -26422,7 +26418,6 @@ INSERT INTO `city` (`ID`, `city`, `latitude`, `longitude`, `country`, `image`) V
 -- Table structure for table `group`
 --
 
-DROP TABLE IF EXISTS `group`;
 CREATE TABLE `group` (
   `idgroup` int(11) NOT NULL,
   `idleader` int(11) NOT NULL,
@@ -26443,7 +26438,6 @@ INSERT INTO `group` (`idgroup`, `idleader`, `idwish`) VALUES
 -- Table structure for table `member`
 --
 
-DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
   `idgroup` int(11) NOT NULL,
   `iduser` int(11) NOT NULL
@@ -26463,7 +26457,6 @@ INSERT INTO `member` (`idgroup`, `iduser`) VALUES
 -- Table structure for table `message`
 --
 
-DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `idmessage` int(11) NOT NULL,
   `idgroup` int(11) NOT NULL,
@@ -26476,15 +26469,7 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`idmessage`, `idgroup`, `idsender`, `message`) VALUES
-(1, 1, 2, 'Necemo u Kinu! Idemo u Portugal!'),
-(2, 1, 1, 'Portugal'),
-(3, 1, 1, 'Tivat'),
-(4, 1, 1, 'a'),
-(5, 1, 1, 'b'),
-(6, 1, 1, 'v'),
-(7, 1, 1, 'c'),
-(8, 1, 1, 's'),
-(9, 1, 1, 'luka');
+(1, 1, 2, 'Necemo u Kinu! Idemo u Portugal!');
 
 -- --------------------------------------------------------
 
@@ -26492,7 +26477,6 @@ INSERT INTO `message` (`idmessage`, `idgroup`, `idsender`, `message`) VALUES
 -- Table structure for table `paid`
 --
 
-DROP TABLE IF EXISTS `paid`;
 CREATE TABLE `paid` (
   `idgroup` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
@@ -26513,7 +26497,6 @@ INSERT INTO `paid` (`idgroup`, `iduser`, `idarragment`, `amount`) VALUES
 -- Table structure for table `profile`
 --
 
-DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile` (
   `iduser` int(11) NOT NULL,
   `bio` varchar(256) CHARACTER SET armscii8 NOT NULL
@@ -26534,7 +26517,6 @@ INSERT INTO `profile` (`iduser`, `bio`) VALUES
 -- Table structure for table `request`
 --
 
-DROP TABLE IF EXISTS `request`;
 CREATE TABLE `request` (
   `idgroup` int(11) NOT NULL,
   `iduser` int(11) NOT NULL
@@ -26553,25 +26535,21 @@ INSERT INTO `request` (`idgroup`, `iduser`) VALUES
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `iduser` int(11) NOT NULL,
   `username` varchar(45) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `type` varchar(45) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL
+  `type` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`iduser`, `username`, `password`, `type`, `email`, `firstname`, `lastname`) VALUES
-(1, 'luka1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'luka@microsoft.com', 'Luka', 'Stanisic'),
-(2, 'cone1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user', 'cone@etf.com', 'Nemanja', 'Krcmar'),
-(3, 'etf12345', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'agency', 'teletabis@bananarepublic.com', 'Teletabis', 'Po');
+INSERT INTO `user` (`iduser`, `username`, `password`, `type`) VALUES
+(1, 'luka1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user'),
+(2, 'cone1234', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'user'),
+(3, 'etf12345', '2d651bd0c11e07894decce130d5005c7006dd931ab15288388cb2ef76f9d2c71', 'agency');
 
 -- --------------------------------------------------------
 
@@ -26579,7 +26557,6 @@ INSERT INTO `user` (`iduser`, `username`, `password`, `type`, `email`, `firstnam
 -- Table structure for table `wish`
 --
 
-DROP TABLE IF EXISTS `wish`;
 CREATE TABLE `wish` (
   `idwish` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
@@ -26710,7 +26687,7 @@ ALTER TABLE `group`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idmessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`

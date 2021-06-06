@@ -40,6 +40,68 @@ function onClickChatMyGroups(){
 
 }
 
+
+function sendToQuery(json_obj){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST","php/buttonQueries.php",true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    json_obj=JSON.stringify(json_obj);
+    xhr.send(json_obj);
+}
+
+function AcceptGroupRequest(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    iduser=forma[1].value;
+    json_obj={
+        'class':'acceptGRrequest',
+        'idgroup':idgroup,
+        'iduser':iduser
+    }
+    sendToQuery(json_obj);
+}
+
+function RejectGroupRequest(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    iduser=forma[1].value;
+    json_obj={
+        'class':'rejectGRrequest',
+        'idgroup':idgroup,
+        'iduser':iduser
+    }
+    sendToQuery(json_obj);
+}
+
+function requestToJoin(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    json_obj={
+        'class':'requestToJoin',
+        'idgroup':idgroup
+    }
+    sendToQuery(json_obj);
+}
+
+function acceptArrangmentRequest(){
+    forma=getButtonHiddenForm();
+    idgroup=forma[0].value;
+    json_obj={
+        'class':'acceptArrangement',
+        'idgroup':idgroup
+    }
+    sendToQuery(json_obj);
+
+    //TODO preko modala uzeti group-id
+}
+
+function payment(){
+    //TODO preko modala
+}
+
+
+
 function onClickMembersMyGroups(){
     forma=getButtonHiddenForm();
     idgroup=forma[0].value;
@@ -247,6 +309,8 @@ function polymorphicAppend(obj){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //creates the JSON object that is used to create specific elements for the Group
+
+//TODO requestuje da pristupi grupi na osnovu arrangmenta koji je dobio preko searcha za wish
 function createGroupJSON(obj){ 
 return {
 'class':'trip',
@@ -254,13 +318,13 @@ return {
 'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget'],"members: "+obj['members']],
 'button':[{
     'class':['btn','btn-success'],
-    'onclick':'x()',//function for the onclick event
+    'onclick':'requestToJoin()',//function for the onclick event
     'text':'Request'
 }],//end button
 'input':[obj['groupid']]
 };
 }
-
+//TODO prihvata arrangment, SQL QUERY -> iz arrangmenta prebaci u accepted arrangment
 function createArrangementsJSON(obj){ 
     return {
     'class':'trip',
@@ -268,9 +332,14 @@ function createArrangementsJSON(obj){
     'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget']],
     'button':[{
         'class':['btn','btn-warning'],
+<<<<<<< HEAD
         'onclick':'x()',//function for the onclick event
         'text':'Accept',
         'data-toggle':'modal'
+=======
+        'onclick':'acceptArrangmentRequest()',//function for the onclick event
+        'text':'Accept'
+>>>>>>> koci
     }],//end button
     'input':[obj['arrangmentid']] //groupID mora preko modala
     };
@@ -311,6 +380,7 @@ function createMembersJSON(obj){
     'input':[] //groupID mora preko modala
     };
     }
+    //TODO ACCEPT AND REJECT BUTTONS
 function createRequestsJSON(obj){ 
     return {
     'class':'request',
@@ -318,16 +388,18 @@ function createRequestsJSON(obj){
     'p':[obj['name'],obj['first'],obj['last']],
     'button':[{
         'class':['btn','btn-success'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'AcceptGroupRequest()',//function for the onclick event
         'text':'Accept'
     },{
         'class':['btn','btn-danger'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'RejectGroupRequest()',//function for the onclick event
         'text':'Reject'
     }],//end button
     'input':[obj['groupid'],obj['userid']]
     };
     }
+
+    //TODO PAYMENT
 function createPaidJSON(obj){ 
     return {
     'class':'pay',
@@ -335,7 +407,7 @@ function createPaidJSON(obj){
     'p':[obj['first'],obj['last'],"price: $"+obj['price'],"paid: $"+obj['paid']],
     'button':[{
         'class':['btn','btn-success'],
-        'onclick':'x()',//function for the onclick event
+        'onclick':'payment()',//function for the onclick event
         'text':'Pay'
     }],//end button
     'input':[obj['groupid'],obj['arrangmentid'],obj['userid']] //the user for whom you're paying
