@@ -29,6 +29,12 @@ class DB {
       $res=$conn->prepare($sql);
       $res->execute();
 }
+public static function getCoordinates($city){
+  $sql="Select * from city where city='{$city}'";
+  $rows=DB::getRows($sql);
+  return ['lat'=>$rows[0][2],'long'=>$rows[0][3]];
+  
+}
 public static function getCountMembers($idgroup){
   $sql="select count(idgroup) as c from member where idgroup={$idgroup}";
   return DB::getRows($sql)[0][0];

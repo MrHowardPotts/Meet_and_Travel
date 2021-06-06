@@ -46,9 +46,8 @@ class GroupResult extends BaseResult{
     }
 
     private function getCoordinates($city){
-        $sql="Select * from city where city='{$city}'";
-        $rows=DB::getRows($sql);
-        return ['lat'=>$rows[0][2],'long'=>$rows[0][3]];
+        
+        return DB::getCoordinates($city);
         
     }
 
