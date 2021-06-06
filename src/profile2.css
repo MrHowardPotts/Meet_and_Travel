@@ -1,35 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-body{
+body {
+  background-image: linear-gradient(to top, #3a1c71, #642274, #862c75, #a33c75, #bc4f75, #cb5d75, #d86c75, #e47c76, #ec8876, #f49577, #faa278, #ffaf7b);
+  background-attachment: fixed;
   font-family: 'Poppins';
 }
-.carousel-item{
-  height: 100vh;
-  min-height:300px;
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #BA68C8
 }
-.carousel-caption{
-  bottom: 220px;
+.container{
+  height:100%;
 }
-.carousel-caption h5{
-  font-size: 50px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-top: 25px;
-  font-weight: 900;
+.slika{
+  font-size:10px;
 }
-.carousel-caption p{
-  font-size:16px;
-  margin:auto;
-  width:60%;
-  line-height:1.9;
+.info{
+  margin-top:5px;
 }
-.carousel-caption a{
-  text-transform: uppercase;
-  background:#ffaf7b;
-  padding: 10px 30px;
-  display:inline-block;
-  color: #fff;
-  margin-top: 15px;
-  border-radius: 50px;
+.profile-button {
+  background: #BA68C8;
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #682773
+}
+
+.profile-button:focus {
+  background: #682773;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #682773;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #682773;
+  cursor: pointer
 }
 .navbar-nav a{
   font-size: 18px;
@@ -69,9 +80,9 @@ body{
 .w-100{
   height: 100vh;
 }
-@media only screen and (max-width:767px){
+@media only screen and (max-width:982px){
   .navbar-nav.ml-auto{
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(255, 175, 123, 0.5);
   }
   .navbar-nav a{
     font-size:14px;
