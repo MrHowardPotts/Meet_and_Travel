@@ -137,13 +137,14 @@ class Engine{
 
     private static function getGroups(){
         $res=[];
+        //TODO izbaciti grupe gde smo mi member
         $sql="select * from groups inner join wish ON groups.idwish=wish.idwish";
         $rows=DB::getRows($sql);
         for($i=0;$i<count($rows);$i++){
             $row=$rows[$i];
             $memCount=DB::getCountMembers($row['idgroup']);
             $res[]=new Wish($row['coordinate_y'],$row['coordinate_x'],$row['location'],$row['budget'],$row['from'],$row['to'],$row['idgroup'],$row['image'],$memCount);
-
+            
         }
         return $res;
     }

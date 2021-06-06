@@ -27,7 +27,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td align="center" valign="center">
           <div class="wrapper">
             <table>
               <tr>
