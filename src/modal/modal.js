@@ -60,3 +60,17 @@ function saveWish(){
   json_obj=JSON.stringify(json_obj);
   xhr.send(json_obj);
 }
+function saveGroup(){
+  json_obj=collectData();
+  json_obj.imageWish='php/images/default.png';
+  json_obj.imageGroup='php/images/default.png';
+  let groupName=document.getElementById('groupName').value;
+  json_obj.groupName=groupName;
+
+  let xhr= new XMLHttpRequest();
+  xhr.open("POST","php/saveMyGroup.php",true);
+  xhr.setRequestHeader("Content-Type","application/json");
+  json_obj=JSON.stringify(json_obj);
+  xhr.send(json_obj);
+
+}

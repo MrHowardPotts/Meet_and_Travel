@@ -38,7 +38,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" align="center">Create Arrangement</h4>
+            <h4 class="modal-title" align="center">Create Wish</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             
           </div>
@@ -72,7 +72,7 @@
               <label>Group name</label>
             </div>
             <div id="groupSaveDiv" class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center" hidden>
-            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default">Save</button>
+            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default" onclick="saveGroup()">Save</button>
             </div>
             <div class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center">
               <button type="button" name="cancel" id="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
