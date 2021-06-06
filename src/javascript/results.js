@@ -88,10 +88,10 @@ function requestToJoin(){
 function acceptArrangmentRequest(){
     $('#GroupID').modal();
     forma=getButtonHiddenForm();
-    let idarrangemnt=forma[0].value;
+    let idarrangement=forma[0].value;
     json_obj={
         'class':'acceptArrangement',
-        'idarrangemnt':idarrangemnt
+        'idarrangemnt':idarrangement
     }
     shared_JSON_OBJ=json_obj;
     let xhr = new XMLHttpRequest();
