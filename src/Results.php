@@ -49,12 +49,12 @@
                       </div>
                       <div class="modal-body">
                         <div class="input-group destination">
-                          <input type="text" style="width: 98%;"required="">
+                          <input id="PayAmmount" type="text" style="width: 98%;"required="">
                         </div>
                       </div>
                       <div class="modal-footer">
                         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" align="center">
-                        <button type="button" name="submit" id="submit"class="btn btn-default" style="margin-top:5px;">Pay</button>
+                        <button type="button" name="submit" id="submit"class="btn btn-default" style="margin-top:5px;" onclick="payment2()">Pay</button>
                         </div>
                         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" align="center">
                           <button type="button" name="cancel" id="cancel" style="margin-top:5px;" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -173,22 +173,20 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                       <div class="modal-header">
-                      <h4 class="modal-title" align="center">Select Group</h4>
+                      <h4 id="selectGroupHeader" class="modal-title" align="center">Select Group</h4>
 
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                       <div class="modal-body">
                         <div class="input-group destination">
                         <select id="selectGroup" class="form-select" aria-label="Default select example" style="margin:auto;">
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            
                           </select>
                         </div>
                       </div>
                       <div class="modal-footer">
                         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" align="center">
-                        <button type="button" name="submit" id="submit"class="btn btn-default" style="margin-top:5px;">Accept</button>
+                        <button type="button" name="submit" id="submit"class="btn btn-default" style="margin-top:5px;" onclick="acceptArrangmentRequest2()">Accept</button>
                         </div>
                         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" align="center">
                           <button type="button" name="cancel" id="cancel" style="margin-top:5px;" class="btn btn-default" data-dismiss="modal">Cancel</button>
