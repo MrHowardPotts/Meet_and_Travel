@@ -332,14 +332,9 @@ function createArrangementsJSON(obj){
     'p':[obj['where'],obj['from'],obj['to'],"budget: $"+obj['budget']],
     'button':[{
         'class':['btn','btn-warning'],
-<<<<<<< HEAD
-        'onclick':'x()',//function for the onclick event
+        'onclick':'acceptArrangmentRequest()',//function for the onclick event
         'text':'Accept',
         'data-toggle':'modal'
-=======
-        'onclick':'acceptArrangmentRequest()',//function for the onclick event
-        'text':'Accept'
->>>>>>> koci
     }],//end button
     'input':[obj['arrangmentid']] //groupID mora preko modala
     };
