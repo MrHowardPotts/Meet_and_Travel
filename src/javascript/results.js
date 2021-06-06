@@ -408,6 +408,7 @@ function sendResult(json_obj){
         }   
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
+    localStorage.setItem('last_json',json_obj);
     xhr.send(json_obj); // sending formData to php
   }
   
@@ -419,11 +420,18 @@ function sendResult(json_obj){
   //imali bi druge probleme da idemo preko <a href> -> onda moramo GET i onda moramo to sto odradimo u PHP da stavimo u hidden element i da odatle procitamo sto je ok
   // moze i tako 
   function onLoad(){
-    obj=localStorage.getItem('obj');
-    obj=JSON.parse(obj);
-    for(i=0;i<obj.data.length;i++){
-        polymorphicAppend(obj.data[i]);
-    }
+        if(event.currentTarget.performance.navigation.type==1){
+            obj=localStorage.getItem('last_json');
+            obj=JSON.parse(obj);
+            sendResult(obj);
+        }
+        else{
+            obj=localStorage.getItem('obj');
+            obj=JSON.parse(obj);
+            for(i=0;i<obj.data.length;i++){
+                polymorphicAppend(obj.data[i]);
+            }
+        }
   }
 
 
