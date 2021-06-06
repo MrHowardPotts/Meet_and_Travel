@@ -3,7 +3,7 @@
                 <span></span>
                 <span></span>
                 <span></span>Home</a>
-                <a href="profil.php">
+                <a href="profile2.php">
                 <span></span>
                 <span></span>
                 <span></span>
