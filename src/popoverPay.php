@@ -31,14 +31,6 @@
           <div class="modal-body">
             <div class="input-group destination">
               <input type="text" style="width: 98%;"required="">
-              <div class="input-group-btn">
-                <button type="button" name="price" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RSD <span class="caret"></span></button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="#">RSD</a></li>
-                  <li><a href="#">EUR</a></li>
-                  <li><a href="#">DOL</a></li>
-                </ul>
-              </div>
             </div>
           </div>
           <div class="modal-footer">

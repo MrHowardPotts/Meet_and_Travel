@@ -9,7 +9,7 @@
 
   <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="modal/modal.css">
-  <link rel="stylesheet" href="css/welcomeLogin&SignUp.css">
+  <!--<link rel="stylesheet" href="css/welcomeLogin&SignUp.css">-->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
