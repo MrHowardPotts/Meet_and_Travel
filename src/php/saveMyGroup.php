@@ -17,8 +17,12 @@ $image=$obj['imageWish'];
 $x=$coordinates['long'];
 $y=$coordinates['lat'];
 
+$image_path="images/wish".time().".png";
+file_put_contents($image_path,base64_decode($image));
+$image_path="php/".$image_path;
+
 $sql="INSERT INTO wish (`iduser`, `budget`, `from`, `to`, `location`, `coordinate_x`, `coordinate_y`, `image`)
- VALUES ({$user_id},{$budget},'{$from}','{$to}','{$where}',{$x},{$y},'{$image}')";
+ VALUES ({$user_id},{$budget},'{$from}','{$to}','{$where}',{$x},{$y},'{$image_path}')";
 
 DB::Execute($sql);
 
@@ -26,9 +30,14 @@ $sql="Select * from wish order by wish.idwish desc";
 $rows=DB::getRows($sql);
 $idwish=$rows[0]['idwish'];
 $groupName=$obj['groupName'];
-$imageGroup=$obj['imageGroup'];
+$image=$obj['imageGroup'];
+
+$image_path="images/group".time().".png";
+file_put_contents($image_path,base64_decode($image));
+$image_path="php/".$image_path;
+
 $sql="INSERT INTO `groups`(`idleader`, `idwish`, `name`, `image`) 
-VALUES ({$user_id},{$idwish},'{$groupName}','{$imageGroup}')";
+VALUES ({$user_id},{$idwish},'{$groupName}','{$image_path}')";
 DB::Execute($sql);
 
 $sql="Select * from groups order by groups.idgroup desc";
