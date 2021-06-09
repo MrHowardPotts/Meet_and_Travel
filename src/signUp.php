@@ -38,6 +38,10 @@
           <input id="password2" type="password" name="confirm" required>
           <label>Confirm password</label>
         </div>
+        <div>
+          <input type="radio" name="gender" value="user"> User
+          <input type="radio" name="gender" value="agency"> Agency
+        </div>
         <div class="button" align="center">
           <a href="welcome.html" class="back">
             <span></span>

@@ -9,6 +9,7 @@
   $email = $_POST['email'];
   $password = $_POST['password'];
   $confirm = $_POST['confirm'];
+  $type = $_POST['gender'];
 
   $pictureName = $_FILES['picture']['name'];
 
@@ -66,7 +67,7 @@
     echo "Password must contain atleast one number ";
     $errors++;
   }
-  if(!preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $password)){
+  if(!preg_match('/[\'^£$%&*!()}{@#~?><>,|=_+¬-]/', $password)){
     echo "Password must contain at least one special character ";
     $errors++;
   }
@@ -105,15 +106,18 @@
           $newfile = $dir . '/' . $filename;
           if(move_uploaded_file($_FILES['picture']['tmp_name'],$newfile)){
             if($errors == 0){
+              $newfile="php/images/".$filename;
               $sql = "INSERT INTO `user` (firstname, lastname, username, password, email, image, type)
-                      VALUES ('{$fname}', '{$lname}', '{$username}', '{$password}', '{$email}', '{$newfile}', 'user')";
+                      VALUES ('{$fname}', '{$lname}', '{$username}', '{$password}', '{$email}', '{$newfile}', '{$type}')";
               DB::Execute($sql);
               $row = DB::getRows("SELECT * FROM user WHERE email = '{$email}'")[0];
               $_SESSION['unique_id'] = $row['iduser'];
-              echo "success";
+              $_SESSION['type'] = $row['type'];
+              
             }
           }
         }
       }
     }
+    echo "success";
 ?>

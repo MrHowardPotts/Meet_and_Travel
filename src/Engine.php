@@ -88,9 +88,9 @@ public function setGausResDate($rez){$this->gaus_res_date=$rez;}
 class Engine{
 
 
-    private $beta_city=0.5;
-    private $beta_date=0.05;
-    private $beta_budget=3;
+    private static $beta_city=0.5;
+    private static $beta_date=0.05;
+    private static $beta_budget=3;
 
     #return value is = e^(-beta*dist^2);
     public static function gaus($beta,$dist){
@@ -154,13 +154,13 @@ class Engine{
     public static function execute(Wish $target){
         $array=Engine::getGroups();
         for($i=0;$i<count($array);$i++){
-            $array[$i]->setDist(Engine::distanceCity($array[0]->x,$array[0]->y,$array[$i]->x,$array[$i]->y));
-            $array[$i]->setGausResCity(Engine::gaus(0.5,$array[$i]->getDist()));
-            $days=Engine::disntaceDate($array[0]->from,$array[$i]->from);
-            $days+=Engine::disntaceDate($array[0]->to,$array[$i]->to);
+            $array[$i]->setDist(Engine::distanceCity($target->x,$target->y,$array[$i]->x,$array[$i]->y));
+            $array[$i]->setGausResCity(Engine::gaus(Engine::$beta_city,$array[$i]->getDist()));
+            $days=Engine::disntaceDate($target->from,$array[$i]->from);
+            $days+=Engine::disntaceDate($target->to,$array[$i]->to);
             
-            $array[$i]->setGausResDate(Engine::gaus(0.05,$days));
-            $array[$i]->setGausResBudget(Engine::gaus(3,Engine::distanceBudget($array[0]->budget,$array[$i]->budget)));
+            $array[$i]->setGausResDate(Engine::gaus(Engine::$beta_date,$days));
+            $array[$i]->setGausResBudget(Engine::gaus(Engine::$beta_budget,Engine::distanceBudget($target->budget,$array[$i]->budget)));
             
             $array[$i]->final_res=$array[$i]->getGausResCity()*$array[$i]->getGausResBudget()*$array[$i]->getGausResDate();
             }
@@ -171,7 +171,7 @@ class Engine{
     }
 
     public static function executeGroup(Group $target,$x,$y){
-        $w=new Wish($x,$y,$target->where,$target->budget,$target->from,$target->to,$target->groupID,"",69);
+        $w=new Wish($y,$x,$target->where,$target->budget,$target->from,$target->to,$target->groupID,"",69);
         $res=Engine::execute($w);
         $resGroup=[];
         for($i=0;$i<count($res);$i++){

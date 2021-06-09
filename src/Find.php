@@ -47,7 +47,7 @@
               <input id="groupWishPicture" type="file" name="pictureDest" required> 
             </div>
             <div class="destination">
-              <input id="destination" type="text" name="destination" required="">
+              <input id="destination" type="text" name="destination" placeholder="enter destination" required="">
               <label>Name of the place</label>
             </div>
             <div class="date">
@@ -55,11 +55,11 @@
               <input id="WishDate" type="text" name="daterange" required="" placeholder="Select date range:"> 
             </div>
             <div class="input-group destination">
-              <input id="groupBudget" type="text" style="width: 98%;"required="">
+              <input id="groupBudget" type="text" style="width: 98%;" placeholder="enter your budget" required="">
             </div>
             <div class="text-center" >
               <button type="button" name="search" id="search" class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="searchWish()">Search</button> <!--If not found add to my wishes-->
-              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="saveWish()">Save to<br>my wishes</button>
+              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="saveWish()" data-dismiss="modal">Save to<br>my wishes</button>
               <button type="button" name="group" id="group"class="btn btn-default" onclick="showGroupFileds()">Create<br>group</button>
             </div>
           </div>
@@ -68,11 +68,11 @@
               <input id="groupPicture" type="file" name="pictureGroup" required>
             </div>
             <div id="groupNameDiv" class="col-sm-3 col-md-3 col-lg-5 col-xl-4" hidden>
-              <input id="groupName" type="text" name="groupName" required>
+              <input id="groupName" type="text" name="groupName" placeholder="enter group name" required>
               <label>Group name</label>
             </div>
             <div id="groupSaveDiv" class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center" hidden>
-            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default" onclick="saveGroup()">Save</button>
+            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default" onclick="saveGroup()" data-dismiss="modal">Save</button>
             </div>
             <div class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center">
               <button type="button" name="cancel" id="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
