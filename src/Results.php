@@ -49,7 +49,7 @@
                       </div>
                       <div class="modal-body">
                         <div class="input-group destination">
-                          <input id="PayAmmount" type="text" style="width: 98%;"required="">
+                          <input id="PayAmmount" type="text" style="width: 98%;" placeholder="enter amount" required="">
                         </div>
                       </div>
                       <div class="modal-footer">
