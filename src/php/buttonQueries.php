@@ -35,11 +35,12 @@ switch($obj['class']){
             $new_amount = intval($old_amount) + (int)$obj['amount'];
             $sql = "UPDATE `paid` SET `amount`='{$new_amount}' WHERE idgroup = '{$obj['groupId']}' AND iduser = '{$obj['iduser']}' AND idarrangement = '{$obj['idarrangement']}'";
         }
+        
         break;
     
 }
 
 if(isset($sql)){
     DB::Execute($sql);
-    echo "QUERY DONE";
+    echo "REFRESH_PAGE";
 }

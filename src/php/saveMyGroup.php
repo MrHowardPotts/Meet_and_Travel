@@ -31,6 +31,12 @@ $sql="INSERT INTO `groups`(`idleader`, `idwish`, `name`, `image`)
 VALUES ({$user_id},{$idwish},'{$groupName}','{$imageGroup}')";
 DB::Execute($sql);
 
+$sql="Select * from groups order by groups.idgroup desc";
+$rows=DB::getRows($sql);
+$idgroup=$rows[0]['idgroup'];
+$sql="INSERT INTO `member`(`idgroup`, `iduser`) 
+VALUES ({$idgroup},{$user_id})";
+DB::Execute($sql);
 
 echo "ok"
 ?>

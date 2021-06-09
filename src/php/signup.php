@@ -106,11 +106,13 @@
           $newfile = $dir . '/' . $filename;
           if(move_uploaded_file($_FILES['picture']['tmp_name'],$newfile)){
             if($errors == 0){
+              $newfile="php/images/".$filename;
               $sql = "INSERT INTO `user` (firstname, lastname, username, password, email, image, type)
                       VALUES ('{$fname}', '{$lname}', '{$username}', '{$password}', '{$email}', '{$newfile}', '{$type}')";
               DB::Execute($sql);
               $row = DB::getRows("SELECT * FROM user WHERE email = '{$email}'")[0];
               $_SESSION['unique_id'] = $row['iduser'];
+              $_SESSION['type'] = $row['type'];
               
             }
           }

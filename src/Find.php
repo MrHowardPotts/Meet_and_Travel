@@ -59,7 +59,7 @@
             </div>
             <div class="text-center" >
               <button type="button" name="search" id="search" class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="searchWish()">Search</button> <!--If not found add to my wishes-->
-              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="saveWish()">Save to<br>my wishes</button>
+              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;" onclick="saveWish()" data-dismiss="modal">Save to<br>my wishes</button>
               <button type="button" name="group" id="group"class="btn btn-default" onclick="showGroupFileds()">Create<br>group</button>
             </div>
           </div>
@@ -72,7 +72,7 @@
               <label>Group name</label>
             </div>
             <div id="groupSaveDiv" class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center" hidden>
-            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default" onclick="saveGroup()">Save</button>
+            <button id="groupSave" type="button" name="save" id="save"class="btn btn-default" onclick="saveGroup()" data-dismiss="modal">Save</button>
             </div>
             <div class="col-sm-3 col-md-3 col-lg-1 col-xl-2" align="center">
               <button type="button" name="cancel" id="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>

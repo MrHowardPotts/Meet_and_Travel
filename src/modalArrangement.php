@@ -52,7 +52,7 @@
             </div>
             <div class="text-center" >
               <button type="button" name="search" id="search" class="btn btn-default" style="height: 52px; margin-right: 10px;">Search</button> <!--If not found add to my wishes-->
-              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;">Save to<br>my wishes</button>
+              <button type="button" name="wish" id="wishes"class="btn btn-default" style="height: 52px; margin-right: 10px;" data-dismiss="modal">Save to<br>my wishes</button>
               <button type="button" name="group" id="group"class="btn btn-default">Create<br>group</button>
             </div>
           </div>
