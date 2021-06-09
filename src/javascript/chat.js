@@ -49,7 +49,7 @@ function startListener(groupid){
                 for(i=0;i<obj.messages.length;i++){
                     //console.log(messages[i].message);
                     let message=obj.messages[i];
-                    appendMessage(document.querySelector(".chat-box"),obj['user_id'],message.idsender,message.message,"php/images/1620843858relayfinal.png")
+                    appendMessage(document.querySelector(".chat-box"),obj['user_id'],message.idsender,message.message,message.image)
                 }
             }
             worker.postMessage(groupid);

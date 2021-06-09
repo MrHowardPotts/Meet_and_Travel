@@ -38,13 +38,15 @@
                         require_once "DB.php";
                         //ovde treba da bude ulogovan user
                         $rows=DB::getRows("SELECT * FROM user WHERE iduser = {$_SESSION['unique_id']}");
+                        
                         if(count($rows)==1){
                           $row = $rows[0];
                         }
                       ?>
                       <div class="content">
                         <!-- Ovde moramo da dodamo putanju do image-a -->
-                        <img src="php/images/1620843858relayfinal.png" alt=""><!--You need to change permission to read/write-->
+                        
+                        <img src="<?php echo $row['image'] ?>" alt=""><!--You need to change permission to read/write-->
                         <div class="details">
                           <span><?php echo $row['firstname'];?></span>
                           
@@ -76,7 +78,10 @@
                           }
                           else $group_id=-1; // it's not set in GET
                         ?>
-                        <img src="php/images/1620843858relayfinal.png" alt="">
+                        <img src="<?php 
+                        if(isset($row['name']))echo $row['image'];
+                        else echo "php/images/1620843972relayfinal.png";
+                        ?>"  alt="">
                         <div class="details">
                           <span><?php 
                           if(isset($row['name']))$name=$row['name'];
