@@ -22,10 +22,21 @@ switch($obj['class']){
         $sql = "INSERT INTO `request` (`idgroup`, `iduser`) VALUES ('{$obj['idgroup']}' ,$user_id)";
         break;
     case "acceptArrangement":
-        
+        $sql = "INSERT INTO `accepted_arrangement`(`idgroup`, `idarrangement`) VALUES ('{$obj['idgroup']}','{$obj['idarrangemnt']}')";
+        break;
+    case "pay":
+        $sql = "SELECT * FROM `paid` WHERE  idgroup = '{$obj['groupId']}' AND iduser = '{$obj['iduser']}' AND idarrangement = '{$obj['idarrangement']}'";
+        if(count(DB::getRows($sql)) == 0){
+            $sql = "INSERT INTO `paid`(`idgroup`, `iduser`, `idarrangement`, `amount`) VALUES ('{$obj['groupId']}','{$obj['iduser']}','{$obj['idarrangement']}','{$obj['amount']}')";
+        }else {
+            $sql = "SELECT amount FROM `paid` WHERE  idgroup = '{$obj['groupId']}' AND iduser = '{$obj['iduser']}' AND idarrangement = '{$obj['idarrangement']}'";         
+            $old_amount = DB::getRows($sql)[0][0];
+            $add_value = intval($obj['amount']);
+            $new_amount = intval($old_amount) + (int)$obj['amount'];
+            $sql = "UPDATE `paid` SET `amount`='{$new_amount}' WHERE idgroup = '{$obj['groupId']}' AND iduser = '{$obj['iduser']}' AND idarrangement = '{$obj['idarrangement']}'";
+        }
         break;
     
-    //todo jos pay da se uradi sa conetovim modalom
 }
 
 if(isset($sql)){

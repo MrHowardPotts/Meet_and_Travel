@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link rel="stylesheet" href="css/results.css">
     <script src="javascript/results.js"></script>
-    
+    <link rel="stylesheet" href="css/profile2.css">
+    <link rel="stylesheet" href="css/index.css">
     <!--  -->
     <!-- <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="modal/modal.css">

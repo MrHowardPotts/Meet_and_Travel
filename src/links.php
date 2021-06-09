@@ -1,8 +1,13 @@
-<a href="#" onclick="#"> 
+              <a href="#" onclick="#"> 
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>Home</a>
+                <a href="profile2.php">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>Profile</a>
               <a href="Find.php">
                 <span></span>
                 <span></span>
@@ -18,6 +23,11 @@
                 <span></span>
                 <span></span>
                 <span></span>Arrangements</a>
+                <a href="chat.php" >
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>Chat</a>
                 <a href="newArrangement.php">
                 <span></span>
                 <span></span>
