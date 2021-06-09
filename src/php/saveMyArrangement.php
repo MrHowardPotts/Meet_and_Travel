@@ -14,9 +14,13 @@ $from=$obj['from'];
 $to=$obj['to'];
 $image=$obj['image'];
 
+$image_path="images/".time().".png";
+file_put_contents($image_path,base64_decode($image));
+$image_path="php/".$image_path;
+
 
 $sql="INSERT INTO arrangement (`idagency`, `from`, `to`, `location`, `price`, `image`)
- VALUES ({$user_id},'{$from}','{$to}','{$where}',{$price},'{$image}')";
+ VALUES ({$user_id},'{$from}','{$to}','{$where}',{$price},'{$image_path}')";
 
 DB::Execute($sql);
 

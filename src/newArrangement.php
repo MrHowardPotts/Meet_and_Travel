@@ -60,7 +60,7 @@
           </div>
           <div class="modal-footer">
             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" align="center">
-            <button type="button" name="save" id="save"class="btn btn-default" onclick="saveArr()">Submit Arrangemnt</button>
+            <button type="button" name="save" id="save"class="btn btn-default" onclick="saveArr()" data-dismiss="modal">Submit Arrangemnt</button>
             </div>
             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" align="center">
               <button type="button" name="cancel" id="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>

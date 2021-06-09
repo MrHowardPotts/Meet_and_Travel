@@ -102,10 +102,27 @@ function collectDataArr(){
   function saveArr(){
     json_obj=collectDataArr();
     json_obj.image='php/images/default.png';
-  
+    
+    var blobFile = document.getElementById("arrImage").files[0];
+    reader=new FileReader();
+    reader.onloadend=()=>{
+      json_obj.image=reader.result.split(",")[1];
+
     let xhr= new XMLHttpRequest();
     xhr.open("POST","php/saveMyArrangement.php",true);
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
     xhr.send(json_obj);
+    }
+
+    reader.readAsDataURL(blobFile);
+    // var formData = new FormData();
+    // formData.append("fileToUpload", blobFile);
+    // json_obj.image=formData;
+
+    // let xhr= new XMLHttpRequest();
+    // xhr.open("POST","php/saveMyArrangement.php",true);
+    // xhr.setRequestHeader("Content-Type","application/json");
+    // json_obj=JSON.stringify(json_obj);
+    // xhr.send(json_obj);
   }
