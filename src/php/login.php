@@ -20,6 +20,7 @@
       // $sql2 = mysqli_query($conn,"UPDATE users SET status = '{$status}' WHERE unique_id = {$row['unique_id']}");
       
         $_SESSION['unique_id'] = $rows[0]['iduser'];
+        $_SESSION['type'] = $rows[0]['type'];
         echo "success";
       
     }else{
