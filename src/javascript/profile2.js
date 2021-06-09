@@ -27,6 +27,16 @@ save.onclick =()=>{
   $("#user").attr('readonly',true);
   $("#file").attr('disabled',true);
 
+
+  json_obj = {
+    'firstname' : document.getElementById('fname').value,
+    'lastname' : document.getElementById('lname').value,
+    'username' : document.getElementById('user').value,
+    'bio' : document.getElementById('bio').value,
+    'mail' : document.getElementById('mail').value,
+    'image':$('#profile_img').attr('src')
+  }
+
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "php/profile.php", true);
   xhr.onload = () =>{
@@ -34,26 +44,28 @@ save.onclick =()=>{
       if(xhr.status === 200){
         let data = xhr.response;
         if(data == 'success'){
-          // location.href = "chat.php";
+          
         }else{
-          // errorText.textContent = data;
-          // errorText.style.display = "block";
+          
         }
       }
     }
-  }                       
-xhr.send();
-  // json_obj = {
-  //   'firstname' : document.getElementById('first_name').value,
-  //   'lastname' : document.getElementById('last_name').value,
-  //   'username' : document.getElementById('username').value,
-  //   'bio' : document.getElementById('biography').value,
-  //   // 'image':document.getElementById('profile_img').value
-  //   'image':$('#profile_img').attr('src')
-  // }
+  }        
 
-  // xhr.send(json_obj);
-  // let formData = new FormData(form);
-  // xhr.send(formData);
-  
+  json_obj=JSON.stringify(json_obj);
+  xhr.send(json_obj);
+
+}
+
+function readURL(input){
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#profile_img')
+            .attr('src', e.target.result)
+    };
+
+    reader.readAsDataURL(input.files[0]);
+}
 }
