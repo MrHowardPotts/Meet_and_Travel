@@ -50,9 +50,11 @@ json_obj={
 return json_obj;
 }
 
-function saveWish(){
+async function saveWish(){
   json_obj=collectData();
-  json_obj.image='php/images/default.png';
+  var blobFile = document.getElementById("groupWishPicture").files[0];
+  
+  json_obj.image=await getImage(blobFile);
 
   let xhr= new XMLHttpRequest();
   xhr.open("POST","php/saveMyWish.php",true);
@@ -60,10 +62,15 @@ function saveWish(){
   json_obj=JSON.stringify(json_obj);
   xhr.send(json_obj);
 }
-function saveGroup(){
+async function saveGroup(){
   json_obj=collectData();
-  json_obj.imageWish='php/images/default.png';
-  json_obj.imageGroup='php/images/default.png';
+
+  var blobFile = document.getElementById("groupWishPicture").files[0];
+  json_obj.imageWish=await getImage(blobFile);
+
+  var blobFile2 = document.getElementById("groupPicture").files[0];
+  json_obj.imageGroup=await getImage(blobFile2);
+
   let groupName=document.getElementById('groupName').value;
   json_obj.groupName=groupName;
 
@@ -98,14 +105,37 @@ function collectDataArr(){
   
   return json_obj;
   }
-
-  function saveArr(){
+  //returns the image blob encoded as a base64 string. 
+  async function getImage(blobFile){
+    reader=new FileReader();
+    return await new Promise((resolve)=>{
+      reader.onloadend=()=>{
+        resolve(reader.result.split(",")[1]);
+        }
+      reader.readAsDataURL(blobFile);
+    });
+  }
+  async function saveArr(){
     json_obj=collectDataArr();
     json_obj.image='php/images/default.png';
-  
+    
+    var blobFile = document.getElementById("arrImage").files[0];
+    //reader=new FileReader();
+    
+    json_obj.image = await getImage(blobFile);
+
     let xhr= new XMLHttpRequest();
     xhr.open("POST","php/saveMyArrangement.php",true);
     xhr.setRequestHeader("Content-Type","application/json");
     json_obj=JSON.stringify(json_obj);
     xhr.send(json_obj);
+    // var formData = new FormData();
+    // formData.append("fileToUpload", blobFile);
+    // json_obj.image=formData;
+
+    // let xhr= new XMLHttpRequest();
+    // xhr.open("POST","php/saveMyArrangement.php",true);
+    // xhr.setRequestHeader("Content-Type","application/json");
+    // json_obj=JSON.stringify(json_obj);
+    // xhr.send(json_obj);
   }
