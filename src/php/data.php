@@ -25,7 +25,7 @@
 
     $output .= '  <a href="chat.php?group_id='. $row['idgroup'] .'">
                     <div class="content">
-                      <img src="php/images/1620843858relayfinal.png" alt="">
+                      <img src='.$row['image'].' alt="">
                       <div class="details">
                         <span>'. $row['name'] .'</span>
                         <p>'. $you . $msg .'</p>
