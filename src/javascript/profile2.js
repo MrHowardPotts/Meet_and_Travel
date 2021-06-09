@@ -15,7 +15,7 @@ edit.onclick =()=>{
   $("#file").attr('disabled',false);
 }
 
-save.onclick =()=>{
+save.onclick = async function(){
   document.getElementById('password').style.display="none";
   document.getElementById('newPassword').style.display="none";
   document.getElementById('confPassword').style.display="none";
@@ -27,6 +27,8 @@ save.onclick =()=>{
   $("#user").attr('readonly',true);
   $("#file").attr('disabled',true);
 
+  blob = document.getElementById("file").files[0];
+  image = await getImage(blob);
 
   json_obj = {
     'firstname' : document.getElementById('fname').value,
@@ -34,7 +36,8 @@ save.onclick =()=>{
     'username' : document.getElementById('user').value,
     'bio' : document.getElementById('bio').value,
     'mail' : document.getElementById('mail').value,
-    'image':$('#profile_img').attr('src')
+    'image' : image
+    // 'image':$('#profile_img').attr('src')
   }
 
   let xhr = new XMLHttpRequest();
