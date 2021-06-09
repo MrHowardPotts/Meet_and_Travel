@@ -15,7 +15,9 @@ $rows=DB::getRows($sql);
 $messages=[];
 for($i=0;$i<count($rows);$i++){
     $row=$rows[$i];
-$messages[]=new Message($row[0],$row[1],$row[2],$row[3]);
+    $sql2="Select * from user where iduser={$row[2]}";
+    $row2=DB::getRows($sql2)[0];
+$messages[]=new Message($row[0],$row[1],$row[2],$row[3],$row2['image']);
 }
 if(count($messages)==0){
     header("HTTP/1.1 204 NO CONTENT");

@@ -6,13 +6,15 @@ class Message implements JsonSerializable {
     private $idgroup;
     private $iduser;
     private $message;
+    private $image;
     
 
-    public function __construct($idm,$idg,$idu,$message) {
+    public function __construct($idm,$idg,$idu,$message,$image) {
         $this->idmessage=$idm;
         $this->idgroup=$idg;
         $this->iduser=$idu;
         $this->message=$message;
+        $this->image=$image;
     }
 
     private function __clone() {}
@@ -21,7 +23,8 @@ class Message implements JsonSerializable {
     {
         return [
             'idmessage'=>$this->idmessage,'idgroup'=>$this->idgroup,
-            'idsender'=>$this->iduser,'message'=>$this->message
+            'idsender'=>$this->iduser,'message'=>$this->message,
+            'image'=>$this->image
         ];
     }
     
