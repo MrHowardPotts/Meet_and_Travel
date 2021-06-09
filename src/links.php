@@ -28,11 +28,15 @@
                 <span></span>
                 <span></span>
                 <span></span>Chat</a>
-                <a href="newArrangement.php">
+                <?php
+                 if($_SESSION['type']=="agency"){
+                echo "<a href='newArrangement.php'>
                 <span></span>
                 <span></span>
                 <span></span>
-                <span></span>Create Arrangement</a>
+                <span></span>Create Arrangement</a>";
+                }
+                ?>
                 <a href="#" onclick="onClickLoadWishes()">
                 <span></span>
                 <span></span>

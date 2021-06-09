@@ -46,7 +46,11 @@ function sendToQuery(json_obj){
     let xhr = new XMLHttpRequest();
     xhr.open("POST","php/buttonQueries.php",true);
     xhr.setRequestHeader("Content-Type","application/json");
-
+    xhr.onload=()=>{
+        if(xhr.responseText=="REFRESH_PAGE"){
+            location.reload();
+        }
+    }
     json_obj=JSON.stringify(json_obj);
     xhr.send(json_obj);
 }

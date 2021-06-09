@@ -112,6 +112,7 @@
               DB::Execute($sql);
               $row = DB::getRows("SELECT * FROM user WHERE email = '{$email}'")[0];
               $_SESSION['unique_id'] = $row['iduser'];
+              $_SESSION['type'] = $row['type'];
               
             }
           }
