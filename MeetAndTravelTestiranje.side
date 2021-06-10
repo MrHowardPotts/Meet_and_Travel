@@ -3215,6 +3215,48 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
+    "tests": ["ea120df6-20c3-4349-9af9-f8300780fe2a", "2c8ffea4-f82c-4a63-8f06-29403d5bee92", "6e545cfe-522f-49f0-aa55-ca741a6ded4f", "69b305ad-ca30-4919-b8b2-124f9cd3a69d"]
+  }, {
+    "id": "5ddfcc93-7698-4172-b67c-374517a41196",
+    "name": "Login",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["69fe9c02-3f08-40a6-9f91-466fd4c2d110", "8c85e53e-911a-47ac-ba18-9edb19b833a5", "9a29c862-f4bc-4474-a09a-a8b7560cc5f6"]
+  }, {
+    "id": "1f28ba6d-1941-482a-bf46-f8cc2c3a6923",
+    "name": "Register",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["cd74517b-261d-4317-8192-578e3015b5b6", "e88ca5c8-ab7f-4aef-89bc-da3b77e6ecbe", "3afb48e4-84da-44a8-ba1b-4ebdd6d22947", "6cf6f944-a55f-45c2-aab9-773704471093", "3f307279-1b6e-45b5-84fe-f0e6451528f0", "45ced25a-95d2-4b4f-bf86-49e45d1a1330"]
+  }, {
+    "id": "4a394533-11af-4e1f-a984-bcd666823e6a",
+    "name": "Messages",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["3f307279-1b6e-45b5-84fe-f0e6451528f0", "45ced25a-95d2-4b4f-bf86-49e45d1a1330"]
+  }, {
+    "id": "bcbe4a27-2902-4345-be88-465774805da7",
+    "name": "Edit",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["dc62d921-9cd0-4be6-9b4f-1432c5c40020"]
+  }, {
+    "id": "8cb89c97-0edf-42ee-a88a-5e090784de84",
+    "name": "Arrangement",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["e86052bf-a961-4aab-94c6-cd48632f0294", "842aab29-294b-40be-830d-ef68f0bb914c", "36dc5dad-c233-4cb8-a842-23b907940fea"]
+  }, {
+    "id": "be9a685c-a6fd-4294-830e-33b841c26f24",
+    "name": "Grupa",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
     "tests": []
   }],
   "urls": ["http://localhost/Meet_And_Travel/signUp.php", "http://localhost/Meet_And_Travel/login.php", "http://localhost/Meet_And_Travel/profile2.php", "http://localhost/Meet_And_Travel/chat.php"],
