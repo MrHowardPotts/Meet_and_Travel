@@ -1,18 +1,20 @@
 <!doctype html>
+<?php session_start();?>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <script src="javascript/results.js"></script>
     <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="all.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <title>Hello, world!</title>
   </head>
   <body style="background-image: linear-gradient(to top, #3a1c71, #642274, #862c75, #a33c75, #bc4f75, #cb5d75, #d86c75, #e47c76, #ec8876, #f49577, #faa278, #ffaf7b);">
-  <?php include_once "links.php";?>
+  <?php include_once "navbar.php";?>
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

@@ -81,16 +81,7 @@
         </div>
       </div>
     </div>
-    
   </div>
-
-    <!-- Groups-AcceptArrangment -->
-    
-
-              <!--Modal Arrangement -->
-
-
-                <!--CONE CODE END  -->
         </td>
       </tr>
     </table>

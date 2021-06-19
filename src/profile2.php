@@ -46,8 +46,8 @@
                     <div class="row">
                         <div class="col-md-4 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                            <div> <img src="<?php echo $row['image']; ?>" width="100%" height="100%" class="" id="profile_img" alt="images/default.png"> </div>
-                            <div><input class="slika" type="file" id="file"  onchange="readURL(this);" name="picture" disabled="true"></div>
+                            <div> <img src="<?php echo $row['image']; ?>" width="100%" height="100%" class="slika" id="profile_img" alt="images/default.png"> </div>
+                            <div><input class="choose" type="file" id="file"  onchange="readURL(this);" name="picture" disabled="true"></div>
                             </div>
                         </div>
                         <div class="col-md-8">

@@ -27,9 +27,13 @@ margin-top:5px;
 }
 
 .result-container .slika{
-    height: 50%;
     margin-left: 15px;
     margin-top: 30%;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
 
 }
 /* .trip refers to any container that is representing data that contains trip information (Groups,Arrangements,Wishes) */

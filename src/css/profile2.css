@@ -13,7 +13,15 @@ body {
   height:100%;
 }
 .slika{
-  font-size:10px;
+  margin:auto;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.choose{
+  font-size: 10px;
 }
 .info{
   margin-top:5px;

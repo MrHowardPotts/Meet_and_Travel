@@ -5,9 +5,10 @@ body{
 .carousel-item{
   height: 100vh;
   min-height:300px;
+  margin: auto;
 }
 .carousel-caption{
-  bottom: 220px;
+  bottom: 40%;
 }
 .carousel-caption h5{
   font-size: 50px;
